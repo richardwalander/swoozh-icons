@@ -1536,3 +1536,127 @@ _swap("💄 Beauty & care", "cream-jar", "M3 8.75H21", "M3.75 8.75H20.25")
 for _p, _n, _k in (("🍼 Baby & kids", "toy-blocks", "M2 12.25H22"), ("🌿 Nature", "mushroom", "M2 12.25H22"), ("💄 Beauty & care", "cream-jar", "M3 8.75H21")):
     _e, _t = CATEGORIES[_p][_n]
     CATEGORIES[_p][_n] = (_e + [("k", _k)], _t)
+
+
+# ---------------------------------------------------------------- expansion 6
+BADGE_PLAN6 = {
+    "👗 Fashion & apparel": [("jacket", "heart"), ("skirt", "heart"), ("pants", "heart"), ("cap", "heart"), ("watch", "heart"),
+                             ("sunglasses", "heart"), ("backpack", "heart"), ("high-heel", "heart"), ("t-shirt", "check"), ("t-shirt", "x"),
+                             ("dress", "plus"), ("sneaker", "plus"), ("handbag", "plus"), ("hanger", "x")],
+    "🛍️ Shopping & commerce": [("basket", m) for m in ("plus", "check", "heart", "x", "clock")] + [("gift", "x"), ("coupon", "clock"), ("store", "star")],
+    "💳 Paymen & shipping": [("coins", "plus"), ("coins", "check"), ("contactless", "check"), ("box", "alert"), ("box", "down"), ("box", "up"),
+                             ("package", "down"), ("package", "up"), ("package", "lock"), ("package", "heart"), ("banknote", "x"), ("credit-card", "search")],
+    "👤 People": [("id-card", "x"), ("id-card", "lock"), ("users", "heart"), ("users", "search"), ("user-circle", "check")],
+    "🔔 Notifications": [("inbox", "check"), ("inbox", "down"), ("bell", "heart"), ("bell", "star"), ("bell", "x")],
+    "💬 Communication": [("phone", "x"), ("phone", "plus"), ("headset", "check"), ("message-circle", "alert"), ("message-circle", "search")],
+    "✉️ Mail": [("mail", "down"), ("mail", "up")],
+    "🕒 Time & calendar": [("alarm-clock", "check"), ("alarm-clock", "plus"), ("calendar", "down")],
+    "🛡️ Security": [("shield", "clock"), ("shield", "search")],
+    "📄 File icons": [("file", m) for m in ("up", "star", "alert")] + [("folder", m) for m in ("down", "up", "star", "clock", "alert")]
+                     + [("cloud", m) for m in ("plus", "clock", "alert")],
+    "🔑 Accounts & access": [("award", "check"), ("settings", "alert"), ("key", "check")],
+    "🧭 Navigation & places": [("building", "check"), ("building", "search"), ("route", "check")],
+    "📱 Devices": [("tablet", "check"), ("smartwatch", "check"), ("printer", "check"), ("printer", "x"), ("server", "check"), ("server", "x"), ("server", "alert")],
+    "🎬 Multimedia": [("music", "plus"), ("music", "heart"), ("tv", "check")],
+    "📷 Photography": [("images", "plus"), ("camera", "check")],
+    "🚗 Transportation": [("car", "check"), ("car", "x"), ("bus", "clock"), ("plane", "clock"), ("plane", "check"), ("train", "clock"),
+                          ("ship", "clock"), ("container", "check"), ("pallet", "check"), ("van", "check"), ("van", "clock")],
+    "✈️ Travel": [("hotel", "x"), ("hotel", "search")],
+    "💰 Finance": [("landmark", "check"), ("piggy-bank", "plus")],
+}
+EXP6 = {}
+for page, pairs in BADGE_PLAN6.items():
+    for base, mod in pairs:
+        nm = f"{base}-{mod}"
+        if nm in _all() or nm in EXP6.get(page, {}):
+            continue
+        EXP6.setdefault(page, {})[nm] = badged(base, mod, TAG_ELEMS if base == "tag" else None)
+
+
+def _off(base, tags):
+    return (find(base)[0] + SLASH, tags)
+
+
+EXP6.setdefault("📷 Photography", {})["camera-off"] = _off("camera", "camera off, no camera")
+EXP6.setdefault("🎬 Multimedia", {})["video-off"] = _off("video", "video off, no video")
+EXP6.setdefault("🧭 Navigation & places", {})["map-pin-off"] = _off("map-pin", "location off, unavailable")
+EXP6.setdefault("📄 File icons", {})["cloud-off"] = _off("cloud", "offline, no connection, sync off")
+EXP6.setdefault("🛍️ Shopping & commerce", {})["heart-off"] = _off("heart", "remove from wishlist, unfavourite")
+
+_CORNERS = "M2.75 7.25V2.75H7.25M16.75 2.75H21.25V7.25M21.25 16.75V21.25H16.75M7.25 21.25H2.75V16.75"
+EXP6["🛍️ Shopping & commerce"].update({
+    "scan-barcode": ([("o", _CORNERS), ("o", "M7.25 7.75V16.25M10.25 7.75V16.25M13.75 7.75V16.25M16.75 7.75V16.25"), ("f", "M11.25 7.75H12.75V16.25H11.25Z")], "scan, barcode, product lookup"),
+    "scan-line": ([("o", _CORNERS), ("o", "M6.25 12H17.75")], "scan, scanner, self checkout"),
+    "cash-register": ([("s", "M3.75 11.25H20.25V21.25H3.75Z"), ("s", "M5.75 2.75H14.25V7.75H5.75Z"), ("o", "M10 7.75V11.25"), ("cut", "M3.75 17.25H20.25"),
+                       ("d", circ(7.5, 14.25, .9)), ("d", circ(10.75, 14.25, .9)), ("d", circ(14, 14.25, .9))], "pos, cash register, checkout, in store"),
+})
+EXP6["💳 Paymen & shipping"]["parcel-locker"] = ([("s", "M2.75 3.75H21.25V20.25H2.75Z"), ("cut", "M9.25 3.75V20.25M15.25 3.75V20.25M2.75 12H9.25M15.25 9.25H21.25M15.25 14.75H21.25"),
+                                                 ("d", circ(11, 12, .9))], "parcel locker, pickup point, delivery")
+EXP6["👗 Fashion & apparel"].update({
+    "jewelry-ring": ([("o", circ(12, 14.75, 6.5)), ("s", poly([(9.25, 5.75), (10.75, 2.75), (13.25, 2.75), (14.75, 5.75), (12, 8.25)]))], "ring, jewellery, engagement"),
+    "necklace": ([("o", "M5.25 2.75C5.25 9.25 8.25 12.75 12 12.75C15.75 12.75 18.75 9.25 18.75 2.75"), ("s", "M12 12.75L15 16.75L12 20.75L9 16.75Z")], "necklace, pendant, jewellery"),
+    "boot": ([("s", "M5.75 2.75H13.25V12.75L18.75 14.75C20.25 15.25 21.25 16.25 21.25 18V20.25H5.75Z"), ("cut", "M5.75 17.25H21.25")], "boot, shoes, footwear"),
+    "belt": ([("s", "M2.75 9.75H8.25V14.25H2.75Z"), ("s", "M15.75 9.75H21.25V14.25H15.75Z"), ("o", "M8.25 6.75H15.75V17.25H8.25Z"), ("o", "M8.25 12H12.75"),
+              ("d", circ(18.5, 12, .9))], "belt, accessories, leather"),
+    "tie": ([("s", "M9.75 2.75H14.25L13.25 6.75H10.75Z"), ("s", "M10.75 6.75H13.25L15.25 17.75L12 21.25L8.75 17.75Z"), ("cut", "M10.75 6.75H13.25")], "tie, formal, menswear"),
+    "bow-tie": ([("s", poly([(2.75, 6.75), (10.25, 10.25), (10.25, 13.75), (2.75, 17.25)])), ("s", poly([(21.25, 6.75), (13.75, 10.25), (13.75, 13.75), (21.25, 17.25)])),
+                 ("s", "M10.25 9.75H13.75V14.25H10.25Z"), ("cut", "M10.25 9.75V14.25M13.75 9.75V14.25")], "bow tie, formal, party"),
+    "sewing-button": ([("s", circ(12, 12, 9.25))] + [("d", circ(x, y, 1)) for x, y in ((10, 10), (14, 10), (10, 14), (14, 14))], "button, sewing, haberdashery"),
+})
+EXP6["📶 Connectivity"] = {
+    "signal": ([("s", "M2.75 17.25H5.5V21.25H2.75Z"), ("s", "M8 13.25H10.75V21.25H8Z"), ("s", "M13.25 9.25H16V21.25H13.25Z"), ("s", "M18.5 2.75H21.25V21.25H18.5Z")], "signal, reception, network"),
+    "signal-medium": ([("s", "M2.75 17.25H5.5V21.25H2.75Z"), ("s", "M8 13.25H10.75V21.25H8Z"), ("s", "M13.25 9.25H16V21.25H13.25Z"), ("o", "M18.5 2.75H21.25V21.25H18.5Z")], "signal, reception, network"),
+    "signal-low": ([("s", "M2.75 17.25H5.5V21.25H2.75Z"), ("s", "M8 13.25H10.75V21.25H8Z"), ("o", "M13.25 9.25H16V21.25H13.25Z"), ("o", "M18.5 2.75H21.25V21.25H18.5Z")], "weak signal, reception"),
+    "router": ([("s", "M2.75 13.25H21.25V20.25H2.75Z"), ("o", "M6.75 13.25L4.75 4.75M17.25 13.25L19.25 4.75"), ("d", circ(6.75, 16.75, 1)), ("d", circ(10.25, 16.75, 1)),
+                ("cut", "M14.25 16.75H17.75")], "router, wifi, internet"),
+    "usb-plug": ([("s", "M7.75 2.75H16.25V9.25H7.75Z"), ("d", "M9.75 5.25H11.25V6.75H9.75Z"), ("d", "M12.75 5.25H14.25V6.75H12.75Z"),
+                  ("s", "M5.75 9.25H18.25V18.25A3 3 0 0 1 15.25 21.25H8.75A3 3 0 0 1 5.75 18.25Z"), ("cut", "M5.75 9.25H18.25")], "usb, cable, connector"),
+    "radio-tower": ([("o", "M12 9.75L8 21.25M12 9.75L16 21.25M9.25 17.25H14.75"), ("s", circ(12, 7.25, 1.75)),
+                     ("o", arc(12, 7.25, 5, 135, 225)), ("o", arc(12, 7.25, 5, -45, 45)), ("o", arc(12, 7.25, 8.5, 140, 220)), ("o", arc(12, 7.25, 8.5, -40, 40))], "broadcast, tower, signal"),
+    "ethernet-port": ([("s", "M3.75 4.75H20.25V17.75H15.75V20.25H8.25V17.75H3.75Z"), ("cut", "M9 9.25V12.25M12 9.25V12.25M15 9.25V12.25")], "ethernet, lan, network"),
+    "wifi-off": ([e for e in find("wifi")[0]] + SLASH, "offline, no wifi, disconnected"),
+    "bluetooth-off": (find("bluetooth")[0] + SLASH, "bluetooth off, disconnected"),
+}
+EXP6["🏢 Buildings"] = {
+    "factory": ([("s", poly([(2.75, 21.25), (2.75, 10.25), (8, 6.75), (8, 10.25), (13.25, 6.75), (13.25, 10.25), (17.25, 10.25), (17.25, 2.75), (21.25, 2.75), (21.25, 21.25)])),
+                 ("cut", "M5.75 15.75H8.25M10.75 15.75H13.25M15.75 15.75H18.25")], "factory, manufacturing, production"),
+    "school": ([("s", "M3.75 10.75L12 6.25L20.25 10.75V21.25H3.75Z"), ("o", "M12 6.25V2.75H15.25"), ("cut", "M10 21.25V16.75H14V21.25"), ("cut", circ(12, 11.75, 1.5))], "school, education, back to school"),
+    "castle": ([("s", "M3.75 21.25V4.75H7.25V7.25H10.25V4.75H13.75V7.25H16.75V4.75H20.25V21.25Z"), ("cut", "M9.75 21.25V16.5A2.25 2.25 0 0 1 14.25 16.5V21.25")], "castle, landmark, fairytale"),
+    "garage": ([("s", "M2.75 9.25L12 3.25L21.25 9.25V21.25H2.75Z"), ("cut", "M6.75 21.25V12.75H17.25V21.25M6.75 15.5H17.25M6.75 18.25H17.25")], "garage, parking, pickup"),
+    "construction-cone": ([("s", "M9.75 2.75H14.25L18 18.25H6Z"), ("s", "M2.75 18.25H21.25V21.25H2.75Z"), ("cut", "M8.25 8.25H15.75M7 13.25H17M2.75 18.25H21.25")],
+                          "under construction, maintenance, roadwork"),
+}
+EXP6["💻 Development"] = {
+    "terminal": ([("s", "M2.75 3.75H21.25V20.25H2.75Z"), ("cut", "M6.75 9L9.75 12L6.75 15M11.75 15.25H17.25")], "terminal, console, command line"),
+    "square-code": ([("s", "M2.75 3.75H21.25V20.25H2.75Z"), ("cut", "M9.25 9L6.25 12L9.25 15M14.75 9L17.75 12L14.75 15")], "code, embed, html"),
+    "git-commit": ([("o", "M2.75 12H7.75M16.25 12H21.25"), ("s", circ(12, 12, 4.25))], "commit, version, git"),
+    "git-branch": ([("s", circ(6.75, 5.25, 2.5)), ("s", circ(6.75, 18.75, 2.5)), ("s", circ(17.25, 6.75, 2.5)),
+                    ("o", "M6.75 7.75V16.25M17.25 9.25C17.25 14.25 14 18.75 9.25 18.75")], "branch, version, git"),
+    "git-merge": ([("s", circ(6.75, 5.25, 2.5)), ("s", circ(6.75, 18.75, 2.5)), ("s", circ(17.25, 15.25, 2.5)),
+                   ("o", "M6.75 7.75V16.25M6.75 7.75C6.75 12 10.5 15.25 14.75 15.25")], "merge, version, git"),
+    "git-pull-request": ([("s", circ(6.25, 5.25, 2.5)), ("s", circ(6.25, 18.75, 2.5)), ("s", circ(17.75, 18.75, 2.5)),
+                          ("o", "M6.25 7.75V16.25M17.75 16.25V9.25C17.75 7.5 16.5 6.25 14.75 6.25H10.75M13 4L10.75 6.25L13 8.5")], "pull request, review, git"),
+    "database": ([("s", "M4.75 5.75C4.75 4 8 2.75 12 2.75C16 2.75 19.25 4 19.25 5.75V18.25C19.25 20 16 21.25 12 21.25C8 21.25 4.75 20 4.75 18.25Z"),
+                  ("cut", "M4.75 5.75C4.75 7.5 8 8.75 12 8.75C16 8.75 19.25 7.5 19.25 5.75M4.75 12C4.75 13.75 8 15 12 15C16 15 19.25 13.75 19.25 12")], "database, data, storage"),
+    "cpu": ([("s", "M6.25 6.25H17.75V17.75H6.25Z"), ("cut", "M9.75 9.75H14.25V14.25H9.75Z"),
+             ("o", "M9.5 2.75V6.25M14.5 2.75V6.25M9.5 17.75V21.25M14.5 17.75V21.25M2.75 9.5H6.25M2.75 14.5H6.25M17.75 9.5H21.25M17.75 14.5H21.25")], "cpu, processor, chip"),
+    "braces": ([("o", "M8.25 3.25C6.5 3.25 5.75 4 5.75 5.75V9.75C5.75 11 5 12 3.25 12C5 12 5.75 13 5.75 14.25V18.25C5.75 20 6.5 20.75 8.25 20.75"),
+                ("o", "M15.75 3.25C17.5 3.25 18.25 4 18.25 5.75V9.75C18.25 11 19 12 20.75 12C19 12 18.25 13 18.25 14.25V18.25C18.25 20 17.5 20.75 15.75 20.75")], "braces, json, code"),
+    "sitemap": ([("s", "M9.25 2.75H14.75V8.25H9.25Z"), ("s", "M2.75 15.75H8.25V21.25H2.75Z"), ("s", "M9.25 15.75H14.75V21.25H9.25Z"), ("s", "M15.75 15.75H21.25V21.25H15.75Z"),
+                 ("o", "M12 8.25V15.75M5.5 15.75V12H18.5V15.75")], "sitemap, structure, categories"),
+}
+for page, items in EXP6.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+EXP6_NAMES = [k for v in EXP6.values() for k in v]
+
+# expansion 6 fixes
+_DV = CATEGORIES["💻 Development"]
+_DV["sitemap"] = ([("s", "M9.25 2.75H14.75V8.25H9.25Z"), ("s", "M2.75 16.25H7.25V21.25H2.75Z"), ("s", "M9.75 16.25H14.25V21.25H9.75Z"), ("s", "M16.75 16.25H21.25V21.25H16.75Z"),
+                   ("o", "M12 8.25V16.25M5 16.25V12.25H19V16.25")], _DV["sitemap"][1])
+_DV["database"] = ([("s", "M4.75 5.75C4.75 4 8 2.75 12 2.75C16 2.75 19.25 4 19.25 5.75V18.25C19.25 20 16 21.25 12 21.25C8 21.25 4.75 20 4.75 18.25Z"),
+                    ("cut", "M4.75 5.75C4.75 7.5 8 8.75 12 8.75C16 8.75 19.25 7.5 19.25 5.75"), ("cut", "M4.75 12C4.75 13.75 8 15 12 15C16 15 19.25 13.75 19.25 12")], _DV["database"][1])
+_DV["sitemap"] = ([("s", "M9.25 2.75H14.75V8.25H9.25Z"), ("s", "M2.75 16.25H6.75V21.25H2.75Z"), ("s", "M10 16.25H14V21.25H10Z"), ("s", "M17.25 16.25H21.25V21.25H17.25Z"),
+                   ("o", "M12 8.25V16.25M4.75 16.25V12.25H19.25V16.25")], _DV["sitemap"][1])
+_DV["database"] = (_DV["database"][0] + [("k", "M3.25 11.25C4.75 13.75 8 15 12 15C16 15 19.25 13.75 20.75 11.25")], _DV["database"][1])
+_DV["sitemap"] = ([("s", "M9 2.75H15V8.25H9Z"), ("s", "M2.75 15.75H8.75V21.25H2.75Z"), ("s", "M15.25 15.75H21.25V21.25H15.25Z"),
+                   ("o", "M12 8.25V12M5.75 15.75V12H18.25V15.75")], _DV["sitemap"][1])
