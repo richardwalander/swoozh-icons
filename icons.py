@@ -1355,3 +1355,184 @@ def football2():
 
 _SP["racket"] = ([("s", circ(14.25, 9.75, 7)), ("cut", "M12 3.25V16.25M16.5 3.25V16.25M7.75 7.5H20.75M7.75 12H20.75"), ("o", "M9.25 14.75L3.25 20.75")], _SP["racket"][1])
 _SP["football"] = (football2(), _SP["football"][1])
+
+
+# ---------------------------------------------------------------- expansion 5
+def rot_path(d, ang, cx=12, cy=12):
+    """Rotate an absolute M/L/A/C/Z path (degrees, clockwise on screen)."""
+    t = math.radians(ang); c, s = math.cos(t), math.sin(t)
+    R = lambda x, y: (cx + (x - cx) * c - (y - cy) * s, cy + (x - cx) * s + (y - cy) * c)
+    out = []
+    for cmd, args in re.findall(r"([MLACZ])([^MLACZ]*)", d):
+        v = [float(x) for x in re.findall(r"-?[\d.]+", args)]
+        if cmd in "ML":
+            pts = [R(v[i], v[i + 1]) for i in range(0, len(v), 2)]
+            out.append(cmd + "L".join(f"{n(x)} {n(y)}" for x, y in pts))
+        elif cmd == "C":
+            pts = [R(v[i], v[i + 1]) for i in range(0, len(v), 2)]
+            out.append("C" + " ".join(f"{n(x)} {n(y)}" for x, y in pts))
+        elif cmd == "A":
+            x, y = R(v[5], v[6])
+            out.append(f"A{n(v[0])} {n(v[1])} {n(v[2] + ang)} {int(v[3])} {int(v[4])} {n(x)} {n(y)}")
+        else:
+            out.append("Z")
+    return "".join(out)
+
+
+def scallop(cx, cy, ri, k, rp, rot=-90):
+    pts = [(cx + ri * math.cos(math.radians(rot + 360 * i / k + 180 / k)), cy + ri * math.sin(math.radians(rot + 360 * i / k + 180 / k))) for i in range(k)]
+    d = f"M{n(pts[0][0])} {n(pts[0][1])}"
+    for i in range(1, k + 1):
+        x, y = pts[i % k]
+        d += f"A{n(rp)} {n(rp)} 0 1 0 {n(x)} {n(y)}"
+    return d + "Z"
+
+
+def ellipse(cx, cy, rx, ry, ang):
+    t = math.radians(ang)
+    x1, y1 = cx + rx * math.cos(t), cy + rx * math.sin(t)
+    x2, y2 = cx - rx * math.cos(t), cy - rx * math.sin(t)
+    return f"M{n(x1)} {n(y1)}A{n(rx)} {n(ry)} {n(ang)} 1 1 {n(x2)} {n(y2)}A{n(rx)} {n(ry)} {n(ang)} 1 1 {n(x1)} {n(y1)}Z"
+
+
+CAPSULE = "M8.5 8.5L15.5 8.5A3.5 3.5 0 0 1 15.5 15.5L8.5 15.5A3.5 3.5 0 0 1 8.5 8.5Z"
+BANDAGE = "M6.75 8.75L17.25 8.75A3.25 3.25 0 0 1 17.25 15.25L6.75 15.25A3.25 3.25 0 0 1 6.75 8.75Z"
+BONE = "M7.54 10.75L16.46 10.75A2.5 2.5 0 1 1 19.84 12A2.5 2.5 0 1 1 16.46 13.25L7.54 13.25A2.5 2.5 0 1 1 4.16 12A2.5 2.5 0 1 1 7.54 10.75Z"
+
+EXP5 = {
+    "💊 Medical": {
+        "pill": ([("s", rot_path(CAPSULE, -45)), ("cut", rot_path("M12 8.5L12 15.5", -45))], "pill, capsule, medicine, supplement"),
+        "pill-bottle": ([("s", "M5.75 8.25H18.25V21.25H5.75Z"), ("s", "M4.75 2.75H19.25V8.25H4.75Z"), ("cut", "M4.75 8.25H19.25M12 11.75V17.75M9 14.75H15")], "pharmacy, vitamins, medicine"),
+        "syringe": ([("s", rot_path("M6.25 9.5L16.25 9.5L16.25 14.5L6.25 14.5Z", -45)), ("o", rot_path("M16.25 12L19.75 12M19.75 9.75L19.75 14.25M6.25 12L2.25 12", -45)),
+                     ("cut", rot_path("M9.25 9.5L9.25 11.5M12.25 9.5L12.25 11.5", -45))], "syringe, vaccine, injection"),
+        "stethoscope": ([("o", "M5.75 2.75H4.75V8.25A5 5 0 0 0 14.75 8.25V2.75H13.75M9.75 13.25V15.75A4.5 4.5 0 0 0 18.75 15.75V13.75"), ("s", circ(18.75, 11.25, 2.25))], "doctor, health, checkup"),
+        "bandage": ([("s", rot_path(BANDAGE, 45)), ("cut", rot_path("M9.25 8.75L9.25 15.25M14.75 8.75L14.75 15.25", 45)), ("d", circ(11, 12, .8)), ("d", circ(13, 12, .8))], "plaster, first aid, bandage"),
+        "first-aid-kit": ([("s", "M2.75 6.75H21.25V20.25H2.75Z"), ("o", "M8.25 6.75V3.25H15.75V6.75"), ("cut", "M12 10V17M8.5 13.5H15.5")], "first aid, emergency, health"),
+        "hospital": ([("s", "M3.75 2.75H20.25V21.25H3.75Z"), ("cut", "M12 6V12M9 9H15M10 21.25V16.25H14V21.25")], "hospital, clinic, health"),
+        "tooth": ([("s", "M12 5.25C10.25 3.75 7.75 3 6 3.75C3.75 4.75 3.25 7.5 4 10C4.75 12.5 5.75 14.75 6.25 17.75C6.5 19.75 7 21.25 8.25 21.25C9.75 21.25 10 18.75 10.5 17C10.75 16 11.25 15.25 12 15.25C12.75 15.25 13.25 16 13.5 17C14 18.75 14.25 21.25 15.75 21.25C17 21.25 17.5 19.75 17.75 17.75C18.25 14.75 19.25 12.5 20 10C20.75 7.5 20.25 4.75 18 3.75C16.25 3 13.75 3.75 12 5.25Z")],
+                  "tooth, dental, oral care"),
+        "face-mask": ([("s", "M4.75 7.75C8.5 6.25 15.5 6.25 19.25 7.75V14.25C17.5 17.75 14.5 19.25 12 19.25C9.5 19.25 6.5 17.75 4.75 14.25Z"),
+                       ("o", "M4.75 9.75C3 9.75 2.75 10.75 2.75 11.5C2.75 12.75 3.5 13.5 5.25 13.5M19.25 9.75C21 9.75 21.25 10.75 21.25 11.5C21.25 12.75 20.5 13.5 18.75 13.5"),
+                       ("cut", "M7.75 10.75H16.25M8.25 14H15.75")], "face mask, protection, health"),
+        "weight-scale": ([("s", "M3.75 3.75H20.25V20.25H3.75Z"), ("cut", "M7.25 10.25A4.75 4.75 0 0 1 16.75 10.25H7.25M12 10.25L13.75 7.25")], "scale, weight, bathroom"),
+    },
+    "💄 Beauty & care": {
+        "lipstick": ([("s", "M7.75 12.25H16.25V21.25H7.75Z"), ("s", "M9.25 12.25V6.25L14.75 2.75V12.25Z"), ("cut", "M7.75 15.25H16.25M7.75 12.25H16.25")], "lipstick, makeup, cosmetics"),
+        "nail-polish": ([("s", "M6.75 11.25H17.25V21.25H6.75Z"), ("s", "M9.75 2.75H14.25V11.25H9.75Z"), ("cut", "M6.75 11.25H17.25")], "nail polish, manicure, beauty"),
+        "comb": ([("s", "M2.75 6.75H21.25V10.75H2.75Z"), ("o", "M4.75 10.75V17.25M8 10.75V17.25M11.25 10.75V17.25M14.5 10.75V17.25M17.75 10.75V17.25")], "comb, hair, grooming"),
+        "hair-dryer": ([("s", "M2.75 4.75H13.25A4.75 4.75 0 0 1 13.25 14.25H2.75Z"), ("s", "M8.75 14.25H13.25L12.25 21.25H8.75Z"), ("cut", "M8.75 14.25H13.25"), ("d", circ(13.25, 9.5, 1.25)),
+                        ("o", "M19.75 6.75H21.25M19.75 9.5H21.25M19.75 12.25H21.25")], "hair dryer, hair care, styling"),
+        "razor": ([("s", "M3.25 3.75H20.75V8.25H3.25Z"), ("cut", "M3.25 6H20.75"), ("s", "M10.25 8.25H13.75V21.25H10.25Z")], "razor, shaving, grooming"),
+        "makeup-brush": ([("o", "M3.25 20.75L7.75 16.25"), ("s", "M9.25 12L14.75 6.5C16.75 4.5 19.75 3 21.25 2.75C21 4.25 19.5 7.25 17.5 9.25L12 14.75Z"), ("s", poly([(9.25, 12), (12, 14.75), (9.5, 17.25), (6.75, 14.5)])),
+                          ("cut", "M9.25 12L12 14.75")], "makeup brush, cosmetics, beauty"),
+        "compact": ([("s", "M2.75 14.25H21.25V16.25A5 5 0 0 1 16.25 21.25H7.75A5 5 0 0 1 2.75 16.25Z"), ("s", "M2.75 11.25V9.25A6.5 6.5 0 0 1 9.25 2.75H14.75A6.5 6.5 0 0 1 21.25 9.25V11.25Z")], "powder, compact, makeup"),
+        "soap": ([("s", "M3.75 12.25H18.25V20.25H3.75Z"), ("o", circ(16.75, 6.75, 2.75)), ("o", circ(10.25, 6.75, 1.75))], "soap, wash, hygiene"),
+        "spray-bottle": ([("s", "M7.25 9.25H15.75V21.25H7.25Z"), ("s", "M8.75 4.75H14.75V9.25H8.75Z"), ("o", "M14.75 2.75H8.75V4.75M14.75 6.25H18.25"), ("cut", "M7.25 9.25H15.75M7.25 13.25H15.75")], "spray, mist, toner"),
+        "cream-jar": ([("s", "M3.75 4.75H20.25V9.25H3.75Z"), ("s", "M4.75 9.25H19.25V19.25H4.75Z"), ("cut", "M3.75 9.25H20.25M8.75 13.25H15.25")], "cream, moisturiser, skincare"),
+    },
+    "🌿 Nature": {
+        "flower": ([("s", scallop(12, 9, 3.25, 5, 2.4)), ("cut", circ(12, 9, 1.5)), ("o", "M12 14.75V21.25M12 18.5C10.5 17 8.5 16.5 6.75 16.75")], "flower, bloom, spring, gift"),
+        "tree-deciduous": ([("s", circ(12, 8.75, 6)), ("o", "M12 14.75V21.25M8.75 21.25H15.25"), ("cut", "M12 9.5V14.75M12 12L14.25 9.75")], "tree, nature, park"),
+        "clover": ([("s", scallop(12, 10, 3, 4, 3.3, -45)), ("o", "M12 14.5L13.5 21.25")], "clover, luck, nature"),
+        "feather": ([("s", "M20.75 3.25C14 3.25 7.75 7.5 6.25 14.25L5.25 18.75L9.75 17.75C16.5 16.25 20.75 10 20.75 3.25Z"), ("cut", "M7.75 16.25L14.75 9.25"), ("o", "M3.25 20.75L5.75 18.25")], "feather, light, soft"),
+        "waves": ([("o", "M2.75 7.75C5 6 7 6 9.25 7.75C11.5 9.5 13.5 9.5 15.75 7.75C18 6 20 6 21.25 7.25M2.75 12.5C5 10.75 7 10.75 9.25 12.5C11.5 14.25 13.5 14.25 15.75 12.5C18 10.75 20 10.75 21.25 12M2.75 17.25C5 15.5 7 15.5 9.25 17.25C11.5 19 13.5 19 15.75 17.25C18 15.5 20 15.5 21.25 16.75")], "waves, water, sea"),
+        "cactus": ([("s", "M9.75 21.25V5.25A2.25 2.25 0 0 1 14.25 5.25V21.25Z"), ("o", "M9.75 13.25H7.25A2 2 0 0 1 5.25 11.25V8.75M14.25 11.25H16.75A2 2 0 0 0 18.75 9.25V6.75M6.75 21.25H17.25")], "cactus, plant, desert"),
+        "trees": ([("s", poly([(8, 3.25), (13, 13.25), (3, 13.25)])), ("s", poly([(16, 6.25), (21, 16.25), (11, 16.25)])), ("o", "M8 13.25V21.25M16 16.25V21.25")], "forest, trees, nature"),
+    },
+    "🐾 Animals": {
+        "paw-print": ([("s", "M12 11.25C9 11.25 6.75 14.5 6.75 17C6.75 19.5 9 20.25 12 19.25C15 20.25 17.25 19.5 17.25 17C17.25 14.5 15 11.25 12 11.25Z"),
+                       ("s", circ(5.25, 10.25, 1.75)), ("s", circ(9.25, 5.75, 1.75)), ("s", circ(14.75, 5.75, 1.75)), ("s", circ(18.75, 10.25, 1.75))], "pet, paw, pet supplies"),
+        "bone": ([("s", rot_path(BONE, -45))], "bone, dog treat, pet"),
+        "dog": ([("s", "M6.25 7.75H17.75V15.25C17.75 18.5 15.25 20.75 12 20.75C8.75 20.75 6.25 18.5 6.25 15.25Z"), ("s", "M6.25 6.75L2.75 4.25V12.75L6.25 11.25"), ("s", "M17.75 6.75L21.25 4.25V12.75L17.75 11.25"),
+                 ("d", circ(9.5, 11, 1)), ("d", circ(14.5, 11, 1)), ("d", "M10.75 14.75H13.25L12 16.25Z")], "dog, pet, puppy"),
+        "cat": ([("s", "M4.75 9.75L4.25 3.25L9.25 6.75H14.75L19.75 3.25L19.25 9.75V14.25C19.25 18.25 16 21.25 12 21.25C8 21.25 4.75 18.25 4.75 14.25Z"),
+                 ("d", circ(9, 12.25, 1)), ("d", circ(15, 12.25, 1)), ("d", "M10.75 15.25H13.25L12 16.75Z")], "cat, pet, kitten"),
+        "bird": ([("s", "M3.25 13.75C3.25 9.5 6.5 6.25 10.75 6.25C11 4.25 12.75 2.75 14.75 2.75C17 2.75 18.75 4.5 18.75 6.75L21.25 8.25L18.75 9.75C18.75 15.75 14.5 19.25 9.25 19.25L6.25 21.25V18.5C4.25 17.5 3.25 15.75 3.25 13.75Z"),
+                  ("d", circ(15, 6, 1)), ("cut", "M7.25 13.25C9.5 13.25 12.25 12 13.25 9.75")], "bird, pet, nature"),
+        "rabbit": ([("s", "M7.75 10V5A2 2 0 0 1 11.75 5V9.25"), ("s", "M12.25 9.25V5A2 2 0 0 1 16.25 5V10"), ("s", circ(12, 15.25, 6)), ("k", circ(12, 15.25, 7.5)),
+                    ("d", circ(9.75, 14.5, 1)), ("d", circ(14.25, 14.5, 1))], "rabbit, bunny, pet, easter"),
+        "pet-bowl": ([("s", "M2.75 13.25H21.25L19.25 20.25H4.75Z"), ("o", "M5.75 13.25C6.5 10.75 9 9.25 12 9.25C15 9.25 17.5 10.75 18.25 13.25")], "pet food, bowl, pet supplies"),
+        "bug": ([("s", "M7.75 9.25H16.25V14.25A4.25 4.25 0 0 1 7.75 14.25Z"), ("s", "M9.25 9.25A2.75 2.75 0 0 1 14.75 9.25"), ("cut", "M7.75 9.25H16.25M12 9.25V18.5"),
+                 ("o", "M7.75 11.25H3.75M7.75 15L4.25 17.5M16.25 11.25H20.25M16.25 15L19.75 17.5M9.75 4.75L8.5 2.75M14.25 4.75L15.5 2.75")], "bug, insect, issue"),
+    },
+    "🎮 Gaming": {
+        "gamepad": ([("s", "M6.25 6.75H17.75C20 6.75 21.25 8.5 21.25 11V15.25C21.25 17 20.25 18.25 18.75 18.25C17.5 18.25 16.75 17.25 15.75 16.25H8.25C7.25 17.25 6.5 18.25 5.25 18.25C3.75 18.25 2.75 17 2.75 15.25V11C2.75 8.5 4 6.75 6.25 6.75Z"),
+                     ("cut", "M8 10V14M6 12H10"), ("d", circ(15.25, 11, 1)), ("d", circ(17.25, 13, 1))], "gaming, controller, console"),
+        "dice": ([("s", "M3.75 3.75H20.25V20.25H3.75Z")] + [("d", circ(x, y, 1.25)) for x, y in ((8, 8), (16, 8), (12, 12), (8, 16), (16, 16))], "dice, random, game"),
+        "puzzle": ([("s", "M3.75 7.25H8.25A2.25 2.25 0 1 1 12.75 7.25H17.25V11.25A2.25 2.25 0 1 1 17.25 15.75V20.25H3.75Z")], "puzzle, piece, toys, integration"),
+        "joystick": ([("s", "M4.75 15.75H19.25V20.25H4.75Z"), ("o", "M12 15.75V8.25"), ("s", circ(12, 5.75, 3)), ("d", circ(16.5, 18, 1))], "joystick, arcade, gaming"),
+        "sword": ([("o", "M21.25 2.75H17.25L7.75 12.25M21.25 2.75V6.75L11.75 16.25M5.75 10.25L13.75 18.25M8.75 15.25L3.25 20.75")], "sword, game, battle"),
+        "vr-headset": ([("s", "M2.75 7.25H21.25V16.75H15.25L12 13.75L8.75 16.75H2.75Z"), ("cut", "M6.25 10.75H9.25M14.75 10.75H17.75")], "vr, virtual reality, ar try-on"),
+    },
+    "🔬 Science": {
+        "flask": ([("s", "M10 3.25V8.75L3.25 21.25H20.75L14 8.75V3.25Z"), ("o", "M8.25 3.25H15.75"), ("cut", "M6.25 15.75H17.75")], "flask, lab, ingredients, formula"),
+        "test-tube": ([("s", "M9.25 3.25H14.75V17.25A2.75 2.75 0 0 1 9.25 17.25Z"), ("o", "M7.75 3.25H16.25"), ("cut", "M9.25 11.25H14.75")], "test tube, sample, lab"),
+        "microscope": ([("s", poly([(9.25, 4.25), (12.25, 2.75), (15.75, 10.25), (12.75, 11.75)])), ("o", "M4.75 21.25H19.25M14.25 11L18.25 18.25H11.75M8.75 15.25H13.25")], "microscope, research, lab"),
+        "atom": ([("o", ellipse(12, 12, 9.25, 3.5, 0)), ("o", ellipse(12, 12, 9.25, 3.5, 60)), ("o", ellipse(12, 12, 9.25, 3.5, 120)), ("f", circ(12, 12, 1.75))], "atom, science, physics"),
+        "dna": ([("o", "M7.25 2.75C7.25 9 16.75 15 16.75 21.25M16.75 2.75C16.75 9 7.25 15 7.25 21.25M8.5 5.75H15.5M8.5 18.25H15.5M10.25 9H13.75M10.25 15H13.75")], "dna, genetics, biology"),
+        "magnet": ([("s", "M4.75 2.75H9.75V12A2.25 2.25 0 0 0 14.25 12V2.75H19.25V12A7.25 7.25 0 0 1 4.75 12Z"), ("cut", "M4.75 6.75H9.75M14.25 6.75H19.25")], "magnet, attract, retention"),
+    },
+    "🍼 Baby & kids": {
+        "baby-bottle": ([("s", "M8.25 9.25H15.75V21.25H8.25Z"), ("s", "M9.25 6.25H14.75V9.25H9.25Z"), ("s", "M10.75 6.25V4.25A1.25 1.25 0 0 1 13.25 4.25V6.25"), ("cut", "M8.25 9.25H15.75M8.25 13.5H11M8.25 17H11")],
+                        "baby bottle, feeding, baby"),
+        "pacifier": ([("o", circ(12, 5.25, 2.5)), ("s", "M4.75 9.25H19.25C19.25 12 17 14 14.25 14.25V15.75H9.75V14.25C7 14 4.75 12 4.75 9.25Z"),
+                      ("s", "M9.75 15.75H14.25C14.25 18.75 13.25 21.25 12 21.25C10.75 21.25 9.75 18.75 9.75 15.75Z"), ("cut", "M9.75 15.75H14.25")], "pacifier, dummy, baby"),
+        "stroller": ([("s", "M12 2.75A8.25 8.25 0 0 1 20.25 11H12Z"), ("s", "M3.75 11H20.25C20.25 14.25 17.5 16.25 12 16.25C6.5 16.25 3.75 14.25 3.75 11Z"), ("cut", "M3.75 11H20.25"),
+                      ("o", "M3.75 11L2.75 6.25"), ("f", circ(7, 19.5, 1.75)), ("f", circ(17, 19.5, 1.75))], "stroller, pram, baby"),
+        "baby": ([("s", circ(12, 13, 8.25)), ("o", "M12 4.75C12 3.25 13.25 2.25 14.75 2.75"), ("d", circ(9, 12.5, 1)), ("d", circ(15, 12.5, 1)), ("cut", "M9.75 16C10.75 17.25 13.25 17.25 14.25 16")], "baby, kids, infant"),
+        "toy-blocks": ([("s", "M2.75 12.25H11.25V20.75H2.75Z"), ("s", "M12.75 12.25H21.25V20.75H12.75Z"), ("s", "M7.75 3.75H16.25V12.25H7.75Z"), ("cut", "M2.75 12.25H21.25")], "toys, blocks, kids"),
+    },
+}
+for page, items in EXP5.items():
+    CATEGORIES[page] = dict(items)
+BADGE_PLAN5 = {"👗 Fashion & apparel": [("hanger", "plus"), ("hanger", "check"), ("t-shirt", "heart"), ("t-shirt", "plus"), ("dress", "heart"), ("sneaker", "heart"), ("handbag", "heart")]}
+EXP5B = {}
+for page, pairs in BADGE_PLAN5.items():
+    for base, mod in pairs:
+        EXP5B.setdefault(page, {})[f"{base}-{mod}"] = badged(base, mod)
+EXP5B["👗 Fashion & apparel"]["size-tag"] = ([("s", TAG), TAG_HOLE, ("cut", "M9.75 15.75V10.75L12 13.5L14.25 10.75V15.75")], "size, size guide, fit")
+for page, items in EXP5B.items():
+    CATEGORIES[page].update(items)
+EXP5_NAMES = [k for v in EXP5.values() for k in v] + [k for v in EXP5B.values() for k in v]
+
+
+_MD = CATEGORIES["💊 Medical"]
+_MD = {("capsule-pill" if k == "pill" else k): v for k, v in _MD.items()}
+CATEGORIES["💊 Medical"] = _MD
+EXP5_NAMES = [("capsule-pill" if k == "pill" else k) for k in EXP5_NAMES]
+
+
+# expansion 5 fixes
+_NA = CATEGORIES["🌿 Nature"]
+_NA["flower"] = ([("s", "M6.25 4.25L9.25 6.75L12 3.25L14.75 6.75L17.75 4.25V9.25A5.75 5.75 0 0 1 6.25 9.25Z"), ("o", "M12 15V21.25"),
+                  ("s", "M12 19C12 16.75 14 15.25 17 15.25C17 17.5 15 19 12 19Z")], _NA["flower"][1])
+del _NA["clover"]
+_NA["mushroom"] = ([("s", "M3.25 12.25A8.75 8.75 0 0 1 20.75 12.25Z"), ("s", "M9.25 12.25H14.75L15.25 21.25H8.75Z"), ("cut", "M3.25 12.25H20.75"),
+                    ("d", circ(9, 8.25, 1)), ("d", circ(14.5, 7.5, 1))], "mushroom, nature, forest")
+_AN = CATEGORIES["🐾 Animals"]
+_AN["rabbit"] = ([("s", "M7.5 8.25V5.25A1.625 1.625 0 0 1 10.75 5.25V8.25"), ("s", "M13.25 8.25V5.25A1.625 1.625 0 0 1 16.5 5.25V8.25"), ("s", circ(12, 16, 5.25)),
+                  ("d", circ(10, 15.5, 1)), ("d", circ(14, 15.5, 1))], _AN["rabbit"][1])
+_BE = CATEGORIES["💄 Beauty & care"]
+del _BE["compact"]
+_BE["cream-jar"] = ([("s", "M5.75 4.75H18.25V8.75H5.75Z"), ("s", "M3.75 8.75H20.25V17.25C20.25 19.5 18.5 20.25 16.75 20.25H7.25C5.5 20.25 3.75 19.5 3.75 17.25Z"),
+                     ("cut", "M3.75 8.75H20.25M8.75 13.75H15.25")], _BE["cream-jar"][1])
+_BK = CATEGORIES["🍼 Baby & kids"]
+_BK["toy-blocks"] = (_BK["toy-blocks"][0] + [("cut", "M12 12.25V20.75")], _BK["toy-blocks"][1])
+
+
+def _swap(page, name, old, new):
+    e, t = CATEGORIES[page][name]
+    CATEGORIES[page][name] = ([(k, d.replace(old, new) if k == "cut" else d) for k, d in e], t)
+
+
+_swap("🍼 Baby & kids", "toy-blocks", "M2.75 12.25H21.25", "M2 12.25H22")
+_swap("🌿 Nature", "mushroom", "M3.25 12.25H20.75", "M2 12.25H22")
+_swap("💄 Beauty & care", "cream-jar", "M3.75 8.75H20.25", "M3 8.75H21")
+
+
+_swap("🍼 Baby & kids", "toy-blocks", "M2 12.25H22", "M2.75 12.25H21.25")
+_swap("🌿 Nature", "mushroom", "M2 12.25H22", "M3.25 12.25H20.75")
+_swap("💄 Beauty & care", "cream-jar", "M3 8.75H21", "M3.75 8.75H20.25")
+for _p, _n, _k in (("🍼 Baby & kids", "toy-blocks", "M2 12.25H22"), ("🌿 Nature", "mushroom", "M2 12.25H22"), ("💄 Beauty & care", "cream-jar", "M3 8.75H21")):
+    _e, _t = CATEGORIES[_p][_n]
+    CATEGORIES[_p][_n] = (_e + [("k", _k)], _t)
