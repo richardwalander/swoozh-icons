@@ -1216,3 +1216,142 @@ EXP3.setdefault("🔔 Notifications", {}).update({
 for page, items in EXP3.items():
     CATEGORIES[page].update(items)
 EXP3_NAMES = [k for v in EXP3.values() for k in v]
+
+
+# ---------------------------------------------------------------- expansion 4: new categories
+FR = ("s", "M2.75 3.75H21.25V20.25H2.75Z")
+SQF = ("s", "M2.75 2.75H21.25V21.25H2.75Z")
+
+
+def football():
+    out = [("s", circ(12, 12, 9.25)), ("cut", regular(12, 12, 3.75, 5))]
+    for i in range(5):
+        a = math.radians(-90 + 72 * i)
+        out.append(("cut", f"M{n(12 + 3.75 * math.cos(a))} {n(12 + 3.75 * math.sin(a))}L{n(12 + 9.25 * math.cos(a))} {n(12 + 9.25 * math.sin(a))}"))
+    return out
+
+
+EXP4 = {
+    "📐 Layout": {
+        "panel-left": ([FR, ("cut", "M8.75 3.75V20.25")], "sidebar, panel, layout"),
+        "panel-right": ([FR, ("cut", "M15.25 3.75V20.25")], "sidebar, panel, layout"),
+        "panel-top": ([FR, ("cut", "M2.75 9.25H21.25")], "header, panel, layout"),
+        "panel-bottom": ([FR, ("cut", "M2.75 14.75H21.25")], "footer, panel, layout"),
+        "panel-left-close": ([FR, ("cut", "M8.75 3.75V20.25M15.75 9.25L13 12L15.75 14.75")], "collapse sidebar, layout"),
+        "panel-left-open": ([FR, ("cut", "M8.75 3.75V20.25M13 9.25L15.75 12L13 14.75")], "expand sidebar, layout"),
+        "columns-2": ([FR, ("cut", "M12 3.75V20.25")], "columns, split, layout"),
+        "columns-3": ([FR, ("cut", "M8.92 3.75V20.25M15.08 3.75V20.25")], "columns, layout"),
+        "rows-2": ([FR, ("cut", "M2.75 12H21.25")], "rows, split, layout"),
+        "rows-3": ([FR, ("cut", "M2.75 9.25H21.25M2.75 14.75H21.25")], "rows, layout"),
+        "layout-dashboard": ([FR, ("cut", "M9.75 3.75V20.25M9.75 12H21.25")], "dashboard, admin, layout"),
+        "layout-template": ([FR, ("cut", "M2.75 9.25H21.25M12 9.25V20.25M12 14.75H21.25")], "template, bento, layout"),
+        "app-window": ([FR, ("cut", "M2.75 8.25H21.25"), ("d", circ(5.75, 6, .9)), ("d", circ(8.75, 6, .9))], "browser, window, web"),
+        "table": ([FR, ("cut", "M2.75 9H21.25M2.75 14.5H21.25M9.25 9V20.25")], "table, data, spreadsheet"),
+        "grid-3x3": ([SQF, ("cut", "M8.92 2.75V21.25M15.08 2.75V21.25M2.75 8.92H21.25M2.75 15.08H21.25")], "grid, gallery, product grid"),
+        "layout-list": ([("s", "M2.75 3.75H8.25V9.25H2.75Z"), ("s", "M2.75 14.75H8.25V20.25H2.75Z"), ("o", "M11.25 5.25H21.25M11.25 8H17.25M11.25 16.25H21.25M11.25 19H17.25")], "list view, products, layout"),
+        "gallery-vertical": ([("s", "M2.75 7.25H21.25V16.75H2.75Z"), ("o", "M2.75 3.25H21.25M2.75 20.75H21.25")], "gallery, scroll, feed"),
+        "gallery-horizontal": ([("s", "M7.25 2.75H16.75V21.25H7.25Z"), ("o", "M3.25 5.25V18.75M20.75 5.25V18.75")], "gallery, swipe, stories"),
+        "carousel": ([("s", "M6.25 3.75H17.75V16.75H6.25Z"), ("o", "M2.75 6.25V14.25M21.25 6.25V14.25"), ("f", circ(9, 20.5, 1)), ("f", circ(12, 20.5, 1)), ("f", circ(15, 20.5, 1))], "carousel, slider, banner"),
+        "product-cards": ([("s", "M2.75 2.75H10.75V21.25H2.75Z"), ("s", "M13.25 2.75H21.25V21.25H13.25Z"), ("cut", "M2.75 14.25H10.75M13.25 14.25H21.25")], "product cards, catalogue, plp"),
+        "masonry": ([("s", "M2.75 2.75H10.75V12.75H2.75Z"), ("s", "M2.75 15.25H10.75V21.25H2.75Z"), ("s", "M13.25 2.75H21.25V8.75H13.25Z"), ("s", "M13.25 11.25H21.25V21.25H13.25Z")], "masonry, lookbook, pinterest"),
+    },
+    "🔠 Text formatting": {
+        "bold": ([("o", "M6.75 3.75H13.25A3.75 3.75 0 0 1 13.25 11.25H6.75V3.75M6.75 11.25H14.25A4.5 4.5 0 0 1 14.25 20.25H6.75V11.25")], "bold, text, format"),
+        "italic": ([("o", "M10.25 3.75H18.25M5.75 20.25H13.75M14.25 3.75L9.75 20.25")], "italic, text, format"),
+        "underline": ([("o", "M6.75 3.75V11.25A5.25 5.25 0 0 0 17.25 11.25V3.75M4.75 20.75H19.25")], "underline, text, format"),
+        "strikethrough": ([("o", "M16.75 5.25C15.75 4 14 3.25 12 3.25C9 3.25 7 4.75 7 7C7 9.25 9 10.25 12 11M4.75 12H19.25M7.25 17.75C8.25 19.5 10 20.75 12.25 20.75C15.25 20.75 17.25 19.25 17.25 16.75C17.25 15.5 16.75 14.5 15.75 13.75")], "strikethrough, old price, format"),
+        "heading": ([("o", "M5.75 3.75V20.25M18.25 3.75V20.25M5.75 12H18.25")], "heading, title, text"),
+        "heading-1": ([("o", "M3.75 4.75V19.25M13.25 4.75V19.25M3.75 12H13.25M17.25 9.75L19.75 7.75V19.25")], "heading 1, h1, text"),
+        "heading-2": ([("o", "M3.75 4.75V19.25M13.25 4.75V19.25M3.75 12H13.25M16.75 8.75H21.25V13.75H16.75V19.25H21.25")], "heading 2, h2, text"),
+        "align-left": ([("o", "M3.75 5.25H20.25M3.75 10H14.25M3.75 14.75H20.25M3.75 19.5H14.25")], "align left, text"),
+        "align-center": ([("o", "M3.75 5.25H20.25M6.75 10H17.25M3.75 14.75H20.25M6.75 19.5H17.25")], "align center, text"),
+        "align-right": ([("o", "M3.75 5.25H20.25M9.75 10H20.25M3.75 14.75H20.25M9.75 19.5H20.25")], "align right, text"),
+        "align-justify": ([("o", "M3.75 5.25H20.25M3.75 10H20.25M3.75 14.75H20.25M3.75 19.5H20.25")], "justify, text"),
+        "indent-increase": ([("o", "M3.75 5.25H20.25M11.25 10H20.25M11.25 14.75H20.25M3.75 19.5H20.25M3.75 9.5L6.75 12.25L3.75 15")], "indent, text"),
+        "indent-decrease": ([("o", "M3.75 5.25H20.25M11.25 10H20.25M11.25 14.75H20.25M3.75 19.5H20.25M6.75 9.5L3.75 12.25L6.75 15")], "outdent, text"),
+        "subscript": ([("o", "M3.75 5.25L12.25 15.75M12.25 5.25L3.75 15.75M16.75 14.75H20.75V17.5H16.75V20.25H20.75")], "subscript, text"),
+        "superscript": ([("o", "M3.75 8.25L12.25 18.75M12.25 8.25L3.75 18.75M16.75 3.75H20.75V6.5H16.75V9.25H20.75")], "superscript, text"),
+        "pilcrow": ([("o", "M12.75 3.75V20.25M16.75 3.75V20.25M19.25 3.75H10.25A4.25 4.25 0 0 0 10.25 12.25H12.75")], "paragraph, pilcrow, text"),
+        "code": ([("o", "M8.25 6.75L3.25 12L8.25 17.25M15.75 6.75L20.75 12L15.75 17.25M13.75 4.25L10.25 19.75")], "code, html, embed"),
+        "remove-formatting": ([("o", "M4.75 4.75H18.25M11.5 4.75L7.75 20.25M13.75 14.75L19.75 20.75M19.75 14.75L13.75 20.75")], "clear formatting, text"),
+        "highlighter": ([("s", poly([(15.25, 3.25), (20.75, 8.75), (12.75, 16.75), (7.25, 11.25)])), ("s", poly([(7.25, 11.25), (12.75, 16.75), (9.25, 20.25), (3.75, 20.25), (3.75, 14.75)])),
+                         ("cut", "M7.25 11.25L12.75 16.75")], "highlight, marker, text"),
+        "text-color": ([("o", "M6.25 15.25L12 3.25L17.75 15.25M8.25 11H15.75"), ("s", "M2.75 18.25H21.25V21.25H2.75Z")], "text colour, font colour"),
+        "wrap-text": ([("o", "M3.75 5.25H20.25M3.75 12H17.25A3.25 3.25 0 0 1 17.25 18.5H12.75M15.25 16L12.75 18.5L15.25 21M3.75 18.75H8.75")], "wrap text, text"),
+    },
+    "✈️ Travel": {
+        "hotel": ([("s", "M3.75 2.75H20.25V21.25H3.75Z"), ("cut", "M7.75 7H9.75M14.25 7H16.25M7.75 11.25H9.75M14.25 11.25H16.25M10 21.25V16.25H14V21.25")], "hotel, stay, booking"),
+        "concierge-bell": ([("s", "M3.75 16.75A8.25 8.25 0 0 1 20.25 16.75Z"), ("o", "M2.75 20.25H21.25M12 5.75V8.5M9.75 5.75H14.25")], "service, reception, concierge"),
+        "passport": ([("s", "M4.75 2.75H19.25V21.25H4.75Z"), ("cut", ring(12, 10.25, 3.5)), ("cut", "M8.75 17.25H15.25")], "passport, id, travel"),
+        "boarding-pass": ([("s", COUPON), ("cut", "M15 5.75V18.25M6.25 10.25H11.25M6.25 13.75H9.75")], "boarding pass, ticket, flight"),
+        "suitcase-rolling": ([("s", "M6.25 6.75H17.75V18.25H6.25Z"), ("o", "M9.75 6.75V2.75H14.25V6.75"), ("f", circ(8.5, 20.5, 1.25)), ("f", circ(15.5, 20.5, 1.25)),
+                              ("cut", "M10 9.75V15.25M14 9.75V15.25")], "suitcase, luggage, travel"),
+        "baggage-claim": ([("o", "M2.75 17.25H17.25L21.25 13.25"), ("s", "M6.25 8.75H14.25V14.25H6.25Z"), ("o", "M8.75 8.75V6.25H11.75V8.75"), ("f", circ(6.75, 20.5, 1.25)), ("f", circ(13.75, 20.5, 1.25))],
+                          "baggage claim, airport, luggage"),
+        "tent": ([("s", poly([(12, 3.25), (21.25, 20.25), (2.75, 20.25)])), ("cut", "M12 12.5L15.5 20.25H8.5Z")], "tent, camping, outdoor"),
+        "mountain": ([("s", poly([(2.75, 20.25), (9.25, 7.75), (13.25, 13.25), (16, 9.75), (21.25, 20.25)]))], "mountain, outdoor, hiking"),
+        "parasol": ([("s", "M2.75 11.25A9.25 9.25 0 0 1 21.25 11.25Z"), ("o", "M12 11.25L14.75 21.25M3.25 21.25H20.75")], "beach, summer, holiday, swimwear"),
+        "sailboat": ([("s", poly([(11.25, 2.75), (11.25, 15.25), (4.25, 15.25)])), ("s", poly([(13.25, 5.25), (13.25, 15.25), (19.25, 15.25)])), ("s", "M2.75 17.25H21.25L19.25 20.75H4.75Z")], "sailing, boat, holiday"),
+        "languages": ([("o", "M2.75 5.25H12.75M7.75 3.25V5.25M10.75 5.25C10 9.75 7.25 13.25 3.25 15.25M5.75 9.25C7.25 11.75 9.25 13.25 11.25 14"),
+                       ("o", "M12.75 20.75L16.75 10.75L20.75 20.75M14.25 17.25H19.25")], "language, translate, locale"),
+        "id-card-lanyard": ([("s", "M5.25 7.25H18.75V21.25H5.25Z"), ("o", "M9.25 2.75L12 7.25L14.75 2.75"), ("cut", ring(12, 12.25, 2)), ("cut", "M8.75 17.75H15.25")], "badge, pass, event, staff"),
+    },
+    "⚽ Sports": {
+        "dumbbell": ([("s", "M4.75 6.75H8.25V17.25H4.75Z"), ("s", "M15.75 6.75H19.25V17.25H15.75Z"), ("o", "M8.25 12H15.75M2.75 9.25V14.75M21.25 9.25V14.75")], "gym, fitness, training"),
+        "kettlebell": ([("s", "M6.25 9.75H17.75L19.25 15C19.25 18.5 16 21.25 12 21.25C8 21.25 4.75 18.5 4.75 15Z"), ("o", "M8.25 9.75V6.25A3.75 3.75 0 0 1 15.75 6.25V9.75")], "kettlebell, fitness, gym"),
+        "trophy": ([("s", "M6.75 2.75H17.25V9.5A5.25 5.25 0 0 1 6.75 9.5Z"), ("o", "M6.75 4.75H3.25V7C3.25 9 4.75 10.5 6.75 10.75M17.25 4.75H20.75V7C20.75 9 19.25 10.5 17.25 10.75M12 14.75V19.25"),
+                    ("s", "M7.75 19.25H16.25V21.25H7.75Z")], "trophy, winner, best seller"),
+        "medal": ([("s", circ(12, 15, 6.25)), ("o", "M8 10.25L4.75 2.75M16 10.25L19.25 2.75"), ("cut", star(12, 15.25, 3.25, 1.4, 5))], "medal, award, top rated"),
+        "target": ([("s", circ(12, 12, 9.25)), ("cut", ring(12, 12, 5.5)), ("cut", ring(12, 12, 2))], "target, goal, aim"),
+        "basketball": ([("s", circ(12, 12, 9.25)), ("cut", "M2.75 12H21.25M12 2.75V21.25M5.5 5.5C8 8 8 16 5.5 18.5M18.5 5.5C16 8 16 16 18.5 18.5")], "basketball, sport, ball"),
+        "tennis-ball": ([("s", circ(12, 12, 9.25)), ("cut", "M5.5 5.5C9 8 9 16 5.5 18.5M18.5 5.5C15 8 15 16 18.5 18.5")], "tennis, padel, ball"),
+        "football": (football(), "football, soccer, ball"),
+        "jersey": ([("s", "M7.75 2.75H9.75C10 4.5 10.75 5.25 12 5.25C13.25 5.25 14 4.5 14.25 2.75H16.25L17.25 7.75L19.25 8.75V21.25H4.75V8.75L6.75 7.75Z"),
+                    ("cut", "M10.25 10.25H13.75V12.75H10.25V15.25H13.75")], "jersey, sportswear, team kit"),
+        "skateboard": ([("s", "M3.75 12.25H20.25L18.75 14.25H5.25Z"), ("f", circ(7.25, 17.75, 1.75)), ("f", circ(16.75, 17.75, 1.75))], "skateboard, street, sport"),
+        "racket": ([("s", circ(14.25, 9.75, 7)), ("cut", "M14.25 2.75V16.75M7.25 9.75H21.25"), ("o", "M9.25 14.75L3.25 20.75")], "tennis, padel, racket"),
+        "golf": ([("o", "M6.75 21.25V2.75M3.25 21.25H13.25"), ("s", "M6.75 2.75L17.25 6.5L6.75 10.25Z")], "golf, flag, goal"),
+        "heart-pulse": ([("s", HEART), ("cut", "M5.25 11.25H8.75L10.25 8.75L12.75 13.75L14.25 11.25H18.75")], "heart rate, fitness, health"),
+    },
+}
+for page, items in EXP4.items():
+    CATEGORIES[page] = dict(items)
+BADGE_PLAN4 = {
+    "💳 Paymen & shipping": [("receipt", "down")],
+    "👤 People": [("id-card", "check")],
+    "🔔 Notifications": [("bell", "alert")],
+    "✈️ Travel": [("hotel", "check")],
+    "🛍️ Shopping & commerce": [("coupon", "plus"), ("gift", "plus"), ("gift", "heart"), ("store", "plus"), ("star", "check"), ("star", "plus"), ("star", "x")],
+    "🚗 Transportation": [("warehouse", "check"), ("warehouse", "x"), ("warehouse", "search")],
+    "📱 Devices": [("laptop", "down")],
+}
+EXP4B = {}
+for page, pairs in BADGE_PLAN4.items():
+    for base, mod in pairs:
+        nm = f"{base}-{mod}"
+        if nm not in _all():
+            EXP4B.setdefault(page, {})[nm] = badged(base, mod)
+for page, items in EXP4B.items():
+    CATEGORIES[page].update(items)
+EXP4_NAMES = [k for v in EXP4.values() for k in v] + [k for v in EXP4B.values() for k in v]
+
+
+_SP = CATEGORIES["⚽ Sports"]
+_SP["racket"] = ([("s", circ(14.25, 9.75, 7)), ("cut", "M11 3.5V16M14.25 2.75V16.75M17.5 3.5V16M7.75 6.5H20.75M7.25 9.75H21.25M7.75 13H20.75"), ("o", "M9.25 14.75L3.25 20.75")], _SP["racket"][1])
+_SP["football"] = ([("s", circ(12, 12, 9.25)), ("d", regular(12, 12, 3.75, 5))] + football()[2:], _SP["football"][1])
+
+
+def football2():
+    P = lambda r, a: (12 + r * math.cos(math.radians(a)), 12 + r * math.sin(math.radians(a)))
+    out = [("s", circ(12, 12, 9.25)), ("d", regular(12, 12, 3.5, 5))]
+    for i in range(5):
+        a = -90 + 72 * i
+        r0, r1, r2, r3, r4 = P(9.25, a - 22), P(7.25, a - 18), P(6.25, a), P(7.25, a + 18), P(9.25, a + 22)
+        out.append(("d", f"M{n(r0[0])} {n(r0[1])}L{n(r1[0])} {n(r1[1])}L{n(r2[0])} {n(r2[1])}L{n(r3[0])} {n(r3[1])}L{n(r4[0])} {n(r4[1])}A9.25 9.25 0 0 0 {n(r0[0])} {n(r0[1])}Z"))
+        v, w = P(3.5, a), P(6.25, a)
+        out.append(("cut", f"M{n(v[0])} {n(v[1])}L{n(w[0])} {n(w[1])}"))
+    return out
+
+
+_SP["racket"] = ([("s", circ(14.25, 9.75, 7)), ("cut", "M12 3.25V16.25M16.5 3.25V16.25M7.75 7.5H20.75M7.75 12H20.75"), ("o", "M9.25 14.75L3.25 20.75")], _SP["racket"][1])
+_SP["football"] = (football2(), _SP["football"][1])
