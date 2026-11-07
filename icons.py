@@ -1660,3 +1660,104 @@ _DV["sitemap"] = ([("s", "M9.25 2.75H14.75V8.25H9.25Z"), ("s", "M2.75 16.25H6.75
 _DV["database"] = (_DV["database"][0] + [("k", "M3.25 11.25C4.75 13.75 8 15 12 15C16 15 19.25 13.75 20.75 11.25")], _DV["database"][1])
 _DV["sitemap"] = ([("s", "M9 2.75H15V8.25H9Z"), ("s", "M2.75 15.75H8.75V21.25H2.75Z"), ("s", "M15.25 15.75H21.25V21.25H15.25Z"),
                    ("o", "M12 8.25V12M5.75 15.75V12H18.25V15.75")], _DV["sitemap"][1])
+
+
+# ---------------------------------------------------------------- expansion 7
+EXP7 = {}
+EXP7["👗 Fashion & apparel"] = {
+    "hoodie": ([("s", "M6.25 5.25C7.5 4 9.5 3 12 3C14.5 3 16.5 4 17.75 5.25V21.25H6.25Z"), ("s", "M6.25 5.25L3.25 8.25L2.75 19.25H5.25L6.25 11.75Z"),
+                ("s", "M17.75 5.25L20.75 8.25L21.25 19.25H18.75L17.75 11.75Z"),
+                ("cut", "M9.5 4.25C9.5 6.75 10.5 8.25 12 8.25C13.5 8.25 14.5 6.75 14.5 4.25M8.75 15.25H15.25M6.25 5.25V11.75M17.75 5.25V11.75")], "hoodie, sweatshirt, casual"),
+    "coat": ([("s", "M7.25 2.75H16.75L20.25 6.25V21.25H3.75V6.25Z"), ("cut", "M7.25 2.75L12 9.25L16.75 2.75M12 9.25V21.25M3.75 14.25H20.25"),
+              ("d", circ(14.5, 11.5, .9)), ("d", circ(14.5, 17.75, .9))], "coat, outerwear, winter"),
+    "scarf": ([("s", "M5.75 3.75H18.25V8.25H5.75Z"), ("s", "M12.25 8.25H17.25L18.25 18.75H13.25Z"), ("s", "M7.75 8.25H12.25L11.25 16.75H6.75Z"),
+               ("cut", "M5.75 8.25H18.25M12.25 8.25L13.25 18.75"), ("o", "M14.5 18.75V21.25M17 18.75V21.25")], "scarf, winter, accessories"),
+    "mitten": ([("s", "M7.25 17.25V7.25A4.75 4.75 0 0 1 16.75 7.25V12.25L18.75 10.25A1.6 1.6 0 0 1 21 12.5L16.75 17.25Z"), ("s", "M7.25 17.25H16.75V21.25H7.25Z"),
+                ("cut", "M7.25 17.25H16.75")], "gloves, mittens, winter"),
+    "swimsuit": ([("s", "M7.25 2.75V7.25C7.25 9 6.75 10.5 5.75 11.75C5.75 14.5 8.75 17.25 10.25 21.25H13.75C15.25 17.25 18.25 14.5 18.25 11.75C17.25 10.5 16.75 9 16.75 7.25V2.75C16.75 5.75 14.75 8.25 12 8.25C9.25 8.25 7.25 5.75 7.25 2.75Z")],
+                 "swimwear, swimsuit, beach"),
+    "earrings": ([("o", "M7 2.75V7.25M17 2.75V7.25"), ("s", "M7 7.25L9.48 12.31A2.75 2.75 0 1 1 4.52 12.31Z"), ("s", "M17 7.25L19.48 12.31A2.75 2.75 0 1 1 14.52 12.31Z")],
+                 "earrings, jewellery, accessories"),
+    "hat": ([("s", "M6.75 14.25V8.75C6.75 6 9 4.75 12 4.75C15 4.75 17.25 6 17.25 8.75V14.25Z"), ("s", "M2.75 14.25H21.25C21.25 16.75 17.5 18.25 12 18.25C6.5 18.25 2.75 16.75 2.75 14.25Z"),
+             ("cut", "M6.75 11.25H17.25M2.75 14.25H21.25")], "hat, headwear, accessories"),
+    "fitting-room": ([("o", "M2.75 3.25H21.25"), ("s", "M4.25 3.25H10.75C10.75 9 9.5 15 8 21.25H4.25Z"), ("s", "M19.75 3.25H13.25C13.25 9 14.5 15 16 21.25H19.75Z")],
+                     "fitting room, try on, changing room"),
+    "mannequin": ([("s", "M7.75 4.75H16.25C16.25 8 15.25 10 14.25 11.25C15.25 12.5 16.25 14 16.25 16.75H7.75C7.75 14 8.75 12.5 9.75 11.25C8.75 10 7.75 8 7.75 4.75Z"),
+                   ("o", "M12 2.75V4.75M12 16.75V21.25M8.75 21.25H15.25")], "mannequin, display, tailoring"),
+}
+EXP7["💳 Paymen & shipping"] = {
+    "invoice": ([("s", "M4.75 2.75H19.25V21.25H4.75Z"), ("cut", "M8.25 6.75H12.75M8.25 10.25H15.75M8.25 13.75H15.75M12.75 17.25H15.75")], "invoice, pay later, bill"),
+    "installments": ([("o", circ(12, 12, 9.25)), ("f", "M12 12V2.75A9.25 9.25 0 0 1 21.25 12Z"), ("o", "M12 2.75V21.25M2.75 12H21.25")], "installments, part payment, pay later"),
+    "return-label": ([("s", "M3.75 3.75H20.25V20.25H3.75Z"), ("cut", "M9.25 6.75L6.75 9.25L9.25 11.75M6.75 9.25H14.25A3.25 3.25 0 0 1 14.25 15.75H11.75")], "returns, return label, exchange"),
+}
+EXP7["🛍️ Shopping & commerce"] = {
+    "scale-balance": ([("o", "M12 3.25V20.75M8.25 20.75H15.75M5.25 6.25H18.75"),
+                       ("s", "M2.75 13.25L5.25 6.25L7.75 13.25C7.75 14.75 6.5 15.75 5.25 15.75C4 15.75 2.75 14.75 2.75 13.25Z"),
+                       ("s", "M16.25 13.25L18.75 6.25L21.25 13.25C21.25 14.75 20 15.75 18.75 15.75C17.5 15.75 16.25 14.75 16.25 13.25Z")], "compare, balance, fair"),
+}
+_DIAG = "M6.25 17.75L17.75 6.25M8.25 6.25H17.75V15.75"
+EXP7["➡️ Arrows"] = {
+    "arrow-up-right": ([("o", _DIAG)], "arrow, diagonal, external"),
+    "arrow-up-left": ([("o", rot_path(_DIAG, -90))], "arrow, diagonal"),
+    "arrow-down-right": ([("o", rot_path(_DIAG, 90))], "arrow, diagonal"),
+    "arrow-down-left": ([("o", rot_path(_DIAG, 180))], "arrow, diagonal"),
+    "rotate-ccw": ([("o", "M3.25 12A8.75 8.75 0 1 0 12 3.25C9.6 3.25 7.4 4.25 5.8 5.8L3.25 8.25M3.25 3.25V8.25H8.25")], "rotate, undo, reset"),
+    "chevrons-up-down": ([("o", "M7.75 8.75L12 4.5L16.25 8.75M7.75 15.25L12 19.5L16.25 15.25")], "select, dropdown, sort"),
+    "corner-down-right": ([("o", "M5.75 3.75V11.25C5.75 13.25 7 14.75 9.25 14.75H19.25M15 10.5L19.25 14.75L15 19")], "arrow, corner, reply"),
+    "corner-down-left": ([("o", "M18.25 3.75V11.25C18.25 13.25 17 14.75 14.75 14.75H4.75M9 10.5L4.75 14.75L9 19")], "arrow, corner, enter"),
+    "arrow-down-up": ([("o", "M7.25 3.25V20.75M3.5 7L7.25 3.25L11 7M16.75 20.75V3.25M13 17L16.75 20.75L20.5 17")], "sort, swap, order"),
+}
+EXP7["📱 UI"] = {
+    "circle-dot": ([("o", circ(12, 12, 9.25)), ("f", circ(12, 12, 4))], "radio, selected, option"),
+    "grip-vertical": ([("f", circ(x, y, 1.4)) for x in (9, 15) for y in (5.5, 12, 18.5)], "drag, handle, reorder"),
+    "grip-horizontal": ([("f", circ(x, y, 1.4)) for y in (9, 15) for x in (5.5, 12, 18.5)], "drag, handle, reorder"),
+    "copy": ([("s", "M8.75 8.75H21.25V21.25H8.75Z"), ("o", "M15.25 8.75V2.75H2.75V15.25H8.75")], "copy, duplicate, clipboard"),
+    "list-filter": ([("o", "M2.75 6.25H21.25M6.25 12H17.75M9.75 17.75H14.25")], "filter, refine, sort"),
+    "pin": ([("s", "M9.25 2.75H14.75V9.25L17.75 13.25H6.25L9.25 9.25Z"), ("o", "M12 13.25V21.25")], "pin, keep, attach"),
+    "grid-2x2": ([("s", "M2.75 2.75H10.75V10.75H2.75Z"), ("s", "M13.25 2.75H21.25V10.75H13.25Z"), ("s", "M2.75 13.25H10.75V21.25H2.75Z"), ("s", "M13.25 13.25H21.25V21.25H13.25Z")],
+                 "grid, view, products"),
+    "list-plus": ([("o", "M2.75 6.25H15.25M2.75 12H15.25M2.75 17.75H9.75M17.5 13.75V21.25M13.75 17.5H21.25")], "add to list, playlist, wishlist"),
+    "info": ([("o", "M12 10.25V21.25M9.75 10.25H12M9.75 21.25H14.25"), ("f", circ(12, 5, 1.5))], "info, details, about"),
+}
+for page, items in EXP7.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+EXP7["💳 Paymen & shipping"]["bank-transfer"] = (badged("landmark", "up")[0], "bank transfer, payment, wire")
+
+BADGE_PLAN7 = {
+    "👗 Fashion & apparel": [("jacket", "plus"), ("skirt", "plus"), ("pants", "plus"), ("sock", "heart"), ("glasses", "heart"), ("briefcase", "heart"),
+                             ("diamond", "heart"), ("hoodie", "heart"), ("coat", "heart"), ("hat", "heart")],
+    "🛍️ Shopping & commerce": [("basket", "search"), ("basket", "lock"), ("store", "lock"), ("gift", "search"), ("coupon", "search"), ("perfume-bottle", "heart")],
+    "💳 Paymen & shipping": [("coins", "x"), ("coins", "clock"), ("wallet", "heart"), ("wallet", "search"), ("credit-card", "heart"), ("contactless", "x"),
+                             ("package", "star"), ("box", "star"), ("banknote", "clock"), ("invoice", "check"), ("invoice", "clock"), ("invoice", "x"), ("invoice", "alert")],
+    "🏠 Home": [("sofa", "heart"), ("bed", "heart"), ("lamp", "heart"), ("chair", "heart"), ("plant", "heart")],
+    "🍽️ Food & beverage": [("coffee", "heart"), ("wine", "heart"), ("coffee", "plus")],
+    "💄 Beauty & care": [("lipstick", "heart"), ("cream-jar", "heart"), ("nail-polish", "heart"), ("soap", "heart")],
+    "🍼 Baby & kids": [("stroller", "heart"), ("baby-bottle", "heart")],
+    "🐾 Animals": [("paw-print", "heart"), ("pet-bowl", "heart")],
+    "⚽ Sports": [("dumbbell", "heart"), ("trophy", "check")],
+    "📱 Devices": [("smartphone", "heart"), ("laptop", "heart"), ("smartwatch", "heart"), ("tablet", "heart")],
+    "🎬 Multimedia": [("headphones", "heart"), ("film", "heart"), ("playlist", "plus")],
+    "✈️ Travel": [("suitcase-rolling", "check"), ("passport", "check"), ("boarding-pass", "check")],
+    "👤 People": [("id-card", "search")],
+    "💬 Communication": [("headset", "clock"), ("headset", "heart")],
+    "🛡️ Security": [("shield", "heart"), ("vault", "check")],
+    "🚗 Transportation": [("bicycle", "heart"), ("car", "clock"), ("car", "search"), ("forklift", "check")],
+    "🧭 Navigation & places": [("map-pin", "heart"), ("map-pin", "lock"), ("route", "clock")],
+}
+for page, pairs in BADGE_PLAN7.items():
+    for base, mod in pairs:
+        nm = f"{base}-{mod}"
+        if nm in _all() or nm in EXP7.get(page, {}):
+            continue
+        EXP7.setdefault(page, {})[nm] = badged(base, mod)
+for page, items in EXP7.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+EXP7_NAMES = [k for v in EXP7.values() for k in v]
+
+# expansion 7 fixes
+_D2 = "M6.25 17.75L17.75 6.25M8.25 6.25L17.75 6.25L17.75 15.75"
+_AR = CATEGORIES["➡️ Arrows"]
+for _n, _a in (("arrow-up-right", 0), ("arrow-up-left", -90), ("arrow-down-right", 90), ("arrow-down-left", 180)):
+    _AR[_n] = ([("o", rot_path(_D2, _a) if _a else _D2)], _AR[_n][1])
+CATEGORIES["👗 Fashion & apparel"]["fitting-room"] = ([("o", "M2.75 2.75H21.25"), ("s", "M3.75 2.75H10.25C10.25 7.5 8.5 10.5 6.5 12.25C8.5 14 10.25 17 10.25 21.25H3.75Z"),
+                                                       ("s", "M20.25 2.75H13.75C13.75 7.5 15.5 10.5 17.5 12.25C15.5 14 13.75 17 13.75 21.25H20.25Z")], "fitting room, try on, changing room")

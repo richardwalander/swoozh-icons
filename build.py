@@ -84,7 +84,7 @@ for cat, icons in CATEGORIES.items():
         items.append({"name": name, "desc": tags, "o": os_, "ok": ok, "f": fs, "k": kinds})
     if not items:
         continue
-    data.append({"page": cat, "title": cat.split(" ", 1)[1], "icons": items})
+    data.append({"page": cat, "title": {"➡️ Arrows": "Arrows components", "📱 UI": "UI components"}.get(cat, cat.split(" ", 1)[1]), "icons": items})
 
 js = "const DATA = " + json.dumps(data, ensure_ascii=False) + ";\n" + open(D + "build_tpl.js").read()
 open(D + "build.js", "w").write(js)
