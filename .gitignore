@@ -1,0 +1,6 @@
+build.js
+*.json
+!lucide_cats.json
+tools/_export.js
+__pycache__/
+previews/
