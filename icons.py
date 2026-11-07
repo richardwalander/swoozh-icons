@@ -1138,3 +1138,81 @@ EXP2.setdefault("🎬 Multimedia", {}).update({
 for page, items in EXP2.items():
     CATEGORIES[page].update(items)
 EXP2_NAMES = [k for v in EXP2.values() for k in v]
+
+
+# ---------------------------------------------------------------- expansion 3
+TAG_ELEMS = [("s", TAG), TAG_HOLE]
+BADGE_PLAN3 = {
+    "🕒 Time & calendar": [("calendar", m) for m in ("search", "alert", "star", "lock")] + [("clock", m) for m in ("plus", "check", "x", "alert")],
+    "👤 People": [("user", "clock"), ("user", "alert"), ("users", "plus"), ("users", "check"), ("users", "x")],
+    "🧭 Navigation & places": [("home", m) for m in ("check", "heart", "search", "lock", "x")] + [("globe", "search"), ("globe", "x"),
+                              ("map", "check"), ("map", "search"), ("map", "plus")],
+    "📱 Devices": [("smartphone", m) for m in ("check", "lock", "x", "down")] + [("laptop", m) for m in ("check", "lock", "x")]
+                  + [("monitor", m) for m in ("check", "x", "down")],
+    "📷 Photography": [("image", m) for m in ("down", "up", "heart", "lock")] + [("camera", "plus"), ("camera", "x")],
+    "🎬 Multimedia": [("video", m) for m in ("plus", "check", "x", "lock")],
+    "🛍️ Shopping & commerce": [("tag", m) for m in ("check", "heart", "clock", "search", "lock")] + [("gift", "check"), ("gift", "clock"),
+                                ("shopping-bag", "lock"), ("shopping-bag", "star"), ("shopping-cart", "heart"), ("shopping-cart", "alert")],
+    "💳 Paymen & shipping": [("box", m) for m in ("clock", "heart", "lock")] + [("banknote", "up"), ("banknote", "down"),
+                             ("wallet", "lock"), ("wallet", "clock"), ("receipt", "plus")],
+    "💬 Communication": [("message-circle", m) for m in ("heart", "star", "lock", "clock")] + [("phone", "check"), ("phone", "clock")],
+}
+EXP3 = {}
+_all = lambda: {k for v in CATEGORIES.values() for k in v}
+for page, pairs in BADGE_PLAN3.items():
+    for base, mod in pairs:
+        nm = f"{base}-{mod}"
+        if nm in _all() or nm in EXP3.get(page, {}):
+            continue
+        EXP3.setdefault(page, {})[nm] = badged(base, mod, TAG_ELEMS if base == "tag" else None)
+
+_SR = find("sunrise")[0]
+EXP3.setdefault("🌦️ Weather", {}).update({
+    "cloudy": ([("o", "M11.25 8.25A5 5 0 0 1 20.25 10.5A3.25 3.25 0 0 1 18.75 16.75H16.75"),
+                ("s", "M5.5 19.25A3 3 0 0 1 5.1 13.3A4.5 4.5 0 0 1 13.9 13.3A3 3 0 0 1 13.5 19.25Z")], "cloudy, overcast, weather"),
+    "cloud-drizzle": ([("s", CLOUD_S), ("o", "M8 17.75V18.75M12 17.75V18.75M16 17.75V18.75M10 20.25V21.25M14 20.25V21.25")], "drizzle, light rain, weather"),
+    "cloud-fog": ([("s", CLOUD_S), ("o", "M5.75 18.25H18.25M8.25 21.25H15.75")], "fog, mist, weather"),
+    "rainbow": ([("o", arc(12, 18.25, 9.25, 180, 360)), ("o", arc(12, 18.25, 6, 180, 360)), ("o", arc(12, 18.25, 2.75, 180, 360))], "rainbow, pride, colourful"),
+    "tornado": ([("o", "M3.25 4.75H20.75M5.25 9H18.25M7.75 13.25H16.25M10.25 17.5H15.25M12 21H14.25")], "tornado, storm, weather"),
+    "sunset": ([("o", "M2.75 19.25H21.25M4.5 8.75L6.5 10.75M19.5 8.75L17.5 10.75M2.75 15.75H4.25M19.75 15.75H21.25"),
+                ("o", "M12 2.75V8.25M9.75 6L12 8.25L14.25 6"), ("s", "M6.75 15.75A5.25 5.25 0 0 1 17.25 15.75Z")], "sunset, evening, dusk"),
+    "droplets": ([("s", "M9.5 4.75L13.6 11.9A4.75 4.75 0 1 1 5.4 11.9Z"), ("s", "M17 2.75L19.17 6.5A2.5 2.5 0 1 1 14.83 6.5Z")], "droplets, water, humidity, liquid"),
+})
+_gc, _gw = (12, 8), (0.7071, 0.7071)
+EXP3.setdefault("🔧 Tools", {}).update({
+    "paint-bucket": ([("s", "M4.75 8.75H16.75L15.25 20.25H6.25Z"), ("o", "M6.5 8.75V7A4.25 4.25 0 0 1 15 7V8.75"), ("f", "M19.5 13.25L21 16.25A1.6 1.6 0 1 1 18 16.25Z")], "paint bucket, fill, colour"),
+    "paint-roller": ([("s", "M3.75 2.75H18.25V7.75H3.75Z"), ("o", "M18.25 5.25H20.75V10.75H11.25V14.25"), ("s", "M9.75 14.25H12.75V21.25H9.75Z")], "paint roller, decorate, renovate"),
+    "drill": ([("s", "M2.75 5.25H15.25V11.25H2.75Z"), ("s", "M6.25 11.25H11.25L10.25 20.75H5.25Z"), ("cut", "M6.25 11.25H11.25"), ("o", "M15.25 8.25H21.25")], "drill, diy, tools"),
+    "stamp": ([("s", circ(12, 6, 3.25)), ("s", "M10.25 9.25H13.75V12.75H10.25Z"), ("s", "M3.75 12.75H20.25V17.25H3.75Z"), ("cut", "M3.75 12.75H20.25M10.25 9.25H13.75"), ("o", "M5.25 20.75H18.75")],
+              "stamp, approved, certified"),
+    "gavel": ([("s", poly([(16.77, 6.41), (13.59, 3.23), (7.23, 9.59), (10.41, 12.77)])), ("o", "M13.59 9.59L20.75 16.75M3.25 21.25H13.25")], "auction, legal, bid"),
+    "pen": ([("s", "M15.25 3.75L20.25 8.75L9 20H4V15Z"), ("cut", "M13 6L18 11")], "pen, edit, write, sign"),
+})
+EXP3.setdefault("🎨 Design", {}).update({
+    "spray-can": ([("s", "M6.75 9.25H15.25V21.25H6.75Z"), ("s", "M8.75 5.75H13.25V9.25H8.75Z"), ("cut", "M6.75 9.25H15.25M6.75 13.25H15.25"),
+                   ("f", circ(17.75, 4.5, .9)), ("f", circ(20.25, 3, .9)), ("f", circ(20.25, 6.25, .9)), ("f", circ(17.75, 7.75, .9))], "spray paint, graffiti, colour"),
+    "eraser": ([("s", poly([(13.5, 3.25), (20.75, 10.5), (11.25, 20), (8, 20), (3.25, 15.25)])), ("cut", "M7.75 10.75L13.25 16.25"), ("o", "M11.25 20H20.75")], "eraser, clear, delete"),
+})
+EXP3.setdefault("🌐 Social", {}).update({
+    "sticker": ([("s", "M2.75 2.75H21.25V12.75L12.75 21.25H2.75Z"), ("cut", "M21.25 12.75H12.75V21.25"), ("d", circ(8, 8, 1)), ("d", circ(13, 8, 1))], "sticker, label, fun"),
+    "party-popper": ([("s", poly([(2.75, 21.25), (6.75, 9.75), (14.25, 17.25)])), ("o", "M10.5 3.25V5.25M18.75 13.5H20.75M13.5 8.25L16.5 5.25"),
+                      ("f", circ(19.75, 9, 1)), ("f", circ(15.25, 2.75 + 0.75, 1))], "celebrate, party, order placed, success"),
+    "quote": ([("s", "M3.75 6.75H10.25V13.25L7.25 19.25H4.75L6.75 13.25H3.75Z"), ("s", "M13.75 6.75H20.25V13.25L17.25 19.25H14.75L16.75 13.25H13.75Z")], "quote, testimonial, review"),
+})
+EXP3.setdefault("🛡️ Security", {}).update({
+    "lock-keyhole": ([("s", "M4.75 10.25H19.25V21.25H4.75Z"), ("o", "M7.75 10.25V7A4.25 4.25 0 0 1 16.25 7V10.25"), ("cut", circ(12, 14.5, 1.5)), ("cut", "M12 16V18.25")],
+                     "lock, secure, password"),
+    "key-round": ([("s", circ(15.5, 8.5, 5.75)), ("d", circ(17, 7, 1.25)), ("o", "M11.5 12.5L3.25 20.75M6.5 17.5L8.75 19.75")], "key, access, login"),
+    "shield-half": ([("s", SHIELD), ("d", "M12 2.75L3.75 5.75V11.75C3.75 16.25 7.25 19.5 12 21.25Z")], "partial protection, privacy"),
+})
+EXP3.setdefault("🕒 Time & calendar", {}).update({
+    "calendar-day": (CAL + [("cut", "M10.25 14.25L12 12.75V18.75")], "today, date, day"),
+    "timer-off": (find("timer")[0] + SLASH, "timer off, no limit"),
+})
+EXP3.setdefault("🔔 Notifications", {}).update({
+    "vibrate": ([("s", "M8.25 5.25H15.75V18.75H8.25Z"), ("o", "M5.25 8.25V15.75M2.75 9.75V14.25M18.75 8.25V15.75M21.25 9.75V14.25")], "vibrate, silent, haptic"),
+    "alarm-clock-off": (find("alarm-clock")[0] + SLASH, "alarm off, snooze"),
+})
+for page, items in EXP3.items():
+    CATEGORIES[page].update(items)
+EXP3_NAMES = [k for v in EXP3.values() for k in v]
