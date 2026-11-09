@@ -1,0 +1,27 @@
+{
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "sideEffects": true,
+  "keywords": [
+    "icons",
+    "svg",
+    "swoozh",
+    "fashion",
+    "ecommerce"
+  ],
+  "name": "@swoozh/icons-element",
+  "description": "Swoozh Icons as a <swoozh-icon> web component.",
+  "main": "dist/swoozh-icon.js",
+  "types": "dist/swoozh-icon.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/swoozh-icon.d.ts",
+      "default": "./dist/swoozh-icon.js"
+    }
+  },
+  "files": [
+    "dist"
+  ]
+}

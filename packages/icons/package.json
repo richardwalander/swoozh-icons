@@ -1,0 +1,32 @@
+{
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "sideEffects": false,
+  "keywords": [
+    "icons",
+    "svg",
+    "swoozh",
+    "fashion",
+    "ecommerce"
+  ],
+  "name": "@swoozh/icons",
+  "description": "Swoozh Icons: 1666 fashion and e-commerce icons (outline + filled) as SVG files, sprites and path data.",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./icons.json": "./dist/icons.json",
+    "./svg/*": "./dist/svg/*",
+    "./sprite-outline.svg": "./dist/sprite-outline.svg",
+    "./sprite-filled.svg": "./dist/sprite-filled.svg"
+  },
+  "files": [
+    "dist"
+  ]
+}

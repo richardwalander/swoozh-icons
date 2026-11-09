@@ -1,0 +1,30 @@
+{
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "sideEffects": false,
+  "keywords": [
+    "icons",
+    "svg",
+    "swoozh",
+    "fashion",
+    "ecommerce"
+  ],
+  "name": "@swoozh/icons-vue",
+  "description": "Swoozh Icons as Vue 3 components.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "vue": ">=3"
+  }
+}

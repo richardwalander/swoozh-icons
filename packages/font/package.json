@@ -1,0 +1,26 @@
+{
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "sideEffects": [
+    "*.css"
+  ],
+  "keywords": [
+    "icons",
+    "svg",
+    "swoozh",
+    "fashion",
+    "ecommerce"
+  ],
+  "name": "@swoozh/icons-font",
+  "description": "Swoozh Icons as an icon font (WOFF2/TTF) with CSS classes.",
+  "style": "dist/swoozh-icons.css",
+  "exports": {
+    "./swoozh-icons.css": "./dist/swoozh-icons.css",
+    "./codepoints.json": "./dist/codepoints.json",
+    "./*": "./dist/*"
+  },
+  "files": [
+    "dist"
+  ]
+}

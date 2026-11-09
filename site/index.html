@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swoozh Icons</title>
+<meta name="description" content="Swoozh Icons: 1,666 fashion and e-commerce icons in outline and filled styles. SVG, React, Vue, Svelte, web component, Elm and icon font.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="fonts/swoozh-icons.css">
+<script>try { const t = localStorage.getItem('swz-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="./"><span data-icon="hanger" data-size="24"></span>Swoozh Icons</a>
+  <nav>
+    <a class="on" href="./">Icons</a>
+    <a href="docs.html">Docs</a>
+    <button class="icon-btn" id="theme" title="Toggle theme" aria-label="Toggle theme"><span data-icon="moon" data-size="18"></span></button>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Icons for <em>fashion</em> and e-commerce</h1>
+  <p>Hand-drawn on a 24 px grid with a 1.5 px line. Every icon comes in outline and filled, from hangers and care labels to checkout and shipping.</p>
+  <div class="stats">
+    <div><b id="s-icons">–</b><span>icons</span></div>
+    <div><b>2</b><span>styles</span></div>
+    <div><b id="s-cats">–</b><span>categories</span></div>
+    <div><b>7</b><span>formats</span></div>
+  </div>
+  <div class="install"><code>npm install @swoozh/icons-react</code><button class="btn" data-copy="npm install @swoozh/icons-react">Copy</button></div>
+  <div class="marquee" id="marquee"></div>
+</section>
+
+<main class="wrap">
+  <aside class="side" id="side"></aside>
+  <section>
+    <div class="toolbar">
+      <label class="search">
+        <span data-icon="search" data-size="18"></span>
+        <input id="q" type="search" placeholder="Search icons, e.g. bag, wash, return…" autocomplete="off" aria-label="Search icons">
+        <kbd>/</kbd>
+      </label>
+      <div class="seg" role="group" aria-label="Style">
+        <button id="v-outline" class="on">Outline</button>
+        <button id="v-filled">Filled</button>
+      </div>
+      <label class="ctl size">Size <input id="size" type="range" min="16" max="48" step="4" value="24"><b id="size-v">24</b></label>
+      <label class="ctl">Color <input id="color" type="color" value="#17161a"></label>
+      <button class="ctl toggle" id="review" title="Flag icons that need work">Review</button>
+    </div>
+    <div class="count" id="count"></div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden>No icons match. Try a broader word.</div>
+  </section>
+</main>
+
+<aside class="drawer" id="drawer" aria-label="Icon details">
+  <header><span data-icon="" id="d-head" data-size="20"></span><h3 id="d-name"></h3><button class="icon-btn" id="d-close" aria-label="Close"><span data-icon="x" data-size="18"></span></button></header>
+  <div class="body">
+    <div class="pair">
+      <div class="big"><svg id="d-o" width="96" height="96" viewBox="0 0 24 24" fill="currentColor"><path/></svg><small>Outline</small></div>
+      <div class="big"><svg id="d-f" width="96" height="96" viewBox="0 0 24 24" fill="currentColor"><path/></svg><small>Filled</small></div>
+    </div>
+    <div class="meta"><span id="d-cat"></span></div>
+    <div class="tags" id="d-tags"></div>
+    <div class="actions">
+      <button class="btn primary" id="d-copy-svg">Copy SVG</button>
+      <button class="btn" id="d-dl">Download SVG</button>
+      <button class="btn" id="d-copy-name">Copy name</button>
+    </div>
+    <div>
+      <div class="tabs" id="d-tabs"></div>
+      <pre class="code" id="d-code"></pre>
+      <div class="actions" style="margin-top:8px"><button class="btn" id="d-copy-code">Copy snippet</button></div>
+    </div>
+    <div class="fontdemo"><i class="swz" id="d-font-o"></i><i class="swz swz-filled" id="d-font-f"></i><span>Icon font rendering</span></div>
+    <div id="d-review" hidden>
+      <div class="actions" style="margin-bottom:8px"><button class="btn danger" id="d-flag">Flag for redraw</button></div>
+      <textarea class="note" id="d-note" placeholder="What should change?"></textarea>
+    </div>
+  </div>
+</aside>
+
+<div class="reviewbar" id="reviewbar"><span id="rb-count">0 flagged</span><button class="btn" id="rb-show">Show flagged</button><button class="btn" id="rb-copy">Copy list</button><button class="btn" id="rb-clear">Clear</button></div>
+<div class="toast" id="toast"></div>
+
+<footer class="foot">Swoozh Icons <span id="ver"></span> · <a href="docs.html">Docs</a></footer>
+
+<script src="data/icons.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

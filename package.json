@@ -1,0 +1,18 @@
+{
+  "name": "swoozh-icons-monorepo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "export": "python3 -I tools/export_svg.py 120 && node scripts/normalize.mjs",
+    "build": "node scripts/build.mjs"
+  },
+  "devDependencies": {
+    "svg2ttf": "^6.1.0",
+    "svgicons2svgfont": "^16.0.0",
+    "ttf2woff2": "^8.0.1"
+  },
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/*"
+  ]
+}

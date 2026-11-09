@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swoozh Icons Docs</title>
+<meta name="description" content="How to use Swoozh Icons as SVG, sprite, React, Vue, Svelte, web component, Elm and icon font.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="fonts/swoozh-icons.css">
+<script>try { const t = localStorage.getItem('swz-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<script src="data/swoozh-icon.js"></script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="./"><swoozh-icon name="hanger"></swoozh-icon>Swoozh Icons</a>
+  <nav>
+    <a href="./">Icons</a>
+    <a class="on" href="docs.html">Docs</a>
+  </nav>
+</header>
+
+<div class="doc">
+  <aside>
+    <a href="#intro">Introduction</a>
+    <a href="#svg">SVG files</a>
+    <a href="#sprite">SVG sprite</a>
+    <a href="#react">React</a>
+    <a href="#vue">Vue</a>
+    <a href="#svelte">Svelte</a>
+    <a href="#element">Web component</a>
+    <a href="#elm">Elm</a>
+    <a href="#font">Icon font</a>
+    <a href="#js">Plain JavaScript</a>
+    <a href="#a11y">Accessibility</a>
+    <a href="#design">Design guidelines</a>
+    <a href="#build">Building from source</a>
+  </aside>
+  <main>
+    <h1 id="intro">Swoozh Icons</h1>
+    <p>A library of <b>1,666 icons</b> for fashion and e-commerce. Every icon has two styles, <b>outline</b> and <b>filled</b>, drawn on a 24&nbsp;px grid with a 1.5&nbsp;px line.
+      All formats are generated from the same SVG source, so an icon looks the same everywhere.</p>
+    <table>
+      <tr><th>Package</th><th>Use it for</th></tr>
+      <tr><td><code>@swoozh/icons</code></td><td>SVG files, sprites, path data and <code>icons.json</code> metadata</td></tr>
+      <tr><td><code>@swoozh/icons-react</code></td><td>React components</td></tr>
+      <tr><td><code>@swoozh/icons-vue</code></td><td>Vue 3 components</td></tr>
+      <tr><td><code>@swoozh/icons-svelte</code></td><td>Svelte component plus icon data</td></tr>
+      <tr><td><code>@swoozh/icons-element</code></td><td><code>&lt;swoozh-icon&gt;</code> custom element, any framework or none</td></tr>
+      <tr><td><code>@swoozh/icons-font</code></td><td>Icon font (WOFF2, TTF) with CSS classes</td></tr>
+      <tr><td><code>swoozh/icons</code> (Elm)</td><td>Elm SVG functions</td></tr>
+    </table>
+    <p>Icon names are kebab-case, like <code>shopping-bag</code> or <code>wash-30</code>. In JavaScript they become PascalCase (<code>ShoppingBag</code>, <code>Wash30</code>) and in Elm camelCase (<code>shoppingBag</code>).
+      Search all names on the <a href="./">icon page</a>.</p>
+
+    <h2 id="svg">SVG files</h2>
+    <p>Every icon is a single path filled with <code>currentColor</code>, so it takes the text color of its parent.</p>
+<pre><code>npm install @swoozh/icons</code></pre>
+<pre><code>node_modules/@swoozh/icons/dist/svg/outline/shopping-bag.svg
+node_modules/@swoozh/icons/dist/svg/filled/shopping-bag.svg</code></pre>
+    <p>Paste the markup inline, or use it as an image (an image cannot inherit the text color):</p>
+<pre><code>&lt;img src="svg/outline/shopping-bag.svg" width="24" height="24" alt="Shopping bag"&gt;</code></pre>
+
+    <h2 id="sprite">SVG sprite</h2>
+    <p>One file per style holds every icon as a <code>&lt;symbol&gt;</code>. Reference an icon by name with <code>&lt;use&gt;</code>.</p>
+<pre><code>&lt;svg width="24" height="24" aria-hidden="true"&gt;
+  &lt;use href="/sprite-outline.svg#shopping-bag"/&gt;
+&lt;/svg&gt;</code></pre>
+
+    <h2 id="react">React</h2>
+<pre><code>npm install @swoozh/icons-react</code></pre>
+<pre><code>import { ShoppingBag, Hanger } from '@swoozh/icons-react';
+
+export function CartButton() {
+  return (
+    &lt;button&gt;
+      &lt;ShoppingBag size={20} /&gt;
+      &lt;Hanger variant="filled" color="#5b3df5" title="Wardrobe" /&gt;
+    &lt;/button&gt;
+  );
+}</code></pre>
+    <table>
+      <tr><th>Prop</th><th>Default</th><th></th></tr>
+      <tr><td><code>variant</code></td><td><code>"outline"</code></td><td><code>"outline"</code> or <code>"filled"</code></td></tr>
+      <tr><td><code>size</code></td><td><code>24</code></td><td>Width and height, number or CSS length</td></tr>
+      <tr><td><code>color</code></td><td><code>"currentColor"</code></td><td>Fill color</td></tr>
+      <tr><td><code>title</code></td><td></td><td>Accessible name. Without it the icon is <code>aria-hidden</code></td></tr>
+    </table>
+    <p>Any other prop (<code>className</code>, <code>style</code>, <code>onClick</code>, …) goes to the <code>&lt;svg&gt;</code>, and refs are forwarded.
+      Each icon is a separate named export, so bundlers only include the icons you import.</p>
+
+    <h2 id="vue">Vue</h2>
+<pre><code>npm install @swoozh/icons-vue</code></pre>
+<pre><code>&lt;script setup&gt;
+import { ShoppingBag } from '@swoozh/icons-vue';
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;ShoppingBag variant="filled" :size="20" class="cart-icon" /&gt;
+&lt;/template&gt;</code></pre>
+    <p>Same props as React: <code>variant</code>, <code>size</code>, <code>color</code> and <code>title</code>.</p>
+
+    <h2 id="svelte">Svelte</h2>
+<pre><code>npm install @swoozh/icons-svelte</code></pre>
+<pre><code>&lt;script&gt;
+  import { Icon, ShoppingBag } from '@swoozh/icons-svelte';
+&lt;/script&gt;
+
+&lt;Icon icon={ShoppingBag} variant="filled" size={20} /&gt;</code></pre>
+    <p>Works with Svelte 4 and 5. The icon data exports are tree-shakeable.</p>
+
+    <h2 id="element">Web component</h2>
+    <p>One script registers <code>&lt;swoozh-icon&gt;</code>. It works in plain HTML and in any framework. The script contains every icon, so use it when convenience matters more than bundle size.</p>
+<pre><code>&lt;script type="module" src="node_modules/@swoozh/icons-element/dist/swoozh-icon.js"&gt;&lt;/script&gt;
+
+&lt;swoozh-icon name="shopping-bag"&gt;&lt;/swoozh-icon&gt;
+&lt;swoozh-icon name="hanger" variant="filled" size="32" label="Wardrobe"&gt;&lt;/swoozh-icon&gt;</code></pre>
+    <div class="demo">
+      <swoozh-icon name="shopping-bag" size="32"></swoozh-icon>
+      <swoozh-icon name="hanger" variant="filled" size="32"></swoozh-icon>
+      <swoozh-icon name="wash-30" size="32"></swoozh-icon>
+      <swoozh-icon name="truck-fast" variant="filled" size="32"></swoozh-icon>
+      <swoozh-icon name="sweater" size="32"></swoozh-icon>
+      <span style="color:var(--muted);font-size:13px">live &lt;swoozh-icon&gt; elements</span>
+    </div>
+    <p>Attributes: <code>name</code>, <code>variant</code> (<code>outline</code> or <code>filled</code>), <code>size</code> (default 24) and <code>label</code> (accessible name). The color follows <code>color</code> in CSS.</p>
+
+    <h2 id="elm">Elm</h2>
+<pre><code>elm install swoozh/icons</code></pre>
+<pre><code>import SwoozhIcons exposing (Variant(..))
+import Svg.Attributes as A
+
+view =
+    SwoozhIcons.shoppingBag Filled [ A.width "32", A.height "32", A.class "cart-icon" ]</code></pre>
+    <p>Every icon has the type <code>Variant -&gt; List (Svg.Attribute msg) -&gt; Svg msg</code>. Attributes you pass override the defaults (24×24, <code>currentColor</code>).</p>
+
+    <h2 id="font">Icon font</h2>
+<pre><code>npm install @swoozh/icons-font</code></pre>
+<pre><code>&lt;link rel="stylesheet" href="node_modules/@swoozh/icons-font/dist/swoozh-icons.css"&gt;
+
+&lt;i class="swz swz-shopping-bag"&gt;&lt;/i&gt;
+&lt;i class="swz swz-filled swz-hanger"&gt;&lt;/i&gt;</code></pre>
+    <div class="demo" style="font-size:32px">
+      <i class="swz swz-shopping-bag"></i><i class="swz swz-filled swz-hanger"></i><i class="swz swz-wash-30"></i><i class="swz swz-filled swz-truck-fast"></i><i class="swz swz-sweater"></i>
+      <span style="color:var(--muted);font-size:13px">rendered with the icon font</span>
+    </div>
+    <p>There are two font families: <code>Swoozh Icons</code> for outline and <code>Swoozh Icons Filled</code> for filled. Both use the same code points from U+E000 upward, and the code points never change between releases
+      (see <code>codepoints.json</code>). Set the size with <code>font-size</code>. A size that is a multiple of 24&nbsp;px keeps the lines sharpest.</p>
+
+    <h2 id="js">Plain JavaScript</h2>
+<pre><code>import { ShoppingBag, toSvg } from '@swoozh/icons';
+
+ShoppingBag.outline   // SVG path data
+document.querySelector('#cart').innerHTML = toSvg(ShoppingBag, { variant: 'filled', size: 20 });</code></pre>
+    <p><code>@swoozh/icons/icons.json</code> lists every icon with its category and search tags, which helps if you build your own icon picker.</p>
+
+    <h2 id="a11y">Accessibility</h2>
+    <ul>
+      <li>Decorative icons are rendered with <code>aria-hidden="true"</code>, which is the default everywhere.</li>
+      <li>For icons that carry meaning on their own, such as an icon-only button, pass <code>title</code> (React, Vue, Svelte, JavaScript) or <code>label</code> (web component), or give the button an <code>aria-label</code>.</li>
+      <li>Icon fonts are read by some screen readers. Keep the <code>&lt;i&gt;</code> empty and add <code>aria-hidden="true"</code> when the icon is decorative.</li>
+    </ul>
+
+    <h2 id="design">Design guidelines</h2>
+    <table>
+      <tr><td>Grid</td><td>24 × 24 px, with live area 2.75–21.25 px</td></tr>
+      <tr><td>Line</td><td>1.5 px, butt caps, miter joins</td></tr>
+      <tr><td>Styles</td><td>Outline (line) and Filled (solid with knock-outs)</td></tr>
+      <tr><td>Badges</td><td>Many icons have corner variants (<code>-plus</code>, <code>-check</code>, <code>-heart</code>, <code>-return</code>, …) for states like add, done or favourite</td></tr>
+      <tr><td>Sizes</td><td>Sharpest at 24, 48 and 72 px. 16 and 20 px also work for UI.</td></tr>
+    </table>
+    <p>The source of truth is the SwoozhIcons Figma library. The packages ship strokes converted to filled outlines, so stroke width cannot be changed with CSS.
+      Every format renders identically, from the SVG files to the font.</p>
+
+    <h2 id="build">Building from source</h2>
+<pre><code>npm install
+npm run export   # Figma → icons/{outline,filled}/*.svg, icons.json, codepoints.json (needs the Figma bridge)
+npm run build    # icons/ → packages/*/dist, packages/elm/src, site/data</code></pre>
+    <p>The <code>icons/</code> folder is checked in, so <code>npm run build</code> works without Figma. Code points are stored in <code>icons/codepoints.json</code> and only grow, so font users never see an icon change places.</p>
+  </main>
+</div>
+<footer class="foot">Swoozh Icons · <a href="./">Browse icons</a></footer>
+</body>
+</html>

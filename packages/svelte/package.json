@@ -1,0 +1,31 @@
+{
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "sideEffects": false,
+  "keywords": [
+    "icons",
+    "svg",
+    "swoozh",
+    "fashion",
+    "ecommerce"
+  ],
+  "name": "@swoozh/icons-svelte",
+  "description": "Swoozh Icons for Svelte.",
+  "svelte": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "svelte": ">=4"
+  }
+}
