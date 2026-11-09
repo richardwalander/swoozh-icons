@@ -12,7 +12,7 @@
 | `@swoozh/icons-font` | Icon font (WOFF2/TTF) + CSS classes (`swz swz-shopping-bag`) |
 | `packages/elm` | Elm module `SwoozhIcons` |
 
-The icon browser with search and the docs are in `site/`. After a build, open them with:
+The icon browser and docs are published at https://richardwalander.github.io/swoozh-icons/ (built by `.github/workflows/pages.yml` on every push to `master`). Locally, after a build:
 
 ```bash
 npm run build && python3 -m http.server 8642 --directory site
