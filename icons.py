@@ -1848,3 +1848,67 @@ CATEGORIES["🍳 Kitchen"]["frying-pan"] = ([("s", circ(10.25, 12, 7.5)), ("o", 
 CATEGORIES["📎 Office & stationery"]["newspaper"] = ([("s", "M6.75 3.75H21.25V17.75A2.5 2.5 0 0 1 18.75 20.25H4.75A2 2 0 0 1 2.75 18.25V9.75H6.75Z"),
                                                      ("cut", "M6.75 9.75V18M10.25 7.75H17.75M10.25 11.75H17.75M10.25 15.75H14.75")], "news, newsletter, press")
 CATEGORIES["🍳 Kitchen"]["frying-pan"] = ([("s", circ(9.5, 12, 6.75)), ("o", "M16.25 12H21.25")], "frying pan, cookware, kitchen")
+
+
+# ---------------------------------------------------------------- expansion 9
+MODS["return"] = [("g", "M17.25 14.5L15 16.75L17.25 19M15 16.75H19A2.25 2.25 0 0 1 19 21.25H17")]
+MODS["leaf"] = [("gf", "M14.75 21.25C14.75 17.25 17.25 14.75 21.25 14.75C21.25 18.75 18.75 21.25 14.75 21.25Z")]
+MOD_TAGS["return"] = "return, exchange, refund"
+MOD_TAGS["leaf"] = "eco, sustainable, organic"
+EXP9 = {}
+EXP9["👗 Fashion & apparel"] = {
+    "size-guide": ([("s", "M2.75 7.75H21.25V16.25H2.75Z"), ("cut", "M6.25 7.75V10.75M9.75 7.75V12.25M13.25 7.75V10.75M16.75 7.75V12.25")], "size guide, ruler, measure"),
+    "body-measure": ([("s", "M7.25 2.75H16.75C16.75 6 15.75 8.5 15.25 10.25C16.25 12.5 17.25 15.5 17.25 21.25H6.75C6.75 15.5 7.75 12.5 8.75 10.25C8.25 8.5 7.25 6 7.25 2.75Z"),
+                      ("cut", "M8.75 10.25H15.25M7.5 15.25H16.5")], "measurements, fit, body"),
+}
+EXP9["💬 Communication"] = {
+    "life-buoy": ([("s", circ(12, 12, 9.25)), ("cut", circ(12, 12, 4)), ("cut", "M5.46 5.46L9.17 9.17M14.83 14.83L18.54 18.54M18.54 5.46L14.83 9.17M9.17 14.83L5.46 18.54")],
+                  "help, support, customer service"),
+}
+EXP9["🛍️ Shopping & commerce"] = {
+    "stars": ([("s", star(12, 7.5, 5, 2.1, 5)), ("s", star(6.25, 16.75, 4, 1.7, 5)), ("s", star(17.75, 16.75, 4, 1.7, 5))], "reviews, rating, stars"),
+}
+for page, items in EXP9.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+
+BADGE_PLAN9 = {
+    "👗 Fashion & apparel": [(b, "return") for b in ("t-shirt", "dress", "sneaker", "hanger", "handbag", "jacket", "pants")]
+                            + [(b, "leaf") for b in ("t-shirt", "hanger", "sneaker")]
+                            + [(b, "plus") for b in ("glasses", "sunglasses", "cap", "backpack", "high-heel")]
+                            + [(b, "heart") for b in ("boot", "belt", "tie", "jewelry-ring", "necklace", "earrings", "scarf", "swimsuit", "mitten")],
+    "🛍️ Shopping & commerce": [("shopping-bag", "return"), ("receipt", "return"), ("shopping-bag", "leaf"), ("store", "leaf"), ("tag", "leaf"), ("cash-register", "check")],
+    "💳 Paymen & shipping": [("package", "return"), ("credit-card", "return"), ("wallet", "return"), ("package", "leaf"), ("box", "leaf"), ("truck", "leaf"),
+                             ("invoice", "plus"), ("parcel-locker", "check"), ("parcel-locker", "clock")],
+    "😀 Emoji": [("smile", "plus"), ("smile", "star"), ("smile", "heart")],
+    "🍳 Kitchen": [("chef-hat", "heart"), ("frying-pan", "heart"), ("kettle", "heart"), ("soup-bowl", "heart")],
+    "📎 Office & stationery": [("book", "heart"), ("book", "plus"), ("book", "check"), ("notebook", "plus"), ("graduation-cap", "check"), ("sticky-note", "plus")],
+    "🍽️ Food & beverage": [(b, "heart") for b in ("pizza", "apple", "cake", "cookie", "ice-cream", "beer")],
+    "⚽ Sports": [("jersey", "heart"), ("trophy", "star"), ("target", "check"), ("dumbbell", "plus"), ("kettlebell", "heart")],
+    "✈️ Travel": [("hotel", "heart"), ("hotel", "star"), ("tent", "heart"), ("suitcase-rolling", "heart"), ("boarding-pass", "clock"), ("passport", "x")],
+    "💊 Medical": [("pill-bottle", "check"), ("first-aid-kit", "check")],
+    "💄 Beauty & care": [("spray-bottle", "heart"), ("hair-dryer", "heart"), ("makeup-brush", "heart")],
+    "🎮 Gaming": [("gamepad", "heart"), ("gamepad", "plus"), ("puzzle", "check")],
+    "🐾 Animals": [("dog", "heart"), ("cat", "heart"), ("bone", "heart")],
+    "🍼 Baby & kids": [("baby", "heart"), ("toy-blocks", "heart"), ("pacifier", "heart")],
+    "🌿 Nature": [("flower", "heart")],
+    "🔧 Tools": [("toolbox", "check"), ("wrench", "check")],
+    "🎨 Design": [("palette", "heart")],
+    "🏠 Home": [("bath", "heart"), ("fridge", "heart"), ("washing-machine", "check"), ("armchair", "heart"), ("lamp-desk", "heart"), ("mirror-round", "heart")],
+    "🔬 Science": [("flask", "check")],
+    "🔔 Notifications": [("inbox", "x"), ("inbox", "plus")],
+    "🕒 Time & calendar": [("calendar", "up")],
+    "🏢 Buildings": [("school", "check"), ("garage", "check")],
+    "📶 Connectivity": [("router", "check"), ("signal", "x")],
+    "👤 People": [("user-circle", "star")],
+    "🚗 Transportation": [("van", "x"), ("van", "alert")],
+    "✉️ Mail": [("mailbox", "check"), ("mailbox", "plus")],
+}
+for page, pairs in BADGE_PLAN9.items():
+    for base, mod in pairs:
+        nm = f"{base}-{mod}"
+        if nm in _all() or nm in EXP9.get(page, {}):
+            continue
+        EXP9.setdefault(page, {})[nm] = badged(base, mod, TAG_ELEMS if base == "tag" else None)
+for page, items in EXP9.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+EXP9_NAMES = [k for v in EXP9.values() for k in v]
