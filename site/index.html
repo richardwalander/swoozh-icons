@@ -3,15 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#efe4db">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>Swoozh Icons</title>
 <meta name="description" content="Swoozh Icons: 1,666 fashion and e-commerce icons in outline and filled styles. SVG, React, Vue, Svelte, web component, Elm and icon font.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Raleway:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="fonts/swoozh-icons.css">
 <script>try { const t = localStorage.getItem('swz-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 </head>
 <body>
 <header class="top">
-  <a class="brand" href="./"><span data-icon="hanger" data-size="24"></span>Swoozh Icons</a>
+  <a class="brand" href="./"><span class="logo" aria-hidden="true">S</span>SwoozhIcons</a>
   <nav>
     <a class="on" href="./">Icons</a>
     <a href="docs.html">Docs</a>
@@ -20,7 +25,9 @@
 </header>
 
 <section class="hero">
-  <h1>Icons for <em>fashion</em> and e-commerce</h1>
+  <span class="logo lg" aria-hidden="true">S</span>
+  <h1>SwoozhIcons</h1>
+  <p class="tagline">Icon pack for fashion retail apps</p>
   <p>Hand-drawn on a 24 px grid with a 1.5 px line. Every icon comes in outline and filled, from hangers and care labels to checkout and shipping.</p>
   <div class="stats">
     <div><b id="s-icons">–</b><span>icons</span></div>
@@ -46,7 +53,7 @@
         <button id="v-filled">Filled</button>
       </div>
       <label class="ctl size">Size <input id="size" type="range" min="16" max="48" step="4" value="24"><b id="size-v">24</b></label>
-      <label class="ctl">Color <input id="color" type="color" value="#17161a"></label>
+      <label class="ctl">Color <input id="color" type="color" value="#272838"></label>
       <button class="ctl toggle" id="review" title="Flag icons that need work">Review</button>
     </div>
     <div class="count" id="count"></div>
