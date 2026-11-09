@@ -1761,3 +1761,90 @@ for _n, _a in (("arrow-up-right", 0), ("arrow-up-left", -90), ("arrow-down-right
     _AR[_n] = ([("o", rot_path(_D2, _a) if _a else _D2)], _AR[_n][1])
 CATEGORIES["👗 Fashion & apparel"]["fitting-room"] = ([("o", "M2.75 2.75H21.25"), ("s", "M3.75 2.75H10.25C10.25 7.5 8.5 10.5 6.5 12.25C8.5 14 10.25 17 10.25 21.25H3.75Z"),
                                                        ("s", "M20.25 2.75H13.75C13.75 7.5 15.5 10.5 17.5 12.25C15.5 14 13.75 17 13.75 21.25H20.25Z")], "fitting room, try on, changing room")
+
+
+# ---------------------------------------------------------------- expansion 8
+EXP8 = {}
+EXP8["📎 Office & stationery"] = {
+    "notebook": ([("s", "M5.75 2.75H19.25V21.25H5.75Z"), ("o", "M3.75 7H7.75M3.75 12H7.75M3.75 17H7.75"), ("cut", "M10.25 7.25H15.75M10.25 10.75H15.75")], "notebook, notes, journal"),
+    "sticky-note": ([("s", "M3.75 3.75H20.25V14.75L14.75 20.25H3.75Z"), ("cut", "M20.25 14.75H14.75V20.25")], "sticky note, memo, reminder"),
+    "book": ([("s", "M4.75 4.75A2 2 0 0 1 6.75 2.75H19.25V17.25H6.75A2 2 0 0 0 4.75 19.25Z"), ("o", "M4.75 19.25A2 2 0 0 0 6.75 21.25H19.25V17.25")], "book, read, guide"),
+    "library": ([("s", "M3.75 3.75H7.75V20.25H3.75Z"), ("s", "M9.25 3.75H13.25V20.25H9.25Z"), ("s", poly([(14.75, 5.25), (18.5, 4.25), (21.25, 19.25), (17.5, 20.25)]))], "library, books, collection"),
+    "presentation": ([("s", "M2.75 3.75H21.25V15.25H2.75Z"), ("o", "M12 15.25V18.25M7.75 21.25L12 18.25L16.25 21.25"), ("cut", "M6.75 11.75L9.75 8.75L12.25 11.25L17.25 7.25")],
+                     "presentation, board, lookbook"),
+    "graduation-cap": ([("s", poly([(12, 4.75), (21.25, 9.25), (12, 13.75), (2.75, 9.25)])), ("o", "M6.25 11V16.25C6.25 17.75 9 19.25 12 19.25C15 19.25 17.75 17.75 17.75 16.25V11"),
+                        ("o", "M21.25 9.25V15.25")], "graduation, education, student discount"),
+    "newspaper": ([("s", "M6.75 3.75H21.25V17.75A2.5 2.5 0 0 1 18.75 20.25H4.75A2 2 0 0 1 2.75 18.25V9.75H6.75Z"),
+                   ("cut", "M6.75 9.75V18.25A2 2 0 0 1 4.75 20.25M10.25 7.75H17.75M10.25 11.75H17.75M10.25 15.75H14.75")], "news, newsletter, press"),
+}
+_KN = "M1.75 9.25L14.25 9.25L14.25 14.25L7.5 14.25C4.5 14.25 2.75 12.25 1.75 9.25Z"
+_KH = "M16 9.75L22.25 9.75L22.25 13.75L16 13.75Z"
+EXP8["🍳 Kitchen"] = {
+    "knife": ([("s", rot_path(_KN, -45)), ("s", rot_path(_KH, -45))], "knife, kitchen, cutlery"),
+    "frying-pan": ([("s", circ(9.75, 12.25, 7)), ("s", "M17.75 11.25H21.25V13.25H17.75Z")], "frying pan, cookware, kitchen"),
+    "kettle": ([("s", "M5.25 20.25L6.5 10.75C6.75 8.75 8.25 7.75 10.25 7.75H13.75C15.75 7.75 17.25 8.75 17.5 10.75L18.75 20.25Z"),
+                ("o", "M9.75 7.75C9.75 5.75 10.75 4.75 12 4.75C13.25 4.75 14.25 5.75 14.25 7.75M17.25 10.25C20 10.25 21.25 12 21.25 14.25C21.25 16 20.25 17.25 18.25 17.5M6.25 12.25L3.25 9.25")],
+               "kettle, tea, kitchen"),
+    "blender": ([("s", poly([(6.75, 2.75), (17.25, 2.75), (15.75, 14.25), (8.25, 14.25)])), ("s", "M6.75 14.25H17.25V21.25H6.75Z"), ("cut", "M6.75 14.25H17.25"),
+                 ("d", circ(12, 17.75, 1.25)), ("o", "M16.9 5.25H19.75V11.25H16.1")], "blender, smoothie, appliance"),
+    "toaster": ([("s", "M2.75 9.75A3 3 0 0 1 5.75 6.75H18.25A3 3 0 0 1 21.25 9.75V19.25H2.75Z"), ("s", "M7 2.75H11V6.75H7Z"), ("s", "M13 2.75H17V6.75H13Z"),
+                 ("cut", "M5.75 6.75H18.25M17.25 11.25V14.25")], "toaster, breakfast, appliance"),
+    "microwave": ([("s", "M2.75 4.75H21.25V18.25H2.75Z"), ("cut", "M5.75 7.75H14.25V15.25H5.75Z"), ("d", circ(17.75, 9, .9)), ("d", circ(17.75, 12, .9)),
+                   ("o", "M5.25 18.25V20.25M18.75 18.25V20.25")], "microwave, appliance, kitchen"),
+    "chef-hat": ([("s", "M7 13.75C4.75 13.5 2.75 11.75 2.75 9.25C2.75 6.75 4.75 4.75 7.25 4.75C7.9 4.75 8.5 4.9 9 5.1C9.75 3.75 10.75 2.75 12 2.75C13.25 2.75 14.25 3.75 15 5.1C15.5 4.9 16.1 4.75 16.75 4.75C19.25 4.75 21.25 6.75 21.25 9.25C21.25 11.75 19.25 13.5 17 13.75V21.25H7Z"),
+                  ("cut", "M7 17.25H17")], "chef, cooking, recipe"),
+    "soup-bowl": ([("s", "M2.75 11.25H21.25C21.25 16.25 17.25 20.25 12 20.25C6.75 20.25 2.75 16.25 2.75 11.25Z"),
+                   ("o", "M8.5 3.25C7.5 4.75 9.5 5.75 8.5 7.25M12 3.25C11 4.75 13 5.75 12 7.25M15.5 3.25C14.5 4.75 16.5 5.75 15.5 7.25")], "soup, bowl, food"),
+}
+EXP8["🎬 Multimedia"] = {
+    "disc": ([("s", circ(12, 12, 9.25)), ("cut", circ(12, 12, 2.5)), ("cut", arc(12, 12, 6, 200, 250))], "vinyl, disc, album"),
+    "radio": ([("s", "M2.75 8.25H21.25V20.25H2.75Z"), ("o", "M7.25 8.25L17.25 3.25"), ("cut", circ(8.25, 14.25, 3)), ("cut", "M14.25 12.25H18.25M14.25 15.75H18.25")], "radio, audio, broadcast"),
+    "speaker": ([("s", "M5.75 2.75H18.25V21.25H5.75Z"), ("cut", circ(12, 15, 3.5)), ("d", circ(12, 7, 1.25))], "speaker, audio, sound"),
+    "cassette": ([("s", "M2.75 4.75H21.25V19.25H2.75Z"), ("cut", circ(8, 10.25, 1.75)), ("cut", circ(16, 10.25, 1.75)), ("cut", "M6 19.25L7.25 15.25H16.75L18 19.25")], "cassette, tape, retro"),
+    "piano": ([("s", "M2.75 3.75H21.25V20.25H2.75Z"), ("cut", "M8.75 20.25V13.75M15.25 20.25V13.75"), ("d", "M7.5 3.75H10V13.75H7.5Z"), ("d", "M14 3.75H16.5V13.75H14Z")],
+              "piano, keys, music"),
+    "drum": ([("s", "M3.75 8.25C3.75 6.5 7.5 5.25 12 5.25C16.5 5.25 20.25 6.5 20.25 8.25V17.25C20.25 19 16.5 20.25 12 20.25C7.5 20.25 3.75 19 3.75 17.25Z"),
+              ("cut", "M3.75 8.25C3.75 10 7.5 11.25 12 11.25C16.5 11.25 20.25 10 20.25 8.25"), ("k", "M2.25 7.25C3.75 10 7.5 11.25 12 11.25C16.5 11.25 20.25 10 21.75 7.25"),
+              ("o", "M10 7.25L5.25 2.75M14 7.25L18.75 2.75")], "drum, music, beat"),
+    "circle-pause": ([("s", circ(12, 12, 9.25)), ("cut", "M9.75 8.75V15.25M14.25 8.75V15.25")], "pause, media"),
+    "circle-stop": ([("s", circ(12, 12, 9.25)), ("cut", "M9.25 9.25H14.75V14.75H9.25Z")], "stop, media"),
+}
+for page, items in EXP8.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+
+BADGE_PLAN8 = {
+    "📄 File icons": [("clipboard-list", m) for m in ("check", "clock", "x", "plus", "search")],
+    "👤 People": [("user-circle", m) for m in ("plus", "x", "lock", "heart")],
+    "🧭 Navigation & places": [("globe", "heart"), ("globe", "clock"), ("home", "plus"), ("home", "clock"), ("home", "star"),
+                              ("building", "x"), ("building", "lock"), ("building", "plus")],
+    "💳 Paymen & shipping": [("truck", "plus"), ("truck", "lock"), ("truck", "star"), ("credit-card", "down"), ("credit-card", "up"),
+                             ("wallet", "alert"), ("wallet", "star")],
+    "🚗 Transportation": [("warehouse", m) for m in ("clock", "lock", "plus")] + [("container", m) for m in ("clock", "x", "search")]
+                         + [("ship-cargo", "clock"), ("ship-cargo", "check"), ("plane", "x"), ("plane", "alert")],
+    "🛍️ Shopping & commerce": [("store", "alert"), ("shopping-bag", "alert"), ("receipt", "lock"), ("receipt", "alert"), ("coupon", "heart"), ("coupon", "lock"),
+                                ("coupon", "star"), ("gift-card", "check"), ("gift-card", "plus")],
+    "💰 Finance": [("piggy-bank", "check"), ("piggy-bank", "heart"), ("calculator", "check"), ("landmark", "x"), ("landmark", "lock")],
+    "🔑 Accounts & access": [("key", "plus"), ("key", "x"), ("eye", "check"), ("settings", "check"), ("settings", "lock"), ("award", "star"), ("award", "heart")],
+    "🕒 Time & calendar": [("timer", "check"), ("timer", "plus")],
+    "📷 Photography": [("image", "star"), ("images", "heart")],
+    "🎬 Multimedia": [("video", "heart")],
+    "📱 Devices": [("monitor", "heart"), ("monitor", "lock"), ("printer", "clock"), ("printer", "alert"), ("battery", "alert"), ("battery", "check"),
+                  ("wifi", "lock"), ("server", "lock")],
+    "💻 Development": [("database", m) for m in ("check", "lock", "x", "search", "plus")],
+    "🏢 Buildings": [("factory", "check"), ("factory", "clock")],
+}
+for page, pairs in BADGE_PLAN8.items():
+    for base, mod in pairs:
+        nm = f"{base}-{mod}"
+        if nm in _all() or nm in EXP8.get(page, {}):
+            continue
+        EXP8.setdefault(page, {})[nm] = badged(base, mod)
+for page, items in EXP8.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+EXP8_NAMES = [k for v in EXP8.values() for k in v]
+
+# expansion 8 fixes
+CATEGORIES["🍳 Kitchen"]["frying-pan"] = ([("s", circ(10.25, 12, 7.5)), ("o", "M17.75 12H21.25")], "frying pan, cookware, kitchen")
+CATEGORIES["📎 Office & stationery"]["newspaper"] = ([("s", "M6.75 3.75H21.25V17.75A2.5 2.5 0 0 1 18.75 20.25H4.75A2 2 0 0 1 2.75 18.25V9.75H6.75Z"),
+                                                     ("cut", "M6.75 9.75V18M10.25 7.75H17.75M10.25 11.75H17.75M10.25 15.75H14.75")], "news, newsletter, press")
+CATEGORIES["🍳 Kitchen"]["frying-pan"] = ([("s", circ(9.5, 12, 6.75)), ("o", "M16.25 12H21.25")], "frying pan, cookware, kitchen")
