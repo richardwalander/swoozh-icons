@@ -18,7 +18,7 @@
   };
   const svgText = (i, v, size = 24) => `<svg xmlns="${NS}" width="${size}" height="${size}" viewBox="0 0 24 24" fill="currentColor"><path d="${v === 'filled' ? i.f : i.o}"/></svg>`;
   const fillIcons = (root = document) => root.querySelectorAll('[data-icon]').forEach(el => {
-    const i = byName[el.dataset.icon]; if (!i) return; el.replaceChildren(svgEl(i.o, el.dataset.size || 20)); el.style.display = 'inline-flex';
+    const i = byName[el.dataset.icon]; if (!i) return; el.replaceChildren(svgEl(el.dataset.variant === 'filled' ? i.f : i.o, el.dataset.size || 20)); el.style.display = 'inline-flex';
   });
 
   // state ----------------------------------------------------------------------------------------
@@ -34,8 +34,6 @@
   $('s-icons').textContent = icons.length.toLocaleString('en');
   $('s-cats').textContent = D.categories.length;
   $('ver').textContent = 'v' + D.version;
-  ['hanger', 'shopping-bag', 'dress', 'high-heel', 't-shirt', 'wash-30', 'tag', 'truck-fast', 'credit-card', 'heart', 'lipstick', 'sweater', 'package-return', 'ruler']
-    .filter(n => byName[n]).forEach((n, k) => $('marquee').append(svgEl(k % 2 ? byName[n].f : byName[n].o, 28)));
 
   // sidebar ---------------------------------------------------------------------------------------
   const counts = {}; icons.forEach(i => counts[i.category] = (counts[i.category] || 0) + 1);
@@ -49,14 +47,38 @@
   // grid ------------------------------------------------------------------------------------------
   const grid = $('grid');
   const tiles = new Map();
-  const frag = document.createDocumentFragment();
-  for (const i of icons) {
-    const t = document.createElement('button'); t.className = 'tile'; t.title = i.name; t.dataset.name = i.name;
+  const makeTile = i => {
+    const t = document.createElement('button'); t.className = 'tile'; t.title = i.name; t.dataset.name = i.name; t.setAttribute('aria-label', i.name);
     t.append(svgEl(i.o, 24)); const s = document.createElement('span'); s.textContent = i.name; t.append(s);
     const fl = document.createElement('i'); fl.className = 'flag'; t.append(fl);
-    t.onclick = () => open(i.name); tiles.set(i.name, t); frag.append(t);
-  }
+    t.onclick = () => open(i.name); return t;
+  };
+  const frag = document.createDocumentFragment();
+  for (const i of icons) { const t = makeTile(i); tiles.set(i.name, t); frag.append(t); }
   grid.append(frag);
+
+  // overview: one section per category, two rows each -----------------------------------------------
+  const ov = $('overview');
+  const ovGrids = [];
+  const FIRST = ['Fashion & apparel', 'Shopping & commerce', 'Payment & shipping', 'Laundry care', 'Beauty & care', 'Sustainability', 'Baby & kids'];
+  [...FIRST.filter(c => counts[c]), ...D.categories.filter(c => !FIRST.includes(c))].forEach(c => {
+    const sec = document.createElement('section'); sec.className = 'section';
+    sec.innerHTML = '<header><h3></h3><small></small><button type="button">View all</button></header>';
+    sec.querySelector('h3').textContent = c; sec.querySelector('small').textContent = counts[c];
+    const all = sec.querySelector('button'); all.textContent = `View all ${counts[c]}`; all.setAttribute('aria-label', `View all ${c} icons`);
+    all.onclick = () => { st.cat = c; render(); $('icons').scrollIntoView(); };
+    const g = document.createElement('div'); g.className = 'grid';
+    icons.filter(i => i.category === c).slice(0, 40).forEach(i => g.append(makeTile(i)));
+    sec.append(g); ov.append(sec); ovGrids.push(g);
+  });
+  const clampRows = () => {
+    if (ov.hidden) return;
+    for (const g of ovGrids) {
+      const cols = getComputedStyle(g).gridTemplateColumns.split(' ').length || 1;
+      [...g.children].forEach((t, k) => t.hidden = k >= cols * 2);
+    }
+  };
+  addEventListener('resize', () => { cancelAnimationFrame(clampRows.f); clampRows.f = requestAnimationFrame(clampRows); });
 
   function score(i, words) {
     let s = 0;
@@ -71,6 +93,8 @@
     const words = st.q.toLowerCase().trim().split(/\s+/).filter(Boolean);
     let list = icons.filter(i => (!st.cat || i.category === st.cat) && (!st.onlyFlagged || st.flags[i.name]));
     if (words.length) list = list.map(i => [i, score(i, words)]).filter(x => x[1] >= 0).sort((a, b) => b[1] - a[1]).map(x => x[0]);
+    const overview = !words.length && !st.cat && !st.onlyFlagged;
+    ov.hidden = !overview; grid.hidden = overview; if (overview) clampRows();
     const show = new Set(list.map(i => i.name));
     for (const t of tiles.values()) t.hidden = !show.has(t.dataset.name);
     if (words.length) list.forEach(i => grid.append(tiles.get(i.name))); else if (render.sorted) { icons.forEach(i => grid.append(tiles.get(i.name))); }
@@ -82,16 +106,16 @@
     history.replaceState(null, '', u.toString() ? '?' + u : location.pathname);
   }
   function paint() {
-    for (const i of icons) tiles.get(i.name).firstChild.firstChild.setAttribute('d', st.variant === 'filled' ? i.f : i.o);
-    grid.querySelectorAll('svg').forEach(s => { s.setAttribute('width', st.size); s.setAttribute('height', st.size); });
-    grid.style.setProperty('--cell', Math.max(96, st.size * 2 + 48) + 'px');
+    document.querySelectorAll('.tile').forEach(t => { const i = byName[t.dataset.name], s = t.firstChild;
+      s.firstChild.setAttribute('d', st.variant === 'filled' ? i.f : i.o); s.setAttribute('width', st.size); s.setAttribute('height', st.size); });
+    document.body.style.setProperty('--cell', Math.max(80, st.size * 2 + 40) + 'px'); clampRows();
     document.body.style.setProperty('--icon', st.color || '');
     $('v-outline').classList.toggle('on', st.variant === 'outline'); $('v-filled').classList.toggle('on', st.variant === 'filled');
     $('size').value = st.size; $('size-v').textContent = st.size;
     $('color').value = st.color || (getComputedStyle(document.body).color.match(/\d+/g) || [23, 22, 26]).slice(0, 3).reduce((s, n) => s + (+n).toString(16).padStart(2, '0'), '#');
   }
   function paintFlags() {
-    for (const [n, t] of tiles) t.classList.toggle('flagged', !!st.flags[n]);
+    document.querySelectorAll('.tile').forEach(t => t.classList.toggle('flagged', !!st.flags[t.dataset.name]));
     const n = Object.keys(st.flags).length;
     $('review').classList.toggle('on', st.review);
     $('reviewbar').classList.toggle('show', st.review);

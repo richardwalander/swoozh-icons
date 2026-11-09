@@ -16,7 +16,7 @@
 </head>
 <body>
 <header class="top">
-  <a class="brand" href="./"><span class="logo" aria-hidden="true">S</span>SwoozhIcons</a>
+  <a class="brand" href="./"><span class="logo" aria-hidden="true">S</span><span class="logotype">SwoozhIcons</span></a>
   <nav>
     <a class="on" href="./">Icons</a>
     <a href="docs.html">Docs</a>
@@ -24,24 +24,49 @@
   </nav>
 </header>
 
-<div class="hero-band"><section class="hero">
-  <span class="logo lg" aria-hidden="true">S</span>
-  <h1 class="logotype">SwoozhIcons</h1>
-  <p class="tagline">Icon pack for fashion retail apps</p>
-  <p>Hand-drawn on a 24 px grid with a 1.5 px line. Every icon comes in outline and filled, from hangers and care labels to checkout and shipping.</p>
-  <div class="stats">
-    <div><b id="s-icons">–</b><span>icons</span></div>
-    <div><b>2</b><span>styles</span></div>
-    <div><b id="s-cats">–</b><span>categories</span></div>
-    <div><b>7</b><span>formats</span></div>
+<div class="hero-band">
+<section class="hero">
+  <div class="hero-copy">
+    <span class="logo xl" aria-hidden="true">S</span>
+    <h1 class="logotype">SwoozhIcons</h1>
+    <p class="tagline">Icon pack for fashion retail apps</p>
+    <p class="lead">Outline &amp; Filled | 24 px grid | SVG, React, Vue, Svelte, Elm, web component and icon font</p>
+    <div class="cta">
+      <a class="btn primary lg" href="#icons">Browse icons</a>
+      <a class="btn lg" href="docs.html">Documentation</a>
+    </div>
+    <div class="install"><code>npm install @swoozh/icons-react</code><button class="btn" data-copy="npm install @swoozh/icons-react">Copy</button></div>
+    <dl class="stats">
+      <div><dd id="s-icons">–</dd><dt>Icons</dt></div>
+      <div><dd id="s-cats">–</dd><dt>Categories</dt></div>
+    </dl>
   </div>
-  <div class="install"><code>npm install @swoozh/icons-react</code><button class="btn" data-copy="npm install @swoozh/icons-react">Copy</button></div>
-  <div class="marquee" id="marquee"></div>
-</section></div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="phone front">
+      <div class="ph-bar"><span data-icon="arrow-left"></span><span data-icon="share"></span></div>
+      <div class="ph-img"><span data-icon="t-shirt" data-variant="filled" data-size="112"></span><span class="ph-fav"><span data-icon="heart" data-size="18"></span></span></div>
+      <div class="ph-body">
+        <b>Sweater</b>
+        <small>Casual t-shirt · T-Shirts &amp; Sweaters</small>
+        <span class="ph-price">$39</span>
+        <div class="ph-care"><span data-icon="wash-30"></span><span data-icon="iron"></span><span data-icon="tumble-dry"></span><span data-icon="hanger"></span><span data-icon="ruler"></span></div>
+        <div class="ph-btn"><span data-icon="basket" data-size="18"></span>Add to cart</div>
+      </div>
+      <div class="ph-tabs"><span class="on" data-icon="store"></span><span data-icon="search"></span><span class="ph-badge" data-icon="basket"></span><span data-icon="heart"></span><span data-icon="menu"></span></div>
+    </div>
+    <div class="phone back">
+      <div class="ph-bar"><span data-icon="arrow-left"></span><span data-icon="search"></span></div>
+      <b class="ph-title">Categories</b>
+      <ul class="ph-list"><li><span data-icon="dress" data-size="22"></span>Dresses<span data-icon="chevron-right" data-size="16"></span></li><li><span data-icon="t-shirt" data-size="22"></span>T-shirts<span data-icon="chevron-right" data-size="16"></span></li><li><span data-icon="sweater" data-size="22"></span>Sweaters<span data-icon="chevron-right" data-size="16"></span></li><li><span data-icon="high-heel" data-size="22"></span>Shoes<span data-icon="chevron-right" data-size="16"></span></li><li><span data-icon="handbag" data-size="22"></span>Bags<span data-icon="chevron-right" data-size="16"></span></li><li><span data-icon="lipstick" data-size="22"></span>Beauty<span data-icon="chevron-right" data-size="16"></span></li><li><span data-icon="hanger" data-size="22"></span>Wardrobe<span data-icon="chevron-right" data-size="16"></span></li><li><span data-icon="ruler" data-size="22"></span>Size guide<span data-icon="chevron-right" data-size="16"></span></li></ul>
+    </div>
+  </div>
+</section>
+</div>
 
-<main class="wrap">
+<main class="wrap" id="icons">
   <aside class="side" id="side"></aside>
   <section>
+    <div class="browse-head"><h2>Browse icons</h2><span class="count" id="count"></span></div>
     <div class="toolbar">
       <label class="search">
         <span data-icon="search" data-size="18"></span>
@@ -56,7 +81,7 @@
       <label class="ctl">Color <input id="color" type="color" value="#27293a"></label>
       <button class="ctl toggle" id="review" title="Flag icons that need work">Review</button>
     </div>
-    <div class="count" id="count"></div>
+    <div id="overview"></div>
     <div class="grid" id="grid"></div>
     <div class="empty" id="empty" hidden>No icons match. Try a broader word.</div>
   </section>
@@ -92,7 +117,11 @@
 <div class="reviewbar" id="reviewbar"><span id="rb-count">0 flagged</span><button class="btn" id="rb-show">Show flagged</button><button class="btn" id="rb-copy">Copy list</button><button class="btn" id="rb-clear">Clear</button></div>
 <div class="toast" id="toast"></div>
 
-<footer class="foot">Swoozh Icons <span id="ver"></span> · <a href="docs.html">Docs</a></footer>
+<footer class="foot">
+  <a class="brand" href="./"><span class="logo" aria-hidden="true">S</span><span class="logotype">SwoozhIcons</span></a>
+  <nav><a href="./#icons">Icons</a><a href="docs.html">Docs</a><a href="https://github.com/richardwalander/swoozh-icons">GitHub</a></nav>
+  <span class="ver" id="ver"></span>
+</footer>
 
 <script src="data/icons.js"></script>
 <script src="app.js"></script>
