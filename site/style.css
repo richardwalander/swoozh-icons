@@ -22,18 +22,19 @@
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   color-scheme: light;
 }
+/* Dark theme: neutral near-black (the kit's Brand_900/700 read as purple at full screen) */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #191a25; --panel: #27293a; --ink: #f5f6f8; --muted: #dedfe1; --line: #525461;
-    --tile: #1e202d; --tile-hover: #27293a; --accent: #f5f6f8; --accent-ink: #27293a; --accent-soft: #525461;
-    --flag: #fa2c28; --code: #1e202d; --hero: #1e202d; --logo-bg: #f5f6f8;
+    --bg: #161719; --panel: #232428; --ink: #f5f6f8; --muted: #dedfe1; --line: #36373c;
+    --tile: #1c1d20; --tile-hover: #26272b; --accent: #f5f6f8; --accent-ink: #27293a; --accent-soft: #36373c;
+    --flag: #fa2c28; --code: #1c1d20; --hero: #1c1d20; --logo-bg: #f5f6f8;
     --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35); color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #191a25; --panel: #27293a; --ink: #f5f6f8; --muted: #dedfe1; --line: #525461;
-  --tile: #1e202d; --tile-hover: #27293a; --accent: #f5f6f8; --accent-ink: #27293a; --accent-soft: #525461;
-  --flag: #fa2c28; --code: #1e202d; --hero: #1e202d; --logo-bg: #f5f6f8;
+  --bg: #161719; --panel: #232428; --ink: #f5f6f8; --muted: #dedfe1; --line: #36373c;
+  --tile: #1c1d20; --tile-hover: #26272b; --accent: #f5f6f8; --accent-ink: #27293a; --accent-soft: #36373c;
+  --flag: #fa2c28; --code: #1c1d20; --hero: #1c1d20; --logo-bg: #f5f6f8;
   --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35); color-scheme: dark;
 }
 * { box-sizing: border-box; }
