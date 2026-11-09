@@ -1912,3 +1912,100 @@ for page, pairs in BADGE_PLAN9.items():
 for page, items in EXP9.items():
     CATEGORIES.setdefault(page, {}).update(items)
 EXP9_NAMES = [k for v in EXP9.values() for k in v]
+
+
+# ---------------------------------------------------------------- expansion 10
+_SH = "M12 15.75L8.37 12.13A2.125 2.125 0 1 1 12 10.63A2.125 2.125 0 1 1 15.63 12.13Z"
+_SQ = "M2.75 2.75H21.25V21.25H2.75Z"
+_C9 = circ(12, 12, 9.25)
+EXP10 = {}
+EXP10["🎉 Seasonal"] = {
+    "christmas-tree": ([("s", poly([(12, 2.75), (17.25, 9.25), (15, 9.25), (19.25, 15.25), (4.75, 15.25), (9, 9.25), (6.75, 9.25)])), ("o", "M12 15.25V21.25")],
+                       "christmas, holiday, seasonal"),
+    "snowman": ([("s", circ(12, 6, 3)), ("s", circ(12, 15.5, 5.75)), ("d", circ(12, 13.75, .9)), ("d", circ(12, 17, .9))], "winter, christmas, seasonal"),
+    "pumpkin": ([("s", "M12 6.75C8.5 5.25 3.25 6.5 3.25 13C3.25 18.5 7 20.75 12 20.75C17 20.75 20.75 18.5 20.75 13C20.75 6.5 15.5 5.25 12 6.75Z"),
+                 ("cut", "M9 7C7.5 10 7.5 16.5 9 20.5M15 7C16.5 10 16.5 16.5 15 20.5"), ("o", "M12 6.75C12 5 12.75 3.75 14.25 3.25")], "halloween, autumn, seasonal"),
+    "easter-egg": (find("egg")[0] + [("cut", "M5.6 12.25L8.25 10.25L10.75 12.25L13.25 10.25L15.75 12.25L18.4 10.25")], "easter, spring, seasonal"),
+    "balloon": ([("s", "M12 2.75C15.75 2.75 18.25 5.75 18.25 9.25C18.25 13.5 15 16.25 12 16.25C9 16.25 5.75 13.5 5.75 9.25C5.75 5.75 8.25 2.75 12 2.75Z"),
+                 ("s", poly([(12, 16.25), (13.25, 17.75), (10.75, 17.75)])), ("o", "M12 17.75C12 19 13 19.5 13 20.25C13 20.75 12.5 21.25 12 21.25"),
+                 ("cut", "M9 7.75C9.5 6.5 10.25 5.75 11.25 5.5")], "birthday, party, celebration"),
+    "candle": ([("s", "M8.75 9.25H15.25V21.25H8.75Z"), ("s", "M12 2.75C13.5 4.25 14 5.25 14 6C14 7.1 13.1 7.75 12 7.75C10.9 7.75 10 7.1 10 6C10 5.25 10.5 4.25 12 2.75Z")],
+               "candle, cosy, home fragrance"),
+}
+EXP10["📊 Charts"] = {
+    "chart-bar-decreasing": ([AXES, ("o", "M7.75 17.25V6.25M12 17.25V10.25M16.25 17.25V14.25")], "chart, decline, sales"),
+    "chart-scatter": ([AXES] + [("f", circ(x, y, 1.25)) for x, y in ((7.75, 15.25), (11.25, 11.75), (15.25, 13.25), (17.75, 7.25), (10, 7.25))], "chart, scatter, data"),
+    "chart-spline": ([AXES, ("o", "M6.25 16.75C9 16.75 9.5 8.25 12.5 8.25C15.5 8.25 16 13.25 20.25 6.25")], "chart, trend, analytics"),
+    "chart-gantt": ([AXES, ("o", "M6.75 7.25H12.75M9.75 12H17.25M13.25 16.75H20.25")], "gantt, timeline, planning"),
+}
+EXP10["🌦️ Weather"] = {
+    "sun-dim": ([("s", circ(12, 12, 4.25))] + [("f", circ(12 + 8 * math.cos(math.radians(a)), 12 + 8 * math.sin(math.radians(a)), 1.1)) for a in range(0, 360, 45)], "sun, dim, brightness"),
+}
+EXP10["💰 Finance"] = {
+    "banknotes": ([("o", "M5.75 9.75V6.75H21.25V16.25H18.25"), ("s", "M2.75 9.75H18.25V19.25H2.75Z"), ("cut", circ(10.5, 14.5, 2))], "cash, money, payout"),
+    "money-bag": ([("s", "M9.25 6.75H14.75C18.5 9.5 20.25 13.25 20.25 16.25C20.25 19.25 18 21.25 15 21.25H9C6 21.25 3.75 19.25 3.75 16.25C3.75 13.25 5.5 9.5 9.25 6.75Z"),
+                   ("s", "M8.25 2.75H15.75L14.75 6.75H9.25Z"),
+                   ("cut", "M9.25 6.75H14.75M14 12.25H11.25A1.5 1.5 0 0 0 11.25 15.25H12.75A1.5 1.5 0 0 1 12.75 18.25H10M12 10.75V12.25M12 18.25V19.75")], "money, savings, earnings"),
+    "atm": ([("s", "M2.75 3.75H21.25V9.75H2.75Z"), ("s", "M6.75 9.75H17.25V20.25H6.75Z"), ("cut", "M6.75 9.75H17.25"), ("cut", circ(12, 15, 2))], "atm, cash, withdraw"),
+}
+EXP10["🔬 Science"] = {
+    "beaker": ([("s", "M6.25 3.25H17.75V18.25A3 3 0 0 1 14.75 21.25H9.25A3 3 0 0 1 6.25 18.25Z"), ("o", "M4.25 3.25H6.25"), ("cut", "M6.25 12.25H17.75")], "beaker, lab, formula"),
+    "rocket": ([("s", "M12 2.75C15.25 5 16.25 8.75 16.25 12V16.25H7.75V12C7.75 8.75 8.75 5 12 2.75Z"), ("s", poly([(7.75, 12.75), (4.25, 16.25), (4.25, 19.25), (7.75, 16.25)])),
+                ("s", poly([(16.25, 12.75), (19.75, 16.25), (19.75, 19.25), (16.25, 16.25)])), ("o", "M10.25 18.75V21.25M13.75 18.75V21.25"), ("cut", circ(12, 9.25, 1.75))],
+               "launch, fast, new release"),
+}
+EXP10["🎮 Gaming"] = {
+    "chess-pawn": ([("s", circ(12, 6, 3.25)), ("s", poly([(9.5, 9.75), (14.5, 9.75), (16.25, 17.25), (7.75, 17.25)])), ("s", "M5.75 17.25H18.25V21.25H5.75Z"),
+                    ("cut", "M5.75 17.25H18.25M9.5 9.75H14.5")], "chess, strategy, game"),
+    "playing-card": ([("s", "M5.75 2.75H18.25V21.25H5.75Z"), ("cut", _SH)], "cards, poker, game"),
+}
+EXP10["📱 UI"] = {
+    "heart-circle": ([("s", _C9), ("cut", _SH)], "favourite, wishlist, like"),
+    "heart-square": ([("s", _SQ), ("cut", _SH)], "favourite, wishlist, like"),
+    "star-circle": ([("s", _C9), ("cut", star(12, 12.5, 5, 2.1, 5))], "rating, featured, favourite"),
+    "star-square": ([("s", _SQ), ("cut", star(12, 12.5, 5, 2.1, 5))], "rating, featured, favourite"),
+    "user-square": ([("s", _SQ), ("cut", circ(12, 9.5, 3)), ("cut", "M6.75 21.25C7.5 17.5 9.5 15.75 12 15.75C14.5 15.75 16.5 17.5 17.25 21.25")], "account, profile, user"),
+    "square-play": ([("s", _SQ), ("cut", "M10 8.25L15.75 12L10 15.75Z")], "play, video, media"),
+    "square-pause": ([("s", _SQ), ("cut", "M9.75 8.75V15.25M14.25 8.75V15.25")], "pause, media"),
+    "circle-dashed": ([("o", arc(12, 12, 9.25, a, a + 27)) for a in range(-80, 280, 45)], "draft, pending, empty"),
+}
+for page, items in EXP10.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+
+BADGE_PLAN10 = {
+    "🛍️ Shopping & commerce": [("shopping-cart", "search"), ("shopping-cart", "star"), ("store", "return"), ("gift", "lock"), ("gift", "star"), ("gift", "return"),
+                                ("heart", "lock"), ("tag", "return"), ("tag", "star"), ("tag", "alert"), ("barcode", "check"), ("barcode", "x"), ("barcode", "search")],
+    "🔑 Accounts & access": [("qr-code", "check"), ("qr-code", "x"), ("qr-code", "search")],
+    "💳 Paymen & shipping": [("truck", "return")],
+    "👤 People": [("users", "lock"), ("users", "star")],
+    "🔔 Notifications": [("bell", "lock")],
+    "✉️ Mail": [("mail", "return")],
+    "💬 Communication": [("phone", "lock"), ("phone", "heart")],
+    "🧭 Navigation & places": [("map-pin", "alert"), ("home", "alert"), ("globe", "star"), ("globe", "plus")],
+    "📱 Devices": [("smartphone", "plus"), ("smartphone", "alert"), ("laptop", "plus"), ("laptop", "alert")],
+    "📷 Photography": [("camera", "heart"), ("camera", "lock")],
+    "🎬 Multimedia": [("music", "check"), ("music", "x"), ("headphones", "check"), ("headphones", "plus"), ("piano", "heart"), ("radio", "heart"), ("speaker", "heart"), ("disc", "heart")],
+    "🛡️ Security": [("shield", "star")],
+    "🍳 Kitchen": [("blender", "heart"), ("toaster", "heart"), ("microwave", "heart")],
+    "📎 Office & stationery": [("newspaper", "heart"), ("library", "heart")],
+    "📶 Connectivity": [("wifi", "check"), ("router", "x")],
+    "💻 Development": [("database", "alert")],
+    "🚗 Transportation": [("car", "heart"), ("car", "plus"), ("bus", "check"), ("train", "check")],
+    "✈️ Travel": [("hotel", "plus")],
+    "⚽ Sports": [("medal", "heart"), ("basketball", "heart"), ("football", "heart"), ("tennis-ball", "heart")],
+    "💄 Beauty & care": [("comb", "heart"), ("razor", "heart")],
+    "🐾 Animals": [("bird", "heart"), ("rabbit", "heart")],
+    "🎉 Seasonal": [("christmas-tree", "heart"), ("balloon", "heart"), ("pumpkin", "heart")],
+}
+for page, pairs in BADGE_PLAN10.items():
+    for base, mod in pairs:
+        nm = f"{base}-{mod}"
+        if nm in _all() or nm in EXP10.get(page, {}):
+            continue
+        EXP10.setdefault(page, {})[nm] = badged(base, mod, TAG_ELEMS if base == "tag" else None)
+for page, items in EXP10.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+EXP10_NAMES = [k for v in EXP10.values() for k in v]
+
+# expansion 10 fixes
+CATEGORIES["📱 UI"]["user-square"] = ([("s", _SQ), ("cut", circ(12, 9.5, 3)), ("cut", "M6.75 21.25C7.5 17.5 9.5 15.75 12 15.75C14.5 15.75 16.5 17.5 17.25 21.25Z")], "account, profile, user")
