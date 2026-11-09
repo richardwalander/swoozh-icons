@@ -2207,3 +2207,154 @@ _F11["zipper"] = ([("o", _tz), ("e", poly([(7.5, 7), (16.5, 7), (15, 13.5), (14,
                   _F11["zipper"][1])
 _F11["zipper"] = ([("s", poly([(8.75, 2.75), (15.25, 2.75), (14.25, 7.75), (9.75, 7.75)])), ("s", "M10.75 7.75H13.25V12.25H10.75Z"), ("cut", "M10.75 7.75H13.25"),
                    ("o", "M12 12.25V21.25M9 13.75H12M12 16H15M9 18.25H12M12 20.5H15")], _F11["zipper"][1])
+
+
+# ---------------------------------------------------------------- expansion 12
+_SLV = [("s", "M6.25 4.25C4.25 5 3.25 6.5 3.25 9V19.75H6.25"), ("s", "M17.75 4.25C19.75 5 20.75 6.5 20.75 9V19.75H17.75"),
+        ("cut", "M6.25 6V19.75M17.75 6V19.75M3.25 17.25H6.25M17.75 17.25H20.75")]
+EXP12 = {}
+EXP12["👗 Fashion & apparel"] = {
+    "sweater": ([("s", "M8.25 3.25C8.75 4.75 10.25 5.75 12 5.75C13.75 5.75 15.25 4.75 15.75 3.25L17.75 4.25V20.25H6.25V4.25Z")] + _SLV + [("cut", "M6.25 17.75H17.75")],
+                "sweater, knitwear, jumper"),
+    "cardigan": ([("s", "M8.75 3.25L12 11.25L15.25 3.25L17.75 4.25V20.25H6.25V4.25Z")] + _SLV
+                 + [("cut", "M12 11.25V20.25"), ("d", circ(13.75, 14, .8)), ("d", circ(13.75, 17, .8))], "cardigan, knitwear, layering"),
+    "blouse": ([("s", "M8.25 3.75L3.25 7.25L5 11L7.25 10V13.5L6.25 20.25H17.75L16.75 13.5V10L19 11L20.75 7.25L15.75 3.75C15.25 5.25 13.9 6.25 12 6.25C10.1 6.25 8.75 5.25 8.25 3.75Z"),
+                ("cut", "M7.25 13.5H16.75")], "blouse, top, womenswear"),
+    "jumpsuit": ([("s", "M9 2.75C9.5 4.25 10.5 5 12 5C13.5 5 14.5 4.25 15 2.75L19.25 5L18 8.5L16.75 8V11.25L18 21.25H13.75L12 13L10.25 21.25H6L7.25 11.25V8L6 8.5L4.75 5Z"),
+                  ("cut", "M7.25 11.25H16.75")], "jumpsuit, playsuit, one-piece"),
+    "overalls": ([("s", "M8.25 6.25H15.75V10.75H17.25L18.25 21.25H13.75L12 13.75L10.25 21.25H5.75L6.75 10.75H8.25Z"), ("o", "M8.25 6.25L7.25 2.75M15.75 6.25L16.75 2.75"),
+                  ("cut", "M6.75 10.75H17.25M10.25 8.25H13.75")], "overalls, dungarees, denim"),
+    "bra": ([("s", "M3.25 15.25C3.25 11 5.75 8.75 8.75 8.75C10.5 8.75 11.5 9.75 12 11C12.5 9.75 13.5 8.75 15.25 8.75C18.25 8.75 20.75 11 20.75 15.25Z"),
+             ("s", "M3.25 15.25H20.75V17.75H3.25Z"), ("cut", "M3.25 15.25H20.75M12 11V15.25"), ("o", "M5.25 11.25V4.25M18.75 11.25V4.25")], "bra, lingerie, underwear"),
+    "briefs": ([("s", "M2.75 6.25H21.25V9.75C17.5 10.75 14.75 14 14.25 17.75H9.75C9.25 14 6.5 10.75 2.75 9.75Z"), ("cut", "M2.75 8.5H21.25")], "briefs, underwear, lingerie"),
+    "glove": ([("s", "M6.75 21.25V12.5L4 9.75C3.25 9 3.25 7.75 4 7.25C4.75 6.75 5.75 7 6.5 7.75L7.25 8.5V4.75C7.25 3.65 8.15 2.75 9.25 2.75H15.25C16.35 2.75 17.25 3.65 17.25 4.75V14.75C17.25 16 16.75 17.25 16.25 18V21.25Z"),
+               ("cut", "M10.5 2V9.25M13.75 2V9.25M6.75 18H16.25")], "glove, winter, accessories"),
+    "slipper": ([("s", "M2.75 12.75C2.75 11 4 10.25 5.75 10.25H9.25C10.75 7.75 13.25 6.75 16.25 6.75C19.25 6.75 21.25 9 21.25 12.25V14.75H2.75Z"),
+                 ("s", "M2.75 14.75H21.25V17.25H2.75Z"), ("cut", "M2.75 14.75H21.25M9.25 10.25C10.5 11.25 11 12.5 11 14.75")], "slipper, loungewear, home"),
+    "ballet-flat": ([("s", "M2.75 11.75C2.75 10.25 3.75 9.25 5.25 9.25C7.25 9.25 8.5 12.25 12 12.25C14.75 12.25 16 10.25 18 10.25C20 10.25 21.25 12 21.25 14.25V17.25H2.75Z"),
+                     ("cut", "M2.75 15H21.25")], "ballet flat, shoes, footwear"),
+    "brooch": ([("s", scallop(12, 12, 6, 6, 3)), ("cut", circ(12, 12, 3.25)), ("f", circ(12, 12, 1.5))], "brooch, pin, jewellery"),
+    "tiara": ([("s", "M3.25 18.75L4.75 11.25L8.25 14.75L12 8.75L15.75 14.75L19.25 11.25L20.75 18.75C16 17.25 8 17.25 3.25 18.75Z"), ("f", circ(12, 5.25, 1.5))],
+              "tiara, crown, bridal"),
+    "button-shirt": ([("s", "M8.25 3.25L12 6.25L15.75 3.25L19.25 5.25L21.25 15.25L18.25 15.75L17.25 11V21.25H6.75V11L5.75 15.75L2.75 15.25L4.75 5.25Z"),
+                      ("cut", "M8.25 3.25L10 7.75L12 6.25L14 7.75L15.75 3.25M12 6.25V21.25")], "shirt, formal, menswear"),
+    "keychain": ([("o", circ(8.25, 8.25, 5)), ("s", poly([(11.25, 12.75), (12.75, 11.25), (20.75, 15.25), (15.25, 20.75)])), ("cut", circ(13.75, 13.75, 1))],
+                 "keychain, key ring, accessories"),
+}
+EXP12["🏠 Home"] = {
+    "laundry-basket": ([("s", "M3.25 9.25H20.75L18.75 21.25H5.25Z"), ("s", "M6.25 9.25C6.75 6.25 9 4.75 11.25 5.75C12.75 3.75 16 4.25 17.25 6.5C18.25 7 18.5 8.25 18.25 9.25"),
+                        ("cut", "M3.25 9.25H20.75M8 12.25V18.25M12 12.25V18.25M16 12.25V18.25")], "laundry basket, washing, clothes"),
+    "ironing-board": ([("s", "M2.75 6.25H17.25C19.5 6.25 21.25 7 21.25 7.75C21.25 8.5 19.5 9.25 17.25 9.25H2.75Z"), ("o", "M6.25 9.25L16.25 21.25M16.25 9.25L6.25 21.25")],
+                      "ironing board, garment care, laundry"),
+    "clothes-pin": ([("s", rot_path(poly([(9.25, 2.75), (14.75, 2.75), (14, 21.25), (10, 21.25)]), 30)), ("cut", rot_path("M12 2L12 13", 30)),
+                     ("cut", rot_path(circ(12, 14.5, 1.5), 30))], "clothes peg, laundry, drying"),
+    "lint-roller": ([("s", "M4.75 4.25H19.25V10.25H4.75Z"), ("o", "M12 10.25V14.25"), ("s", "M10.5 14.25H13.5V21.25H10.5Z")], "lint roller, garment care, fabric"),
+}
+EXP12["⚽ Sports"] = {
+    "whistle": ([("s", "M8.5 7.25H20.75V11.25H13.6A5.25 5.25 0 1 1 8.5 7.25Z"), ("d", circ(8.5, 12.5, 1.75))], "whistle, coach, referee"),
+    "swim-goggles": ([("s", "M3.25 12C3.25 9.75 4.75 8.75 7 8.75C9.25 8.75 10.75 9.75 10.75 12C10.75 14.25 9.25 15.25 7 15.25C4.75 15.25 3.25 14.25 3.25 12Z"),
+                      ("s", "M13.25 12C13.25 9.75 14.75 8.75 17 8.75C19.25 8.75 20.75 9.75 20.75 12C20.75 14.25 19.25 15.25 17 15.25C14.75 15.25 13.25 14.25 13.25 12Z"),
+                      ("o", "M10.75 12C11.25 11.25 12.75 11.25 13.25 12"), ("cut", "M5.25 11.5L6.5 10.5M15.25 11.5L16.5 10.5")], "swimming, goggles, swimwear"),
+    "yoga-mat": ([("s", circ(7, 12.25, 4.5)), ("s", "M7 16.75H21.25V13.75H11.25"), ("cut", circ(7, 12.25, 1.75))], "yoga, mat, wellness"),
+}
+EXP12["🕒 Time & calendar"] = {
+    "stopwatch": ([("s", circ(12, 13.25, 8)), ("o", "M10 2.75H14M12 2.75V5.25M18.25 6.25L19.75 4.75"), ("cut", "M12 13.25V9.25")], "stopwatch, timer, fast"),
+}
+EXP12["🔧 Tools"] = {
+    "shovel": ([("o", rot_path("M9.5 2.75L14.5 2.75M12 2.75L12 12.75", -45)), ("s", rot_path("M8.25 12.75L15.75 12.75L15.75 18.25L12 21.25L8.25 18.25Z", -45))],
+               "shovel, garden, digging"),
+}
+EXP12["🌿 Nature"] = {
+    "sunflower": ([("s", scallop(12, 9.25, 4.5, 10, 1.6)), ("d", circ(12, 9.25, 2.25)), ("o", "M12 15.5V21.25"),
+                   ("s", "M12 19C12 17 13.75 15.75 16.25 15.75C16.25 17.75 14.5 19 12 19Z")], "sunflower, summer, flower"),
+    "watering-can": ([("s", "M5.25 9.25H14.75V19.25H5.25Z"), ("o", "M14.75 13.25L19.75 8.25M18.25 6.75L21.25 9.75M5.25 11.25C3.5 11.25 2.75 12.5 2.75 14C2.75 15.5 3.5 16.5 5.25 16.5M7.25 9.25V6.75H12.75V9.25")],
+                     "watering can, garden, plants"),
+}
+EXP12["🌦️ Weather"] = {
+    "cloud-moon": ([("s", "M12.39 8.59A4.81 4.81 0 1 1 6.61 2.81A4.4 4.4 0 0 0 12.39 8.59Z"),
+                    ("s", "M8.25 20.25A3 3 0 0 1 8 14.25A5 5 0 0 1 17.75 12.9A3.7 3.7 0 0 1 17.5 20.25Z")], "night, cloudy, weather"),
+    "moon-star": ([("s", "M20.25 14.25A8.75 8.75 0 1 1 9.75 3.75A8 8 0 0 0 20.25 14.25Z"), ("f", star(16.5, 7.25, 2.5, 1, 4))], "night, sleep, dark mode"),
+}
+EXP12["✈️ Travel"] = {
+    "anchor": ([("s", circ(12, 5.25, 2.25)), ("o", "M12 7.5V21.25M8.25 10.25H15.75M4.25 13.25C4.25 17.5 7.75 21.25 12 21.25C16.25 21.25 19.75 17.5 19.75 13.25M2.75 14.75L4.25 13.25L5.75 14.75M18.25 14.75L19.75 13.25L21.25 14.75")],
+               "anchor, nautical, marine"),
+}
+EXP12["🎉 Seasonal"] = {
+    "kite": ([("s", poly([(12, 2.75), (18.25, 9.25), (12, 17.25), (5.75, 9.25)])), ("cut", "M12 2.75V17.25M5.75 9.25H18.25"), ("o", "M12 17.25C11 18.75 13 19.75 12 21.25")],
+             "kite, summer, outdoors"),
+}
+EXP12["🌱 Sustainability"] = {
+    "hand-sprout": ([("o", _HAND), ("o", "M12.5 12V7.5"), ("s", "M12.5 8.25C12.5 5.75 10.75 4.25 8.25 4.25C8.25 6.75 10 8.25 12.5 8.25Z"),
+                     ("s", "M12.5 9.5C12.5 7 14.25 5.5 16.75 5.5C16.75 8 15 9.5 12.5 9.5Z")], "sustainability, growth, care"),
+    "water-bottle": ([("s", "M9.75 2.75H14.25V5.25H9.75Z"), ("s", "M8.25 7.25C8.25 6.15 9.15 5.25 10.25 5.25H13.75C14.85 5.25 15.75 6.15 15.75 7.25V19.25C15.75 20.35 14.85 21.25 13.75 21.25H10.25C9.15 21.25 8.25 20.35 8.25 19.25Z"),
+                      ("cut", "M9.75 5.25H14.25M8.25 10.25H15.75M8.25 16.25H15.75")], "reusable bottle, refill, eco"),
+}
+EXP12["🔷 Shapes"] = {
+    "pyramid": ([("s", poly([(12, 2.75), (21.25, 17.25), (12, 21.25), (2.75, 17.25)])), ("cut", "M12 2.75V21.25")], "pyramid, 3d, shape"),
+    "cone": ([("s", "M12 2.75L19.25 17.25A7.25 3 0 0 1 4.75 17.25Z"), ("cut", "M4.75 17.25A7.25 3 0 0 1 19.25 17.25")], "cone, 3d, shape"),
+}
+EXP12["🛍️ Shopping & commerce"] = {
+    "shoebox": ([("s", "M3.25 10.25H20.75V20.25H3.25Z"), ("s", "M2.75 6.75H21.25V10.25H2.75Z"), ("cut", "M2.75 10.25H21.25M9.25 14.25H14.75")], "shoebox, footwear, packaging"),
+    "sale-sign": ([("o", "M12 2.75L5.75 9.25M12 2.75L18.25 9.25"), ("s", "M2.75 9.25H21.25V19.25H2.75Z"), ("cut", "M9.25 16.5L14.75 12"),
+                   ("d", circ(9.25, 12.25, 1.1)), ("d", circ(14.75, 16.25, 1.1))], "sale, discount, offer"),
+}
+for page, items in EXP12.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+
+BADGE_PLAN12 = {
+    "👗 Fashion & apparel": [(b, "heart") for b in ("sweater", "cardigan", "blouse", "jumpsuit", "overalls", "bra", "glove", "slipper", "ballet-flat", "tiara",
+                                                    "button-shirt", "tank-top", "flip-flop", "keychain", "brooch")]
+                            + [(b, "plus") for b in ("sweater", "button-shirt", "blouse", "polo-shirt", "leggings", "beanie", "sandal", "loafer", "bucket-hat",
+                                                     "crossbody-bag", "clutch-bag")]
+                            + [("sweater", "return"), ("button-shirt", "return"), ("sweater", "leaf"), ("coat", "leaf"), ("jacket", "star"), ("coat", "star"), ("hoodie", "star")],
+    "🛍️ Shopping & commerce": [("shoebox", "check"), ("shoebox", "return"), ("sale-sign", "clock")],
+    "🏠 Home": [("laundry-basket", "heart"), ("laundry-basket", "check")],
+    "⚽ Sports": [("yoga-mat", "heart"), ("swim-goggles", "heart")],
+    "🕒 Time & calendar": [("stopwatch", "check")],
+    "🌿 Nature": [("sunflower", "heart"), ("watering-can", "heart")],
+    "🌱 Sustainability": [("water-bottle", "leaf"), ("hand-sprout", "heart")],
+    "🎉 Seasonal": [("kite", "heart")],
+    "✈️ Travel": [("anchor", "heart")],
+}
+for page, pairs in BADGE_PLAN12.items():
+    for base, mod in pairs:
+        nm = f"{base}-{mod}"
+        if nm in _all() or nm in EXP12.get(page, {}):
+            continue
+        EXP12.setdefault(page, {})[nm] = badged(base, mod, TAG_ELEMS if base == "tag" else None)
+for page, items in EXP12.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+EXP12_NAMES = [k for v in EXP12.values() for k in v]
+
+# expansion 12 fixes
+_F12 = CATEGORIES["👗 Fashion & apparel"]
+_SLV2 = [("s", "M6.25 4.25C4.25 5 3.25 6.5 3.25 9V19.75H6.25"), ("s", "M17.75 4.25C19.75 5 20.75 6.5 20.75 9V19.75H17.75"), ("cut", "M3.25 17.25H20.75")]
+_F12["sweater"] = ([_F12["sweater"][0][0]] + _SLV2, _F12["sweater"][1])
+_F12["cardigan"] = ([_F12["cardigan"][0][0]] + _SLV2 + [("cut", "M12 11.25V20.25"), ("d", circ(13.75, 12.75, .8)), ("d", circ(13.75, 15, .8))], _F12["cardigan"][1])
+_F12["ballet-flat"] = ([("s", "M2.75 10.25C2.75 9.5 3.25 9.25 4 9.25C5 9.25 5.5 10.75 6.5 11.75C8 13.25 10.5 13.75 13.25 13.25L16.75 12.25C19.25 11.75 21.25 13 21.25 15.25V17.25H2.75Z"),
+                        ("cut", "M2.75 15.25H21.25")], _F12["ballet-flat"][1])
+_F12["brooch"] = ([("s", ellipse(12, 12, 9, 7, 90)), ("cut", ellipse(12, 12, 5.75, 3.75, 90)), ("f", ellipse(12, 12, 3.25, 1.75, 90))], _F12["brooch"][1])
+_F12["keychain"] = ([("o", circ(8, 8, 4.5)), ("s", rot_path("M9.5 13.5A2.5 2.5 0 0 1 14.5 13.5L14.5 19L9.5 19Z", -45)), ("cut", rot_path(circ(12, 13.75, 1), -45))],
+                    _F12["keychain"][1])
+CATEGORIES["🏠 Home"]["clothes-pin"] = ([("s", poly([(9.25, 2.75), (14.75, 2.75), (14, 21.25), (10, 21.25)])), ("cut", "M12 2V12.25"), ("cut", circ(12, 14.5, 1.5))],
+                                        CATEGORIES["🏠 Home"]["clothes-pin"][1])
+CATEGORIES["🌿 Nature"]["sunflower"] = ([("s", circ(12, 9.25, 3))]
+                                        + [("o", f"M{n(12 + 4.75 * math.cos(math.radians(a)))} {n(9.25 + 4.75 * math.sin(math.radians(a)))}L{n(12 + 6.5 * math.cos(math.radians(a)))} {n(9.25 + 6.5 * math.sin(math.radians(a)))}") for a in range(-90, 270, 45)]
+                                        + [("o", "M12 15.75V21.25"), ("s", "M12 19.5C12 17.5 13.75 16.25 16.25 16.25C16.25 18.25 14.5 19.5 12 19.5Z")], CATEGORIES["🌿 Nature"]["sunflower"][1])
+CATEGORIES["🌦️ Weather"]["cloud-moon"] = ([("s", "M10 7.49A3.68 3.68 0 1 1 5.6 3.08A3.36 3.36 0 0 0 10 7.49Z"),
+                                           ("s", "M8.25 20.25A3 3 0 0 1 8 14.25A5 5 0 0 1 17.75 12.9A3.7 3.7 0 0 1 17.5 20.25Z")], CATEGORIES["🌦️ Weather"]["cloud-moon"][1])
+CATEGORIES["🌱 Sustainability"]["water-bottle"] = ([CATEGORIES["🌱 Sustainability"]["water-bottle"][0][0], CATEGORIES["🌱 Sustainability"]["water-bottle"][0][1],
+                                                    ("cut", "M9.75 5.25H14.25M8.25 12.25C10 11.25 14 13.25 15.75 12.25")], CATEGORIES["🌱 Sustainability"]["water-bottle"][1])
+for _pg, _pairs in BADGE_PLAN12.items():
+    for _b, _m in _pairs:
+        _nm = f"{_b}-{_m}"
+        if _nm in EXP12.get(_pg, {}) and _b in ("sweater", "cardigan", "ballet-flat", "brooch", "keychain", "sunflower", "water-bottle"):
+            CATEGORIES[_pg][_nm] = badged(_b, _m)
+_F12["brooch"] = ([("s", circ(12, 12, 8.25)), ("d", circ(12, 12, 2.75))]
+                  + [("d", circ(12 + 5.5 * math.cos(math.radians(a)), 12 + 5.5 * math.sin(math.radians(a)), .9)) for a in range(0, 360, 45)], _F12["brooch"][1])
+_F12["keychain"] = ([("o", circ(12, 6.25, 3.5)), ("s", "M8.5 13.25A3.5 3.5 0 0 1 15.5 13.25V21.25H8.5Z"), ("cut", circ(12, 13, 1.25))], _F12["keychain"][1])
+for _b in ("brooch", "keychain"):
+    _F12[f"{_b}-heart"] = badged(_b, "heart")
+_F12["keychain"] = ([("o", circ(9.25, 9.25, 4.5)), ("s", poly([(9.63, 13.16), (13.16, 9.63), (19.17, 15.64), (15.64, 19.17)])), ("cut", circ(12.81, 12.81, 1.1))],
+                    _F12["keychain"][1])
+_F12["keychain-heart"] = badged("keychain", "heart")
