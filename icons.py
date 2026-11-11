@@ -2600,3 +2600,28 @@ for _page, _items in EXP15.items():
 for page, items in EXP15.items():
     CATEGORIES.setdefault(page, {}).update(items)
 EXP15_NAMES = [k for v in EXP15.values() for k in v]
+
+
+# ---------------------------------------------------------------- expansion 16: campaign symbols
+EXP16 = {}
+EXP16["📣 Marketing"] = {
+    "lightning-bolt": ([("s", "M13.25 2.75L5.25 13.25H11.25L10.25 21.25L18.75 10.25H12.25Z")], "flash, deal, power"),
+    "flash-sale": ([("s", "M4.75 7.75H19.25V21.25H4.75Z"), ("o", "M8.75 7.75V6.25A3.25 3.25 0 0 1 15.25 6.25V7.75"), ("d", "M13 11.25L9.75 15.25H12.25L11.25 19L14.5 14.75H12Z")],
+                   "flash sale, limited time, deal"),
+    "new-badge": ([("s", star(12, 12, 9.5, 6.5, 8)), ("cut", "M9 15.75V8.25L15 15.75V8.25")], "new arrival, new badge, just in"),
+    "top-seller": ([("s", "M8.75 8.25H15.25V21.25H8.75Z"), ("s", "M2.75 13.25H8.75V21.25H2.75Z"), ("s", "M15.25 15.25H21.25V21.25H15.25Z"), ("s", star(12, 4.5, 2.75, 1.2, 5))],
+                    "best seller, top rated, podium"),
+    "preorder": ([("s", "M3.25 5.75H20.75V20.25H3.25Z"), ("cut", "M3.25 10H20.75"), ("o", "M8 3.25V7M16 3.25V7"), ("cut", "M9.25 13.25H14.75V18H9.25Z")], "preorder, coming soon, release date"),
+    "subscription-box": ([("s", "M4.25 11.25H19.75V21.25H4.25Z"), ("s", "M3.25 7.75H20.75V11.25H3.25Z"), ("o", "M8.25 5.25A4.25 3 0 0 1 15.75 5.25M13.75 3.25L15.75 5.25L17.75 3.5")],
+                         "subscription box, recurring order, monthly"),
+    "referral": ([("s", circ(8.5, 8, 3)), ("s", "M2.75 20.25V17C2.75 15.25 4.25 14.25 6 14.25H11C12.75 14.25 14.25 15.25 14.25 17V20.25Z"), ("o", "M15.75 6.25H21.25M18.75 3.75L21.25 6.25L18.75 8.75")],
+                 "referral, invite a friend, affiliate"),
+    "gift-bag": ([("s", "M4.75 8.75H19.25L20.25 21.25H3.75Z"), ("o", "M8.25 8.75V6.25C8.25 4.5 9.5 3.25 12 3.25C14.5 3.25 15.75 4.5 15.75 6.25V8.75"), ("cut", "M12 8.75V21.25")], "gift bag, present, wrapping"),
+    "social-post": ([("s", "M4.25 3.75H19.25V20.25H4.25Z"), ("d", circ(8, 7.5, 1.75)), ("cut", "M12 6.5H16.5M12 9H15M4.25 12.75H19.25")], "social post, instagram, content"),
+}
+for _k in list(EXP16["📣 Marketing"]):
+    if any(_k in c for c in CATEGORIES.values()):
+        EXP16["📣 Marketing"].pop(_k)
+for page, items in EXP16.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+EXP16_NAMES = [k for v in EXP16.values() for k in v]

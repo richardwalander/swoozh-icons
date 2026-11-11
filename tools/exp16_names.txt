@@ -1,0 +1,9 @@
+lightning-bolt
+flash-sale
+new-badge
+top-seller
+preorder
+subscription-box
+referral
+gift-bag
+social-post
