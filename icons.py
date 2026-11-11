@@ -2602,6 +2602,15 @@ for page, items in EXP15.items():
 EXP15_NAMES = [k for v in EXP15.values() for k in v]
 
 
+def _arrow_head(cx, cy, r, a, sgn, L=1.6, W=1.4):
+    """Small triangle at angle a (deg) on a circle, pointing along the direction of travel."""
+    ar = math.radians(a)
+    px, py = cx + r * math.cos(ar), cy + r * math.sin(ar)
+    tx, ty = -math.sin(ar) * sgn, math.cos(ar) * sgn
+    nx, ny = -ty, tx
+    return poly([(px + tx * L, py + ty * L), (px - tx * .4 + nx * W, py - ty * .4 + ny * W), (px - tx * .4 - nx * W, py - ty * .4 - ny * W)])
+
+
 # ---------------------------------------------------------------- expansion 16: campaign symbols
 EXP16 = {}
 EXP16["📣 Marketing"] = {
@@ -2612,7 +2621,8 @@ EXP16["📣 Marketing"] = {
     "top-seller": ([("s", "M8.75 8.25H15.25V21.25H8.75Z"), ("s", "M2.75 13.25H8.75V21.25H2.75Z"), ("s", "M15.25 15.25H21.25V21.25H15.25Z"), ("s", star(12, 4.5, 2.75, 1.2, 5))],
                     "best seller, top rated, podium"),
     "preorder": ([("s", "M3.25 5.75H20.75V20.25H3.25Z"), ("cut", "M3.25 10H20.75"), ("o", "M8 3.25V7M16 3.25V7"), ("cut", "M9.25 13.25H14.75V18H9.25Z")], "preorder, coming soon, release date"),
-    "subscription-box": ([("s", "M4.25 11.25H19.75V21.25H4.25Z"), ("s", "M3.25 7.75H20.75V11.25H3.25Z"), ("o", "M8.25 5.25A4.25 3 0 0 1 15.75 5.25M13.75 3.25L15.75 5.25L17.75 3.5")],
+    "subscription-box": ([("s", "M3.75 3.75H20.25V8.25H3.75Z"), ("s", "M4.75 8.25H19.25V20.25H4.75Z"), ("cut", arc(12, 14.25, 3.25, 205, 335)), ("cut", arc(12, 14.25, 3.25, 25, 155)),
+                          ("d", _arrow_head(12, 14.25, 3.25, 335, 1)), ("d", _arrow_head(12, 14.25, 3.25, 155, 1))],
                          "subscription box, recurring order, monthly"),
     "referral": ([("s", circ(8.5, 8, 3)), ("s", "M2.75 20.25V17C2.75 15.25 4.25 14.25 6 14.25H11C12.75 14.25 14.25 15.25 14.25 17V20.25Z"), ("o", "M15.75 6.25H21.25M18.75 3.75L21.25 6.25L18.75 8.75")],
                  "referral, invite a friend, affiliate"),
