@@ -19,8 +19,10 @@
 <header class="top">
   <a class="brand" href="./"><span class="logo" aria-hidden="true">S</span><span class="logotype">SwoozhIcons</span></a>
   <nav>
-    <a href="./">Icons</a>
+    <a href="./">Home</a>
+    <a href="icons.html">Icons</a>
     <a class="on" href="docs.html">Docs</a>
+    <button class="icon-btn" id="theme" title="Toggle theme" aria-label="Toggle theme"><span data-icon="moon" data-size="18"></span></button>
   </nav>
 </header>
 
@@ -55,7 +57,7 @@
       <tr><td><code>swoozh/icons</code> (Elm)</td><td>Elm SVG functions</td></tr>
     </table>
     <p>Icon names are kebab-case, like <code>shopping-bag</code> or <code>wash-30</code>. In JavaScript they become PascalCase (<code>ShoppingBag</code>, <code>Wash30</code>) and in Elm camelCase (<code>shoppingBag</code>).
-      Search all names on the <a href="./">icon page</a>.</p>
+      Search all names on the <a href="icons.html">icon library</a>.</p>
 
     <h2 id="svg">SVG files</h2>
     <p>Every icon is a single path filled with <code>currentColor</code>, so it takes the text color of its parent.</p>
@@ -185,7 +187,11 @@ npm run build    # icons/ → packages/*/dist, packages/elm/src, site/data</code
 </div>
 <footer class="foot">
   <a class="brand" href="./"><span class="logo" aria-hidden="true">S</span><span class="logotype">SwoozhIcons</span></a>
-  <nav><a href="./#icons">Icons</a><a href="docs.html">Docs</a><a href="https://github.com/richardwalander/swoozh-icons">GitHub</a></nav>
+  <nav><a href="icons.html">Icons</a><a href="docs.html">Docs</a><a href="https://github.com/richardwalander/swoozh-icons/blob/master/LICENSE">License</a><a href="https://github.com/richardwalander/swoozh-icons">GitHub</a></nav>
+  <span class="ver" id="ver"></span>
 </footer>
+<script src="data/icons.js"></script>
+<script src="data/stroke.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

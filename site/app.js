@@ -45,10 +45,8 @@
   const copy = async (text, msg = 'Copied') => { try { await navigator.clipboard.writeText(text); } catch (e) {
     const ta = document.createElement('textarea'); ta.value = text; document.body.append(ta); ta.select(); document.execCommand('copy'); ta.remove(); } toast(msg); };
 
+  function browse() {
   // hero ------------------------------------------------------------------------------------------
-  $('s-icons').textContent = icons.length.toLocaleString('en');
-  $('s-cats').textContent = D.categories.length;
-  $('ver').textContent = 'v' + D.version;
 
   // sidebar ---------------------------------------------------------------------------------------
   const counts = {}; icons.forEach(i => counts[i.category] = (counts[i.category] || 0) + 1);
@@ -190,16 +188,20 @@
   $('sw').oninput = e => { st.sw = +e.target.value; store.set('sw', st.sw); paint(); fillDrawer(); };
   $('size').oninput = e => { st.size = +e.target.value; store.set('size', st.size); paint(); };
   $('color').oninput = e => { st.color = e.target.value; store.set('color', st.color); paint(); };
-  $('theme').onclick = () => { const dark = matchMedia('(prefers-color-scheme: dark)').matches;
-    const cur = document.documentElement.dataset.theme || (dark ? 'dark' : 'light'); const next = cur === 'dark' ? 'light' : 'dark';
-    document.documentElement.dataset.theme = next; try { localStorage.setItem('swz-theme', next); } catch (e) {} st.color = ''; store.set('color', ''); paint(); };
-  document.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => copy(b.dataset.copy));
   document.addEventListener('keydown', e => {
     if (e.key === '/' && document.activeElement !== $('q') && !/TEXTAREA|INPUT/.test(document.activeElement.tagName)) { e.preventDefault(); $('q').focus(); }
     if (e.key === 'Escape') $('drawer').classList.remove('open');
   });
 
 
+    window.SWZ_paint = paint;
+    paint(); paintFlags(); render();
+  }
+  $('theme').onclick = () => { const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+    const cur = document.documentElement.dataset.theme || (dark ? 'dark' : 'light'); const next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next; try { localStorage.setItem('swz-theme', next); } catch (e) {} store.set('color', ''); if (window.SWZ_paint) window.SWZ_paint(); };
+  document.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => copy(b.dataset.copy));
+  function landing() {
   // landing: isometric field + playground ---------------------------------------------------------
   const ISO = 'shopping-bag heart truck package credit-card gift tag percent star search bell user home dress t-shirt sneaker handbag glasses watch hanger scissors camera smartphone laptop headphones sun moon coffee leaf diamond lipstick umbrella map-pin calendar clock mail phone lock shield trophy basket receipt barcode ruler wallet store bookmark sparkles crown flag sweater high-heel hat tie sock jacket pants skirt bra ring-box mirror'.split(' ').filter(n => byName[n]).slice(0, 48);
   { const iso = $('iso'); ISO.forEach((n, k) => { const s = document.createElement('span'); if (k === 0) s.className = 'hot'; s.append(svgEl(byName[n].o, 24)); s.title = n; iso.append(s); }); }
@@ -217,9 +219,14 @@
   // category chips on the landing
   { const n = {}; icons.forEach(i => n[i.category] = (n[i.category] || 0) + 1);
     D.categories.forEach(c => { const b = document.createElement('button'); b.innerHTML = '<span></span><small>' + n[c] + '</small>'; b.firstChild.textContent = c;
-      b.onclick = () => { st.cat = c; st.onlyFlagged = false; render(); $('icons').scrollIntoView({behavior: 'smooth'}); }; $('cat-chips').append(b); }); }
+      b.onclick = () => { location.href = 'icons.html?cat=' + encodeURIComponent(c); }; $('cat-chips').append(b); }); }
+  }
   const draw = (host, name, v = 'outline', w = 1.5) => { const i = byName[name]; if (!i) return; let s = host.querySelector('svg');
     if (!s) { s = svgEl('', 24); s.removeAttribute('width'); s.removeAttribute('height'); host.replaceChildren(s); } drawInto(s, i, v, w); };
   window.SWZ = {byName, fillIcons, draw};
-  fillIcons(); paint(); paintFlags(); render();
+  fillIcons();
+  if ($('ver')) $('ver').textContent = 'v' + D.version;
+  if ($('s-icons')) { $('s-icons').textContent = icons.length.toLocaleString('en'); if ($('s-cats')) $('s-cats').textContent = D.categories.length; }
+  if ($('iso')) landing();
+  if ($('grid')) browse();
 })();
