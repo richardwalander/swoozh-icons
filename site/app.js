@@ -163,8 +163,9 @@
     $('d-flag').classList.toggle('on', !!st.flags[i.name]); $('d-flag').textContent = st.flags[i.name] ? 'Flagged · unflag' : 'Flag for redraw';
     $('d-note').value = (st.flags[i.name] && st.flags[i.name].note) || '';
   }
-  function open(name) { st.sel = name; fillDrawer(); $('drawer').classList.add('open'); }
-  $('d-close').onclick = () => $('drawer').classList.remove('open');
+  function open(name) { st.sel = name; fillDrawer(); $('drawer').classList.add('open'); document.querySelectorAll('.tile').forEach(t => t.classList.toggle('sel', t.dataset.name === name)); }
+  const closeDrawer = () => { $('drawer').classList.remove('open'); document.querySelectorAll('.tile.sel').forEach(t => t.classList.remove('sel')); };
+  $('d-close').onclick = closeDrawer;
   $('d-copy-svg').onclick = () => copy(svgText(byName[st.sel], st.variant), 'SVG copied');
   $('d-copy-name').onclick = () => copy(st.sel, 'Name copied');
   $('d-copy-code').onclick = () => copy($('d-code').textContent, 'Snippet copied');
@@ -190,7 +191,7 @@
   $('color').oninput = e => { st.color = e.target.value; store.set('color', st.color); paint(); };
   document.addEventListener('keydown', e => {
     if (e.key === '/' && document.activeElement !== $('q') && !/TEXTAREA|INPUT/.test(document.activeElement.tagName)) { e.preventDefault(); $('q').focus(); }
-    if (e.key === 'Escape') $('drawer').classList.remove('open');
+    if (e.key === 'Escape') closeDrawer();
   });
 
 
@@ -202,24 +203,91 @@
     document.documentElement.dataset.theme = next; try { localStorage.setItem('swz-theme', next); } catch (e) {} store.set('color', ''); if (window.SWZ_paint) window.SWZ_paint(); };
   document.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => copy(b.dataset.copy));
   function landing() {
-  // landing: isometric field + playground ---------------------------------------------------------
-  const ISO = 'shopping-bag heart truck package credit-card gift tag percent star search bell user home dress t-shirt sneaker handbag glasses watch hanger scissors camera smartphone laptop headphones sun moon coffee leaf diamond lipstick umbrella map-pin calendar clock mail phone lock shield trophy basket receipt barcode ruler wallet store bookmark sparkles crown flag sweater high-heel hat tie sock jacket pants skirt bra ring-box mirror'.split(' ').filter(n => byName[n]).slice(0, 48);
-  { const iso = $('iso'); ISO.forEach((n, k) => { const s = document.createElement('span'); if (k === 0) s.className = 'hot'; s.append(svgEl(byName[n].o, 24)); s.title = n; iso.append(s); }); }
-  const PG = 'shopping-bag heart truck package credit-card gift tag percent star search bell user home dress t-shirt sneaker handbag glasses watch hanger camera smartphone laptop sun moon coffee leaf lipstick umbrella map-pin calendar clock mail lock shield trophy basket receipt barcode ruler wallet store'.split(' ').filter(n => byName[n]).slice(0, 40);
+  const pick = list => list.split(' ').filter(n => byName[n]);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const idx = Object.fromEntries(icons.map((i, k) => [i.name, k + 1]));
+
+  // hero specimen board: one featured icon on its construction grid, surrounded by a hairline grid
+  const FEAT = pick('shopping-bag heart dress sneaker handbag truck gift lipstick credit-card diamond hanger watch high-heel t-shirt sparkles crown');
+  const board = $('iso');
+  const keylines = (() => { let g = ''; for (let k = 0; k <= 24; k++) g += `<line x1="${k}" y1="0" x2="${k}" y2="24"/><line x1="0" y1="${k}" x2="24" y2="${k}"/>`; return g; })();
+  board.innerHTML = `<div class="b-main"><svg class="b-grid" viewBox="-1 -1 26 26" aria-hidden="true"><g class="gl">${keylines}</g>
+    <rect class="kl safe" x="2" y="2" width="20" height="20"/><circle class="kl" cx="12" cy="12" r="10"/><rect class="kl" x="3" y="3" width="18" height="18" rx="1"/>
+    <g class="b-ic"></g></svg>
+    <div class="b-meta"><span class="b-no"></span><b class="b-name"></b></div><span class="b-cat"></span>
+    <div class="b-var" role="group" aria-label="Style"><button data-v="outline" class="on">Outline</button><button data-v="filled">Filled</button></div></div>`;
+  const cells = FEAT.slice(1, 12).map(n => { const b = document.createElement('button'); b.className = 'b-cell'; b.title = n; b.setAttribute('aria-label', n); b.dataset.n = n;
+    b.append(svgEl(byName[n].o, 24)); board.append(b); return b; });
+  let featured = FEAT[0], fvar = 'outline', auto = !reduce, ft;
+  const feature = n => { featured = n; const i = byName[n];
+    const g = board.querySelector('.b-ic'); g.innerHTML = `<path d="${fvar === 'filled' ? i.f : i.o}"/>`;
+    g.animate && !reduce && g.animate([{opacity: 0, transform: 'scale(.96)'}, {opacity: 1, transform: 'none'}], {duration: 420, easing: 'cubic-bezier(.22,1,.36,1)'});
+    board.querySelector('.b-no').textContent = 'No. ' + String(idx[n]).padStart(4, '0');
+    board.querySelector('.b-name').textContent = n; board.querySelector('.b-cat').textContent = i.category;
+    cells.forEach(c => c.classList.toggle('on', c.dataset.n === n)); };
+  cells.forEach(c => { c.onmouseenter = c.onfocus = () => { auto = false; feature(c.dataset.n); }; c.onclick = () => location.href = 'icons.html?q=' + c.dataset.n; });
+  board.querySelectorAll('.b-var button').forEach(b => b.onclick = () => { auto = false; fvar = b.dataset.v;
+    board.querySelectorAll('.b-var button').forEach(x => x.classList.toggle('on', x === b)); feature(featured); });
+  feature(featured);
+  let fk = 0; ft = setInterval(() => { if (!auto || document.hidden) return; fk = (fk + 1) % FEAT.length; feature(FEAT[fk]); }, 2800);
+  board.onmouseleave = () => { if (!reduce) auto = true; };
+
+  // marquee of categories
+  { const mq = $('mq'); const row = D.categories.slice(0, 18).map(c => `<span>${c.replace(/&/g, '&amp;')}</span>`).join('<i>✦</i>');
+    mq.innerHTML = `<div>${row}<i>✦</i></div><div>${row}<i>✦</i></div>`; }
+  if ($('st-icons')) $('st-icons').textContent = icons.length.toLocaleString('en');
+  if ($('st-cats')) $('st-cats').textContent = D.categories.length;
+
+  // craft: size and weight proofs
+  { const ps = $('proof-sizes'), pw = $('proof-weights');
+    [16, 20, 24, 32, 48].forEach(sz => { const d = document.createElement('div'); const v = svgEl(byName['shopping-bag'].o, sz); d.append(v);
+      const s = document.createElement('small'); s.textContent = sz + ' px'; d.append(s); ps.append(d); });
+    [0.75, 1, 1.25, 1.5, 1.75, 2].forEach(w => { const d = document.createElement('div'); const v = svgEl('', 40); drawInto(v, byName['heart'], 'outline', w); d.append(v);
+      const s = document.createElement('small'); s.textContent = w; d.append(s); if (w === 1.5) d.className = 'on'; pw.append(d); });
+    const h = document.createElement('p'); h.className = 'proof-cap'; h.innerHTML = '<span>Optical sizes</span><span>Stroke 0.75 → 2</span>'; $('proof').prepend(h); }
+
+  // playground
+  const PG = pick('shopping-bag heart truck package credit-card gift tag percent star search bell user home dress t-shirt sneaker handbag glasses watch hanger camera smartphone laptop sun moon coffee leaf lipstick umbrella map-pin calendar clock mail lock shield trophy basket receipt barcode ruler wallet store').slice(0, 40);
   const pg = {sw: 1.5, size: 32, color: ''};
+  const SW = [['', 'Ink'], ['#c48a5e', 'Cognac'], ['#4c9912', 'Green'], ['#1796fe', 'Blue'], ['#712aa0', 'Lilac'], ['#fa2c28', 'Red']];
+  SW.forEach(([c, n]) => { const b = document.createElement('button'); b.title = n; b.setAttribute('aria-label', n); b.dataset.c = c; b.style.setProperty('--c', c || 'var(--ink)');
+    b.onclick = () => { pg.color = c; pgPaint(); }; $('pg-swatches').append(b); });
   const pgPaint = () => { const g = $('pg-grid'); g.style.color = pg.color;
     g.querySelectorAll('svg').forEach(s => { drawInto(s, byName[s.dataset.n], 'outline', pg.sw); s.setAttribute('width', pg.size); s.setAttribute('height', pg.size); });
-    $('pg-sw-v').textContent = pg.sw + 'px'; $('pg-size-v').textContent = pg.size + 'px'; $('pg-sw').value = pg.sw; $('pg-size').value = pg.size; };
+    $('pg-sw-v').textContent = pg.sw + 'px'; $('pg-size-v').textContent = pg.size + 'px'; $('pg-sw').value = pg.sw; $('pg-size').value = pg.size;
+    $('pg-swatches').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.c === pg.color)); };
   PG.forEach(n => { const s = document.createElement('span'); const v = svgEl('', 24); v.dataset.n = n; s.append(v); s.title = n; $('pg-grid').append(s); });
   $('pg-color').oninput = e => { pg.color = e.target.value; pgPaint(); };
   $('pg-sw').oninput = e => { pg.sw = +e.target.value; pgPaint(); };
   $('pg-size').oninput = e => { pg.size = +e.target.value; pgPaint(); };
   $('pg-reset').onclick = () => { Object.assign(pg, {sw: 1.5, size: 32, color: ''}); pgPaint(); };
   pgPaint();
-  // category chips on the landing
-  { const n = {}; icons.forEach(i => n[i.category] = (n[i.category] || 0) + 1);
-    D.categories.forEach(c => { const b = document.createElement('button'); b.innerHTML = '<span></span><small>' + n[c] + '</small>'; b.firstChild.textContent = c;
-      b.onclick = () => { location.href = 'icons.html?cat=' + encodeURIComponent(c); }; $('cat-chips').append(b); }); }
+
+  // formats: tabbed snippets
+  const FMT = {
+    React: `import { ShoppingBag } from '@swoozh/icons-react';\n\n<ShoppingBag size={24} />\n<ShoppingBag variant="filled" title="Bag" />`,
+    Vue: `<script setup>\nimport { ShoppingBag } from '@swoozh/icons-vue';\n</script>\n\n<template>\n  <ShoppingBag variant="filled" :size="24" />\n</template>`,
+    Svelte: `<script>\n  import { Icon, ShoppingBag } from '@swoozh/icons-svelte';\n</script>\n\n<Icon icon={ShoppingBag} size={24} />`,
+    'Web component': `<script type="module" src="https://unpkg.com/@swoozh/icons-element"></script>\n\n<swoozh-icon name="shopping-bag"></swoozh-icon>`,
+    Font: `<link rel="stylesheet" href="swoozh-icons.css">\n\n<i class="swz swz-shopping-bag"></i>\n<i class="swz swz-filled swz-shopping-bag"></i>`,
+    SVG: `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">\n  <path d="…"/>\n</svg>`,
+    Sprite: `<svg width="24" height="24">\n  <use href="sprite-outline.svg#shopping-bag"/>\n</svg>`,
+    Elm: `import SwoozhIcons exposing (Variant(..))\n\nSwoozhIcons.shoppingBag Outline []`,
+  };
+  const setFmt = k => { $('fmt-code').textContent = FMT[k]; $('fmt-tabs').querySelectorAll('button').forEach(b => { b.classList.toggle('on', b.dataset.k === k); b.setAttribute('aria-selected', b.dataset.k === k); }); };
+  Object.keys(FMT).forEach(k => { const b = document.createElement('button'); b.textContent = k; b.dataset.k = k; b.setAttribute('role', 'tab'); b.onclick = () => setFmt(k); $('fmt-tabs').append(b); });
+  $('fmt-copy').onclick = () => copy($('fmt-code').textContent, 'Snippet copied');
+  setFmt('React');
+
+  // category index
+  { const n = {}, first = {}; icons.forEach(i => { n[i.category] = (n[i.category] || 0) + 1; first[i.category] = first[i.category] || i; });
+    const host = $('cat-chips');
+    [...D.categories].sort((a, b) => n[b] - n[a]).forEach((c, k) => { const a = document.createElement('a'); a.href = 'icons.html?cat=' + encodeURIComponent(c);
+      a.innerHTML = '<span class="ci"></span><span class="cn"></span><small></small>'; a.querySelector('.cn').textContent = c; a.querySelector('small').textContent = n[c];
+      a.querySelector('.ci').append(svgEl(first[c].o, 18)); host.append(a); }); }
+
+  // cta art
+  { const host = $('cta-art'); pick('heart shopping-bag dress gift sneaker handbag star truck tag lipstick watch diamond').forEach(n => { const s = document.createElement('span'); s.append(svgEl(byName[n].o, 28)); host.append(s); }); }
   }
   const draw = (host, name, v = 'outline', w = 1.5) => { const i = byName[name]; if (!i) return; let s = host.querySelector('svg');
     if (!s) { s = svgEl('', 24); s.removeAttribute('width'); s.removeAttribute('height'); host.replaceChildren(s); } drawInto(s, i, v, w); };
