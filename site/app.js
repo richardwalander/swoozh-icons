@@ -16,14 +16,29 @@
     s.setAttribute('fill', 'currentColor'); s.setAttribute('aria-hidden', 'true');
     const p = document.createElementNS(NS, 'path'); p.setAttribute('d', d); s.append(p); return s;
   };
-  const svgText = (i, v, size = 24) => `<svg xmlns="${NS}" width="${size}" height="${size}" viewBox="0 0 24 24" fill="currentColor"><path d="${v === 'filled' ? i.f : i.o}"/></svg>`;
+  const STROKE = window.SWOOZH_STROKE || {};
+  const scaled = (m, w) => m.replace(/stroke-width="([\d.]+)"/g, (_, x) => 'stroke-width="' + +(x * w / 1.5).toFixed(3) + '"');
+  const useStroke = (name, v, w) => v !== 'filled' && w !== 1.5 && STROKE[name];
+  // draw an icon into an existing <svg>: path version, or stroke markup when a custom stroke width is set
+  const drawInto = (s, i, v, w) => {
+    if (useStroke(i.name, v, w)) {
+      s.setAttribute('fill', 'none'); s.setAttribute('stroke', 'currentColor'); s.setAttribute('stroke-width', w); s.setAttribute('stroke-miterlimit', '10');
+      s.innerHTML = scaled(STROKE[i.name], w);
+    } else {
+      s.removeAttribute('stroke'); s.removeAttribute('stroke-width'); s.removeAttribute('stroke-miterlimit'); s.setAttribute('fill', 'currentColor');
+      s.replaceChildren(); const p = document.createElementNS(NS, 'path'); p.setAttribute('d', v === 'filled' ? i.f : i.o); s.append(p);
+    }
+  };
+  const svgText = (i, v, size = 24, w = st.sw) => useStroke(i.name, v, w)
+    ? `<svg xmlns="${NS}" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-miterlimit="10">${scaled(STROKE[i.name], w)}</svg>`
+    : `<svg xmlns="${NS}" width="${size}" height="${size}" viewBox="0 0 24 24" fill="currentColor"><path d="${v === 'filled' ? i.f : i.o}"/></svg>`;
   const fillIcons = (root = document) => root.querySelectorAll('[data-icon]').forEach(el => {
     const i = byName[el.dataset.icon]; if (!i) return; el.replaceChildren(svgEl(el.dataset.variant === 'filled' ? i.f : i.o, el.dataset.size || 20)); el.style.display = 'inline-flex';
   });
 
   // state ----------------------------------------------------------------------------------------
   const params = new URLSearchParams(location.search);
-  const st = {q: params.get('q') || '', cat: params.get('cat') || '', variant: store.get('variant', 'outline'), size: store.get('size', 24),
+  const st = {q: params.get('q') || '', cat: params.get('cat') || '', variant: store.get('variant', 'outline'), size: store.get('size', 24), sw: store.get('sw', 1.5),
     color: store.get('color', ''), review: store.get('review', false), flags: store.get('flags', {}), onlyFlagged: false, sel: null, tab: store.get('tab', 'svg')};
 
   const toast = msg => { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 1400); };
@@ -107,11 +122,12 @@
   }
   function paint() {
     document.querySelectorAll('.tile').forEach(t => { const i = byName[t.dataset.name], s = t.firstChild;
-      s.firstChild.setAttribute('d', st.variant === 'filled' ? i.f : i.o); s.setAttribute('width', st.size); s.setAttribute('height', st.size); });
+      drawInto(s, i, st.variant, st.sw); s.setAttribute('width', st.size); s.setAttribute('height', st.size); });
     document.body.style.setProperty('--cell', Math.max(80, st.size * 2 + 40) + 'px'); clampRows();
     document.body.style.setProperty('--icon', st.color || '');
     $('v-outline').classList.toggle('on', st.variant === 'outline'); $('v-filled').classList.toggle('on', st.variant === 'filled');
     $('size').value = st.size; $('size-v').textContent = st.size;
+    $('sw').value = st.sw; $('sw-v').textContent = st.sw; $('sw-ctl').style.display = st.variant === 'filled' ? 'none' : '';
     $('color').value = st.color || (getComputedStyle(document.body).color.match(/\d+/g) || [23, 22, 26]).slice(0, 3).reduce((s, n) => s + (+n).toString(16).padStart(2, '0'), '#');
   }
   function paintFlags() {
@@ -126,7 +142,7 @@
   // drawer ----------------------------------------------------------------------------------------
   const TABS = {
     svg: i => svgText(i, st.variant),
-    react: i => `import { ${pascal(i.name)} } from '@swoozh/icons-react';\n\n<${pascal(i.name)}${st.variant === 'filled' ? ' variant="filled"' : ''} size={24} />`,
+    react: i => useStroke(i.name, st.variant, st.sw) ? `import { ${pascal(i.name)} } from '@swoozh/icons-react/stroke';\n\n<${pascal(i.name)} strokeWidth={${st.sw}} size={24} />` : `import { ${pascal(i.name)} } from '@swoozh/icons-react';\n\n<${pascal(i.name)}${st.variant === 'filled' ? ' variant="filled"' : ''} size={24} />`,
     vue: i => `<script setup>\nimport { ${pascal(i.name)} } from '@swoozh/icons-vue';\n</script>\n\n<template>\n  <${pascal(i.name)}${st.variant === 'filled' ? ' variant="filled"' : ''} :size="24" />\n</template>`,
     svelte: i => `<script>\n  import { Icon, ${pascal(i.name)} } from '@swoozh/icons-svelte';\n</script>\n\n<Icon icon={${pascal(i.name)}}${st.variant === 'filled' ? ' variant="filled"' : ''} size={24} />`,
     element: i => `<script type="module" src="https://unpkg.com/@swoozh/icons-element"></script>\n\n<swoozh-icon name="${i.name}"${st.variant === 'filled' ? ' variant="filled"' : ''}></swoozh-icon>`,
@@ -139,7 +155,7 @@
   function fillDrawer() {
     const i = byName[st.sel]; if (!i) return;
     $('d-name').textContent = i.name;
-    $('d-head').replaceChildren(svgEl(st.variant === 'filled' ? i.f : i.o, 20));
+    { const h = svgEl('', 20); drawInto(h, i, st.variant, st.sw); $('d-head').replaceChildren(h); }
     $('d-o').firstChild.setAttribute('d', i.o); $('d-f').firstChild.setAttribute('d', i.f);
     $('d-cat').textContent = i.category;
     $('d-tags').replaceChildren(...i.tags.map(t => { const b = document.createElement('button'); b.textContent = t; b.onclick = () => { $('q').value = st.q = t; st.cat = ''; render(); }; return b; }));
@@ -171,6 +187,7 @@
   $('q').oninput = e => { clearTimeout(qt); qt = setTimeout(() => { st.q = e.target.value; render(); }, 60); };
   $('v-outline').onclick = () => { st.variant = 'outline'; store.set('variant', 'outline'); paint(); fillDrawer(); };
   $('v-filled').onclick = () => { st.variant = 'filled'; store.set('variant', 'filled'); paint(); fillDrawer(); };
+  $('sw').oninput = e => { st.sw = +e.target.value; store.set('sw', st.sw); paint(); fillDrawer(); };
   $('size').oninput = e => { st.size = +e.target.value; store.set('size', st.size); paint(); };
   $('color').oninput = e => { st.color = e.target.value; store.set('color', st.color); paint(); };
   $('theme').onclick = () => { const dark = matchMedia('(prefers-color-scheme: dark)').matches;

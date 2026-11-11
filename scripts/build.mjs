@@ -203,6 +203,7 @@ out('packages/font/dist/codepoints.json', J(Object.fromEntries(icons.map(i => [i
 fresh('site/data'); fresh('site/fonts');
 out('site/data/icons.js', `window.SWOOZH = ${J({version: VERSION, categories: [...new Set(icons.map(i => i.category))],
   icons: icons.map(i => [i.name, i.category, i.tags.join(','), i.o, i.f, i.cp])})};\n`);
+out('site/data/stroke.js', `window.SWOOZH_STROKE = ${J(Object.fromEntries(icons.map(i => [i.name, i.st])))};\n`);
 cpSync(R + 'packages/element/dist/swoozh-icon.js', R + 'site/data/swoozh-icon.js');
 for (const f of ['swoozh-icons-outline.woff2', 'swoozh-icons-filled.woff2', 'swoozh-icons.css']) copyFileSync(R + 'packages/font/dist/' + f, R + 'site/fonts/' + f);
 console.log(`built ${icons.length} icons, version ${VERSION}`);
