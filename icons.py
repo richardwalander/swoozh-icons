@@ -2399,25 +2399,16 @@ for page, items in EXP13.items():
 
 BADGE_PLAN13 = {
     "👗 Fashion & apparel":
-        [(b, "heart") for b in ("bikini", "thread-spool", "fabric-roll", "yarn-ball", "mannequin", "trench-coat", "kimono", "swim-trunks", "cufflink", "fabric-swatch", "care-label")]
-        + [(b, "plus") for b in ("bikini", "trench-coat", "kimono", "swim-trunks", "mannequin", "suspenders")]
-        + [(b, "check") for b in ("care-label", "mannequin", "thread-spool")]
-        + [(b, "return") for b in ("bikini", "trench-coat", "kimono", "swim-trunks", "sneaker", "high-heel", "boot", "handbag", "jacket", "t-shirt", "hoodie", "skirt")]
-        + [(b, "leaf") for b in ("bikini", "yarn-ball", "fabric-roll", "thread-spool", "t-shirt", "pants", "jacket", "sneaker")]
-        + [(b, "search") for b in ("dress", "t-shirt", "sneaker", "hanger", "handbag", "jacket", "pants", "high-heel")]
-        + [(b, "star") for b in ("sneaker", "handbag", "mannequin")]
-        + [(b, m) for b in ("sunglasses", "watch", "hat", "cap", "umbrella", "lipstick")
-                       for m in ("plus", "return", "search", "star")]
-        + [(b, "leaf") for b in ("dress", "skirt", "hat", "watch")],
+        [(b, "heart") for b in ("bikini", "yarn-ball", "mannequin", "trench-coat", "kimono", "swim-trunks")]
+        + [("bikini", "plus"), ("care-label", "check")]
+        + [(b, "return") for b in ("bikini", "trench-coat", "swim-trunks", "high-heel", "boot", "handbag", "jacket", "t-shirt", "hoodie", "skirt")],
     "🛍️ Shopping & commerce":
-        [(b, "heart") for b in ("shelf", "clothing-rail", "loyalty-card")]
-        + [(b, "plus") for b in ("clothing-rail", "shelf", "pos-terminal", "loyalty-card")]
-        + [(b, "check") for b in ("review-bubble", "shelf", "clothing-rail", "pos-terminal", "loyalty-card")]
-        + [(b, "x") for b in ("review-bubble", "loyalty-card", "pos-terminal")]
-        + [(b, "alert") for b in ("shelf", "pos-terminal")]
-        + [(b, "down") for b in ("tag", "shopping-bag", "receipt")]
-        + [(b, "up") for b in ("tag", "shopping-bag")]
-        + [(b, "star") for b in ("shopping-bag", "store", "gift")],
+        [(b, "heart") for b in ("shelf", "loyalty-card")]
+        + [(b, "plus") for b in ("shelf", "loyalty-card")]
+        + [(b, "check") for b in ("review-bubble", "pos-terminal", "loyalty-card")]
+        + [(b, "x") for b in ("review-bubble", "loyalty-card")]
+        + [(b, "down") for b in ("tag", "shopping-bag")]
+        + [("tag", "up")],
 }
 EXP13_SKIPPED = []
 for page, pairs in BADGE_PLAN13.items():
@@ -2432,3 +2423,105 @@ for page, pairs in BADGE_PLAN13.items():
 for page, items in EXP13.items():
     CATEGORIES.setdefault(page, {}).update(items)
 EXP13_NAMES = [k for v in EXP13.values() for k in v]
+
+
+# ---------------------------------------------------------------- expansion 14: vertical coverage (electronics, pharmacy, grocery, home, beauty, pets, toys, auto/DIY, outdoor)
+EXP14 = {}
+EXP14["🔌 Electronics"] = {
+    "earbuds": ([("s", circ(7.5, 7.5, 3.25)), ("s", "M5.75 10.75V20.25H9.25V10.75"), ("s", circ(16.5, 7.5, 3.25)), ("s", "M14.75 10.75V20.25H18.25V10.75")], "earbuds, wireless, audio"),
+    "game-console": ([("s", "M3.25 8.25H20.75V17.25H3.25Z"), ("cut", "M6.25 12.75H14.25"), ("d", circ(17.5, 12.75, 1))], "game console, gaming, playstation"),
+    "charging-cable": ([("s", "M16.25 3.25H20.25V9.25H16.25Z"), ("o", "M18.25 9.25V12.75C18.25 16 15.75 17.25 13.25 17.25H9.25"), ("s", "M2.75 14.5H9.25V20H2.75Z"),
+                        ("o", "M4.25 14.5V12M7.75 14.5V12")], "charging cable, usb, charger"),
+    "memory-card": ([("s", "M6.25 2.75H15.25L18.25 5.75V21.25H6.25Z"), ("cut", "M9.25 2.75V6.25M12 2.75V6.25M14.75 6.25V2.75")], "memory card, sd card, storage"),
+    "light-bulb": ([("s", "M12 2.75A6.5 6.5 0 0 1 16.75 13.75C15.75 14.75 15.25 15.75 15.25 16.75H8.75C8.75 15.75 8.25 14.75 7.25 13.75A6.5 6.5 0 0 1 12 2.75Z"),
+                    ("s", "M9.25 16.75H14.75V21.25H9.25Z"), ("cut", "M9.25 19H14.75")], "light bulb, idea, lighting"),
+    "webcam": ([("s", circ(12, 9, 6.25)), ("cut", circ(12, 9, 2.25)), ("o", "M12 15.25V19.25M6.75 21.25H17.25")], "webcam, camera, video call"),
+    "power-bank": ([("s", "M7.25 2.75H16.75V21.25H7.25Z"), ("cut", "M10 6.25H14M10 8.5H14"), ("d", "M12.75 11.25L9.75 15.5H12.25L11.25 19L14.25 14.75H11.75Z")], "power bank, battery pack, charger"),
+    "projector": ([("s", "M2.75 8.25H21.25V16.25H2.75Z"), ("cut", circ(15.5, 12.25, 2.5)), ("o", "M5.25 16.25V18.75M18.75 16.25V18.75"), ("d", circ(6.5, 12.25, .9))], "projector, home cinema, presentation"),
+    "hard-drive": ([("s", "M2.75 6.75H21.25V17.25H2.75Z"), ("cut", "M2.75 13.25H21.25"), ("d", circ(17.5, 15.25, .8)), ("d", circ(14.75, 15.25, .8))], "hard drive, ssd, storage"),
+    "sim-card": ([("s", "M5.75 2.75H14.75L18.25 6.25V21.25H5.75Z"), ("cut", "M9.25 10.25H14.75V16.25H9.25Z"), ("cut", "M9.25 13.25H14.75M12 10.25V16.25")], "sim card, mobile, chip"),
+    "remote-control": ([("s", "M8.25 2.75H15.75V21.25H8.25Z"), ("d", circ(12, 6.25, 1.25)), ("d", circ(12, 10.5, .9)), ("d", circ(12, 13.5, .9)), ("d", circ(12, 16.5, .9))], "remote control, tv, controller"),
+    "wall-charger": ([("s", "M5.75 6.75H18.25V16.75H5.75Z"), ("o", "M9.5 6.75V3.25M14.5 6.75V3.25M12 16.75V21.25")], "wall charger, adapter, power"),
+    "action-camera": ([("s", "M5.25 5.75H18.75V18.25H5.25Z"), ("cut", circ(12, 12, 3.5)), ("d", circ(8, 8.5, .8))], "action camera, gopro, video"),
+    "robot-vacuum": ([("s", circ(12, 12, 9)), ("cut", circ(12, 12, 3.5)), ("d", circ(12, 12, 1))], "robot vacuum, cleaning, smart home"),
+    "thermostat": ([("s", circ(12, 12, 8.5)), ("cut", "M12 12V6.75"), ("d", circ(12, 12, 1.5))], "thermostat, smart home, heating"),
+}
+EXP14["💊 Pharmacy"] = {
+    "first-aid-kit": ([("s", "M3.25 7.75H20.75V20.25H3.25Z"), ("o", "M8.75 7.75V5.25C8.75 4.5 9.25 3.75 10 3.75H14C14.75 3.75 15.25 4.5 15.25 5.25V7.75"), ("cut", "M12 11V17M9 14H15")],
+                      "first aid kit, medical, emergency"),
+    "prescription": ([("s", "M3.25 3.75H20.75V20.25H3.25Z"), ("cut", "M8.25 17.25V8.75H11.75A2.25 2.25 0 0 1 11.75 13.25H8.25M11 13.25L14 17.25M14 12.5L17.75 17.25M17.75 12.5L14 17.25")],
+                     "prescription, rx, pharmacy"),
+    "inhaler": ([("s", "M8.25 2.75H13.75V9.25H8.25Z"), ("s", "M5.75 9.25H16.25V17.75H20.75V21.25H5.75Z"), ("cut", "M5.75 13H16.25")], "inhaler, asthma, respiratory"),
+    "vitamins": ([("s", "M7.25 2.75H16.75V6.25H7.25Z"), ("s", "M6.25 6.25H17.75V21.25H6.25Z"), ("cut", circ(12, 13.75, 3.25))], "vitamins, supplements, bottle"),
+    "eye-dropper": ([("s", "M9 2.75H15V7.25H9Z"), ("s", "M10.25 7.25H13.75V17.25L12 21.25L10.25 17.25Z")], "eye dropper, drops, pipette"),
+    "blister-pack": ([("s", "M3.25 5.75H20.75V18.25H3.25Z"), ("cut", circ(8, 10, 1.75)), ("cut", circ(16, 10, 1.75)), ("cut", circ(8, 14.75, 1.75)), ("cut", circ(16, 14.75, 1.75))],
+                     "blister pack, tablets, pills"),
+    "mortar-pestle": ([("s", "M3.75 11.25H20.25C20.25 16 17 19.5 12 19.5C7 19.5 3.75 16 3.75 11.25Z"), ("o", "M14.75 3.25L10.25 11.25M8.25 21.25H15.75")], "mortar and pestle, compounding, pharmacy"),
+}
+EXP14["🛒 Grocery"] = {
+    "bread-loaf": ([("s", "M4.25 9.25C4.25 6 7.75 4.25 12 4.25C16.25 4.25 19.75 6 19.75 9.25V19.25H4.25Z"), ("cut", "M9.25 8.25L11 11.25M13 8.25L14.75 11.25")], "bread, bakery, loaf"),
+    "cheese": ([("s", "M2.75 9.25L21.25 4.25V19.75H2.75Z"), ("d", circ(7.5, 14.5, 1.25)), ("d", circ(14.25, 11.5, 1.5)), ("d", circ(15.5, 16.5, 1.25))], "cheese, dairy, wedge"),
+    "steak": ([("s", "M4.25 11C4.25 6.5 8.5 3.25 13 3.75C18 4.25 21.25 7.75 20.5 12.5C19.75 17.5 15.5 21.25 10.5 20.5C6.5 19.75 4.25 17 4.25 11Z"), ("cut", circ(14.25, 12, 3))], "steak, meat, butcher"),
+    "croissant": ([("s", "M2.75 15.25C4.5 9.25 8 5.75 12 5.75C16 5.75 19.5 9.25 21.25 15.25L18.25 17.25L15.25 14.25L12 17.25L8.75 14.25L5.75 17.25Z"),
+                   ("cut", "M8.5 7.25L10.25 14.25M15.5 7.25L13.75 14.25")], "croissant, bakery, pastry"),
+    "salad-bowl": ([("s", "M2.75 12.25H21.25C21.25 17 17.5 20.25 12 20.25C6.5 20.25 2.75 17 2.75 12.25Z"), ("s", "M7.25 12.25C7.25 8.75 9.25 7.25 12 7.25C12 10 10.75 12.25 7.25 12.25Z"),
+                    ("s", "M12.75 12.25C12.75 8.25 15 6.25 18.25 6.25C18.25 9.75 16.5 12.25 12.75 12.25Z")], "salad, healthy, bowl"),
+    "avocado": ([("s", "M12 2.75C14.75 2.75 15.75 6 16.75 9.25C17.75 12 19.25 13.5 19.25 16C19.25 19 16 21.25 12 21.25C8 21.25 4.75 19 4.75 16C4.75 13.5 6.25 12 7.25 9.25C8.25 6 9.25 2.75 12 2.75Z"),
+                 ("cut", circ(12, 15, 2.75))], "avocado, fruit, vegan"),
+    "jar": ([("s", "M7.75 3.25H16.25V6.75H7.75Z"), ("s", "M6.75 6.75H17.25V20.25H6.75Z"), ("cut", "M6.75 12H17.25")], "jar, jam, preserves"),
+    "tin-can": ([("s", "M5.75 4.25H18.25V19.75H5.75Z"), ("cut", "M5.75 8.25H18.25M5.75 15.75H18.25")], "tin can, canned food, pantry"),
+}
+EXP14["🏠 Home"] = {
+    "rug": ([("s", "M4.25 6.25H19.75V17.75H4.25Z"), ("cut", "M7.25 9.25H16.75V14.75H7.25Z"), ("o", "M2.75 8.5H4.25M2.75 12H4.25M2.75 15.5H4.25M19.75 8.5H21.25M19.75 12H21.25M19.75 15.5H21.25")], "rug, carpet, floor"),
+    "curtain": ([("o", "M2.75 3.75H21.25"), ("s", "M3.75 3.75H10.75C10.75 12 10 17 8.25 21.25H3.75Z"), ("s", "M13.25 3.75H20.25V21.25H15.75C14 17 13.25 12 13.25 3.75Z")], "curtain, drapes, window"),
+    "oven": ([("s", "M3.25 3.75H20.75V20.25H3.25Z"), ("cut", "M3.25 8.25H20.75M6.25 11.25H17.75V18H6.25Z"), ("d", circ(7, 6, .8)), ("d", circ(10, 6, .8))], "oven, kitchen, appliance"),
+    "sink": ([("s", "M4.25 11.25H19.75V16.25C19.75 18.75 18 20.25 15.75 20.25H8.25C6 20.25 4.25 18.75 4.25 16.25Z"), ("o", "M8.25 11.25V5.75C8.25 4.15 9.15 3.25 10.5 3.25H13.5")], "sink, kitchen, tap"),
+    "shower": ([("o", "M3.25 21.25V4.5C3.25 3.75 3.75 3.25 4.5 3.25H9.5C13 3.25 15.25 5.25 15.25 8.25"), ("s", "M10.75 8.25H20.25A4.75 3.5 0 0 0 10.75 8.25Z"),
+                ("o", "M12.25 13.25V15.5M15.5 13.25V15.5M18.75 13.25V15.5M13.75 17.75V20M17 17.75V20")], "shower, bathroom, water"),
+    "toilet": ([("s", "M7.25 3.25H16.75V9.25H7.25Z"), ("s", "M5.25 9.25H18.75C18.75 15 16.5 18.25 14.5 18.25V21.25H9.5V18.25C7.5 18.25 5.25 15 5.25 9.25Z")], "toilet, bathroom, wc"),
+    "mug": ([("s", "M4.25 6.75H16.75V17.25C16.75 19 15.5 20.25 13.75 20.25H7.25C5.5 20.25 4.25 19 4.25 17.25Z"),
+             ("o", "M16.75 9.25H18.5C20 9.25 20.75 10.25 20.75 11.75V12.5C20.75 14 20 15 18.5 15H16.75M8.25 2.75V4.25M12.25 2.75V4.25")], "mug, cup, tableware"),
+    "dinnerware": ([("s", circ(12, 12, 5.5)), ("cut", circ(12, 12, 2.75)), ("o", "M2.75 3.75V9.25C2.75 10.5 3.5 11 4.5 11V21.25M21.25 3.75C19 5 18.5 8 18.75 11H20.25V21.25")], "plate, cutlery, dining"),
+    "radiator": ([("s", "M3.25 6.25H20.75V18.25H3.25Z"), ("cut", "M7.5 6.25V18.25M12 6.25V18.25M16.5 6.25V18.25"), ("o", "M5.25 18.25V20.75M18.75 18.25V20.75")], "radiator, heating, warmth"),
+    "pendant-lamp": ([("o", "M12 2.75V7.25"), ("s", "M5.25 16.75C5.25 11.5 8 7.25 12 7.25C16 7.25 18.75 11.5 18.75 16.75Z"), ("d", circ(12, 19.75, 1.25))], "pendant lamp, ceiling light, lighting"),
+    "bookcase": ([("s", "M3.75 2.75H20.25V21.25H3.75Z"), ("cut", "M3.75 8.25H20.25M3.75 14.75H20.25")], "bookcase, shelves, storage"),
+}
+EXP14["💄 Beauty & care"] = {
+    "sponge": ([("s", "M4.25 9.25C4.25 6.75 6 5.25 8.25 5.25H15.75C18 5.25 19.75 6.75 19.75 9.25V16.25C19.75 18.5 18 19.75 15.75 19.75H8.25C6 19.75 4.25 18.5 4.25 16.25Z"),
+                ("d", circ(9, 10, .9)), ("d", circ(14, 9.5, .9)), ("d", circ(11.5, 14.5, .9)), ("d", circ(16, 15, .9)), ("d", circ(8.5, 15.5, .9))], "sponge, makeup, blender"),
+    "shampoo-bottle": ([("s", "M9.75 2.75H14.25V5.25H9.75Z"), ("s", "M7.25 7.75C7.25 6.5 8 5.25 9.25 5.25H14.75C16 5.25 16.75 6.5 16.75 7.75V21.25H7.25Z"), ("cut", "M7.25 11.75H16.75M7.25 17H16.75")], "shampoo, hair care, bottle"),
+    "spa-stones": ([("s", ellipse(12, 17, 7, 3.25, 0)), ("s", ellipse(12, 11.5, 5.25, 2.75, 0)), ("s", ellipse(12, 6.5, 3.25, 2, 0))], "spa stones, wellness, massage"),
+}
+EXP14["🐾 Animals"] = {
+    "pet-collar": ([("s", ellipse(12, 8.75, 9, 5.5, 0)), ("cut", ellipse(12, 8.75, 6, 3, 0)), ("s", circ(12, 18.5, 2.75))], "pet collar, dog tag, pets"),
+}
+EXP14["🧸 Toys"] = {
+    "robot": ([("s", "M5.25 7.75H18.75V18.25H5.25Z"), ("o", "M12 7.75V4.25M2.75 11.25V14.75M21.25 11.25V14.75"), ("f", circ(12, 3.5, 1)), ("d", circ(9, 12, 1.25)), ("d", circ(15, 12, 1.25)), ("cut", "M9 15.25H15")],
+              "robot, toy, ai"),
+    "crayon": ([("s", "M9.25 8.25H14.75V21.25H9.25Z"), ("s", "M9.25 8.25L12 2.75L14.75 8.25Z"), ("cut", "M9.25 12.25H14.75")], "crayon, drawing, kids"),
+    "toy-car": ([("s", "M2.75 12.25L5.25 8.25H14.75L18.25 12.25H21.25V17.25H2.75Z"), ("s", circ(7, 17.25, 2.25)), ("s", circ(17, 17.25, 2.25))], "toy car, kids, play"),
+}
+EXP14["🔧 Tools"] = {
+    "tire": ([("s", circ(12, 12, 9)), ("cut", circ(12, 12, 4.75)), ("d", circ(12, 12, 1.25))], "tire, wheel, car parts"),
+    "oil-can": ([("s", "M4.25 11.25H15.25V19.25H4.25Z"), ("o", "M15.25 13.25L21.25 8.25M7.25 11.25V8.25H12.25V11.25M4.25 14.25H2.75V17H4.25")], "oil can, lubricant, auto"),
+    "hex-nut": ([("s", regular(12, 12, 9.25, 6, 0)), ("cut", circ(12, 12, 3.5))], "nut, hardware, fasteners"),
+    "screw": ([("s", "M7.25 2.75H16.75V6.25H7.25Z"), ("s", "M9.75 6.25H14.25V21.25H9.75Z"), ("cut", "M9.75 10H14.25M9.75 13H14.25M9.75 16H14.25")], "screw, hardware, fasteners"),
+    "garden-hose": ([("o", circ(9, 12, 6.25)), ("o", circ(9, 12, 2.5)), ("o", "M15.25 12H19.25"), ("s", "M19.25 9.25H21.25V14.75H19.25Z")], "garden hose, watering, outdoor"),
+}
+EXP14["🚴 Outdoor sports"] = {
+    "bicycle": ([("o", circ(6, 16, 4)), ("o", circ(18, 16, 4)), ("o", "M6 16L9.75 8.25H15.5L18 16M9.75 8.25L12.75 16M8 5.75H11.5")], "bicycle, bike, cycling"),
+    "bike-helmet": ([("s", "M3.25 15.25C3.25 9.25 7 5.25 12 5.25C17 5.25 20.75 9.25 20.75 15.25Z"), ("s", "M3.25 15.25H20.75V18.25H3.25Z"), ("cut", "M9.25 6.25V15.25M14.75 6.25V15.25")], "helmet, cycling, safety"),
+    "ski": ([("s", poly([(4.75, 2.75), (7.75, 2.75), (10.25, 21.25), (7.25, 21.25)])), ("s", poly([(13.75, 2.75), (16.75, 2.75), (19.25, 21.25), (16.25, 21.25)]))], "ski, winter sports, snow"),
+    "surfboard": ([("s", ellipse(12, 12, 4.5, 10.25, 35)), ("cut", rot_path("M12 3.5L12 20.5", 35))], "surfboard, surfing, water sports"),
+    "skateboard": ([("s", "M2.75 9.25H21.25C21.25 11.75 20 12.75 18.25 12.75H5.75C4 12.75 2.75 11.75 2.75 9.25Z"), ("s", circ(7, 17, 2.25)), ("s", circ(17, 17, 2.25)), ("o", "M7 12.75V14.75M17 12.75V14.75")],
+                   "skateboard, skating, street"),
+    "boxing-glove": ([("s", "M6.25 10.25C6.25 6 9 3.75 12.5 3.75C16.5 3.75 19 6.5 19 10.25V16.25H6.25Z"), ("s", "M6.25 16.25H19V21.25H6.25Z"), ("cut", "M10.5 11.25H16.5")], "boxing glove, fitness, combat sports"),
+    "fishing-rod": ([("o", "M3.25 21.25L19.25 3.75M19.25 3.75V13.25"), ("o", "M19.25 13.25C19.25 16.5 21.25 16.5 21.25 14.75")], "fishing rod, angling, outdoors"),
+}
+# dropped after review: duplicates of existing icons, or shapes that did not read
+for _page in EXP14.values():
+    for _k in ("croissant", "bicycle", "skateboard", "first-aid-kit", "steak", "ski", "fishing-rod", "eye-dropper", "inhaler"):
+        _page.pop(_k, None)
+for page, items in EXP14.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+EXP14_NAMES = [k for v in EXP14.values() for k in v]
