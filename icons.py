@@ -2635,3 +2635,19 @@ for _k in list(EXP16["📣 Marketing"]):
 for page, items in EXP16.items():
     CATEGORIES.setdefault(page, {}).update(items)
 EXP16_NAMES = [k for v in EXP16.values() for k in v]
+
+
+# ---------------------------------------------------------------- review of expansions 13-16: unclear or look-alike motifs removed
+DROPPED_13_16 = {"robot-vacuum", "boxing-glove", "surfboard", "cufflink", "suspenders", "toothbrush", "pet-collar", "kimono", "kimono-heart", "care-label", "care-label-check",
+                 "light-switch", "phone-case", "diaper", "garden-hose", "game-console"}
+for _cat in CATEGORIES.values():
+    for _k in DROPPED_13_16:
+        _cat.pop(_k, None)
+for _d in (EXP13, EXP14, EXP15, EXP16):
+    for _cat in _d.values():
+        for _k in DROPPED_13_16:
+            _cat.pop(_k, None)
+EXP13_NAMES = [k for v in EXP13.values() for k in v]
+EXP14_NAMES = [k for v in EXP14.values() for k in v]
+EXP15_NAMES = [k for v in EXP15.values() for k in v]
+EXP16_NAMES = [k for v in EXP16.values() for k in v]

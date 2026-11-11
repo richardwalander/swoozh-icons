@@ -1,5 +1,4 @@
 earbuds
-game-console
 charging-cable
 memory-card
 light-bulb
@@ -11,7 +10,6 @@ sim-card
 remote-control
 wall-charger
 action-camera
-robot-vacuum
 thermostat
 prescription
 vitamins
@@ -37,7 +35,6 @@ bookcase
 sponge
 shampoo-bottle
 spa-stones
-pet-collar
 robot
 crayon
 toy-car
@@ -45,7 +42,4 @@ tire
 oil-can
 hex-nut
 screw
-garden-hose
 bike-helmet
-surfboard
-boxing-glove

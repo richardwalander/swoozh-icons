@@ -12,14 +12,10 @@ santa-hat
 fitness-band
 e-reader
 ink-cartridge
-phone-case
 power-strip
 video-doorbell
-light-switch
 serum-bottle
-toothbrush
 protein-tub
-diaper
 lunch-box
 coffee-machine
 cutting-board
