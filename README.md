@@ -24,7 +24,7 @@ npm run build && python3 -m http.server 8642 --directory site
 - `icons/icons.json` — name, category, tags. `icons/codepoints.json` — stable font code points (only grows).
 - `scripts/normalize.mjs` — Figma export → `icons/` (outlines strokes, fixes contour winding for nonzero/fonts).
 - `scripts/build.mjs` — `icons/` → `packages/*/dist`, `packages/elm/src`, `site/data`, `site/fonts` (generated, not checked in).
-- Packages are `private` and unlicensed until a license is chosen.
+- Packages are `private` until published. License: see `LICENSE` (free commercial use with attribution; no resale or redistribution).
 
 ## Workflow
 
