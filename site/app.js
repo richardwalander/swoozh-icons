@@ -218,6 +218,8 @@
   { const n = {}; icons.forEach(i => n[i.category] = (n[i.category] || 0) + 1);
     D.categories.forEach(c => { const b = document.createElement('button'); b.innerHTML = '<span></span><small>' + n[c] + '</small>'; b.firstChild.textContent = c;
       b.onclick = () => { st.cat = c; st.onlyFlagged = false; render(); $('icons').scrollIntoView({behavior: 'smooth'}); }; $('cat-chips').append(b); }); }
-  window.SWZ = {byName, fillIcons};
+  const draw = (host, name, v = 'outline', w = 1.5) => { const i = byName[name]; if (!i) return; let s = host.querySelector('svg');
+    if (!s) { s = svgEl('', 24); s.removeAttribute('width'); s.removeAttribute('height'); host.replaceChildren(s); } drawInto(s, i, v, w); };
+  window.SWZ = {byName, fillIcons, draw};
   fillIcons(); paint(); paintFlags(); render();
 })();

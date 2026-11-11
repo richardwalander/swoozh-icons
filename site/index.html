@@ -48,16 +48,29 @@
 <section class="inuse wrap-narrow" id="inuse" aria-label="Icons in use">
   <div class="iu-copy">
     <h2>See them in use</h2>
-    <p>An ecommerce flow built with nothing but Swoozh icons: browse, pick, add to cart, check out. Every icon you see is live and follows the stroke width.</p>
+    <p>Real screens from the Swoozh Fashion UI Kit, mobile and desktop. Follow an icon from the screen to its component, switch style and change the stroke. Every icon in the overlay is live.</p>
     <ol class="iu-steps" id="iu-steps">
-      <li data-i="0">Browse the store</li>
-      <li data-i="1">Open a product and save it</li>
-      <li data-i="2">Pick a size</li>
-      <li data-i="3">Add to cart</li>
-      <li data-i="4">Review the cart</li>
+      <li>Navigate the store</li>
+      <li>Browse and save favourites</li>
+      <li>Open a product</li>
+      <li>Review the cart</li>
+      <li>Desktop header</li>
+      <li>Filters and ratings</li>
+      <li>Set the stroke width</li>
     </ol>
   </div>
-  <div class="iu-stage"><div class="phone" id="phone" aria-hidden="true"></div></div>
+  <div class="iu-stage" id="iu-stage">
+    <div class="sin" id="sin" aria-hidden="true">
+      <div class="browser" id="browser"><div class="bbar"><i></i><i></i><i></i><span>swoozh-store.com</span></div><div class="bscreen" id="bscreen"></div></div>
+      <div class="phone2" id="phone2"><div class="pscreen" id="pscreen"></div></div>
+      <div class="dim" id="dim"></div>
+      <div class="ring" id="ring"></div><div class="chip" id="chip"></div>
+      <div class="lens" id="lens"><div class="lc"><div class="slot"></div><b class="ln"></b>
+        <div class="seg"><span data-v="outline">Outline</span><span data-v="filled">Filled</span></div>
+        <div class="sw"><small>Stroke</small><i><u></u></i><em>1.5</em></div><p class="note"></p></div></div>
+      <div class="fly" id="fly"></div>
+    </div>
+  </div>
 </section>
 
 <section class="features wrap-narrow" aria-label="Features">
@@ -178,6 +191,8 @@
 <script src="data/icons.js"></script>
 <script src="data/stroke.js"></script>
 <script src="app.js"></script>
-<script src="inuse.js"></script>
+<script src="vendor/motion.js"></script>
+<script src="showcase/hotspots.js"></script>
+<script src="showcase.js"></script>
 </body>
 </html>
