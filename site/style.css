@@ -267,7 +267,7 @@ footer.foot .ver { margin-left: auto; }
 .hero-copy { text-align: left; align-items: flex-start; }
 .pill { display: inline-flex; gap: 8px; align-items: center; font-size: 13px; font-weight: 600; padding: 5px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--muted); text-decoration: none; margin-bottom: 22px; }
 .pill:hover { color: var(--ink); text-decoration: none; }
-.hero h1 { font-family: var(--sans); font-size: clamp(38px, 5.2vw, 64px); line-height: 1.04; letter-spacing: -.035em; font-weight: 700; margin: 0 0 18px; }
+.hero h1 { font-family: var(--sans); font-size: clamp(34px, 4.2vw, 54px); line-height: 1.06; letter-spacing: -.035em; font-weight: 700; margin: 0 0 18px; }
 .hero .lead { color: var(--muted); font-size: 17px; line-height: 1.55; margin: 0 0 28px; max-width: 520px; }
 .cta { justify-content: flex-start; margin-bottom: 16px; }
 .btn.lg { padding: 0 18px; height: 42px; font-size: 14px; border-radius: 8px; }
@@ -282,3 +282,26 @@ footer.foot .ver { margin-left: auto; }
 .pg-panel h2 { font-size: 20px; letter-spacing: -.02em; }
 .iso span { border-radius: 8px; box-shadow: 0 4px 0 color-mix(in srgb, var(--ink) 6%, transparent); background: var(--panel); border: 1px solid var(--line); }
 @media (max-width: 820px) { .hero { padding: 48px 20px; } }
+
+/* brand stays: serif wordmark, S mark, sand tint */
+:root { --hero: color-mix(in srgb, var(--sand) 55%, var(--bg)); }
+:root[data-theme="dark"] { --hero: #1c1d20; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --hero: #1c1d20; } }
+.brandrow { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
+.brandrow .logo { width: 40px; height: 40px; border-radius: 12px; font-size: 26px; background: var(--ink); color: var(--accent-ink); box-shadow: none; }
+.brandrow .logotype { font-size: 26px; }
+.brandrow .pill { margin: 0 0 0 6px; }
+.hero h1 em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spacing: -.02em; }
+.cats, .faq { padding-top: 56px; }
+.cats h2, .faq h2 { font-size: 15px; font-weight: 600; color: var(--muted); margin: 0 0 14px; }
+.chips button { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 7px 14px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.chips button small { color: var(--muted); margin-left: 6px; font-variant-numeric: lining-nums tabular-nums; }
+.chips button:hover { background: var(--tile-hover); }
+.faq details { border-top: 1px solid var(--line); padding: 14px 0; }
+.faq details:last-of-type { border-bottom: 1px solid var(--line); }
+.faq summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::after { content: "+"; color: var(--muted); font-weight: 400; }
+.faq details[open] summary::after { content: "–"; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq p { margin: 10px 0 0; color: var(--muted); max-width: 720px; line-height: 1.6; }
+.faq code { background: var(--code); padding: 1px 6px; border-radius: 5px; font-size: 12.5px; }

@@ -214,5 +214,9 @@
   $('pg-size').oninput = e => { pg.size = +e.target.value; pgPaint(); };
   $('pg-reset').onclick = () => { Object.assign(pg, {sw: 1.5, size: 32, color: ''}); pgPaint(); };
   pgPaint();
+  // category chips on the landing
+  { const n = {}; icons.forEach(i => n[i.category] = (n[i.category] || 0) + 1);
+    D.categories.forEach(c => { const b = document.createElement('button'); b.innerHTML = '<span></span><small>' + n[c] + '</small>'; b.firstChild.textContent = c;
+      b.onclick = () => { st.cat = c; st.onlyFlagged = false; render(); $('icons').scrollIntoView({behavior: 'smooth'}); }; $('cat-chips').append(b); }); }
   fillIcons(); paint(); paintFlags(); render();
 })();
