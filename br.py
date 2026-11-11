@@ -2,7 +2,7 @@
 Usage: python3 -I br.py script.js [out.json] [--remove]"""
 import json, sys, urllib.request
 
-FILE_KEY = "unsaved-mw62wbhu-ehtfffk8"
+FILE_KEY = "unsaved-mwbu6w4c-q8br717u"
 
 
 def rpc(tool, params=None, node_ids=None, timeout=600):

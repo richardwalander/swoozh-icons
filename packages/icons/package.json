@@ -12,7 +12,7 @@
     "ecommerce"
   ],
   "name": "@swoozh/icons",
-  "description": "Swoozh Icons: 1666 fashion and e-commerce icons (outline + filled) as SVG files, sprites and path data.",
+  "description": "Swoozh Icons: 1778 fashion and e-commerce icons (outline + filled) as SVG files, sprites and path data.",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",

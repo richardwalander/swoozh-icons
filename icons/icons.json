@@ -5199,6 +5199,235 @@
   ]
  },
  {
+  "name": "review-bubble",
+  "category": "Shopping & commerce",
+  "tags": [
+   "review",
+   "rating",
+   "feedback",
+   "bubble"
+  ]
+ },
+ {
+  "name": "loyalty-card",
+  "category": "Shopping & commerce",
+  "tags": [
+   "loyalty card",
+   "membership",
+   "rewards",
+   "loyalty",
+   "card",
+   "payment",
+   "credit",
+   "pay"
+  ]
+ },
+ {
+  "name": "pos-terminal",
+  "category": "Shopping & commerce",
+  "tags": [
+   "card reader",
+   "pos",
+   "payment terminal",
+   "terminal"
+  ]
+ },
+ {
+  "name": "shelf",
+  "category": "Shopping & commerce",
+  "tags": [
+   "stock",
+   "display",
+   "shelf"
+  ]
+ },
+ {
+  "name": "clothing-rail",
+  "category": "Shopping & commerce",
+  "tags": [
+   "clothing rail",
+   "garment rack",
+   "display",
+   "clothing",
+   "rail"
+  ]
+ },
+ {
+  "name": "shelf-heart",
+  "category": "Shopping & commerce",
+  "tags": [
+   "shelf",
+   "favourite",
+   "wishlist",
+   "saved",
+   "heart",
+   "like",
+   "love",
+   "favorite"
+  ]
+ },
+ {
+  "name": "loyalty-card-heart",
+  "category": "Shopping & commerce",
+  "tags": [
+   "loyalty card",
+   "favourite",
+   "wishlist",
+   "saved",
+   "loyalty",
+   "card",
+   "payment",
+   "credit",
+   "pay",
+   "heart"
+  ]
+ },
+ {
+  "name": "shelf-plus",
+  "category": "Shopping & commerce",
+  "tags": [
+   "shelf",
+   "add",
+   "new",
+   "plus",
+   "create"
+  ]
+ },
+ {
+  "name": "loyalty-card-plus",
+  "category": "Shopping & commerce",
+  "tags": [
+   "loyalty card",
+   "add",
+   "new",
+   "loyalty",
+   "card",
+   "payment",
+   "credit",
+   "pay",
+   "plus",
+   "create"
+  ]
+ },
+ {
+  "name": "review-bubble-check",
+  "category": "Shopping & commerce",
+  "tags": [
+   "review",
+   "done",
+   "confirmed",
+   "approved",
+   "bubble",
+   "check",
+   "tick",
+   "ok",
+   "confirm",
+   "success"
+  ]
+ },
+ {
+  "name": "pos-terminal-check",
+  "category": "Shopping & commerce",
+  "tags": [
+   "card reader",
+   "done",
+   "confirmed",
+   "approved",
+   "pos",
+   "terminal",
+   "check",
+   "tick",
+   "ok",
+   "confirm"
+  ]
+ },
+ {
+  "name": "loyalty-card-check",
+  "category": "Shopping & commerce",
+  "tags": [
+   "loyalty card",
+   "done",
+   "confirmed",
+   "approved",
+   "loyalty",
+   "card",
+   "payment",
+   "credit",
+   "pay",
+   "check"
+  ]
+ },
+ {
+  "name": "review-bubble-x",
+  "category": "Shopping & commerce",
+  "tags": [
+   "review",
+   "remove",
+   "cancel",
+   "failed",
+   "bubble",
+   "close"
+  ]
+ },
+ {
+  "name": "loyalty-card-x",
+  "category": "Shopping & commerce",
+  "tags": [
+   "loyalty card",
+   "remove",
+   "cancel",
+   "failed",
+   "loyalty",
+   "card",
+   "payment",
+   "credit",
+   "pay",
+   "close"
+  ]
+ },
+ {
+  "name": "tag-down",
+  "category": "Shopping & commerce",
+  "tags": [
+   "tag",
+   "download",
+   "save",
+   "label",
+   "price",
+   "category",
+   "down"
+  ]
+ },
+ {
+  "name": "shopping-bag-down",
+  "category": "Shopping & commerce",
+  "tags": [
+   "bag",
+   "download",
+   "save",
+   "shopping",
+   "shop",
+   "buy",
+   "retail",
+   "tote",
+   "purchase",
+   "down"
+  ]
+ },
+ {
+  "name": "tag-up",
+  "category": "Shopping & commerce",
+  "tags": [
+   "tag",
+   "upload",
+   "send",
+   "label",
+   "price",
+   "category",
+   "up"
+  ]
+ },
+ {
   "name": "hanger",
   "category": "Fashion & apparel",
   "tags": [
@@ -5920,15 +6149,6 @@
   ]
  },
  {
-  "name": "mannequin",
-  "category": "Fashion & apparel",
-  "tags": [
-   "display",
-   "tailoring",
-   "mannequin"
-  ]
- },
- {
   "name": "jacket-plus",
   "category": "Fashion & apparel",
   "tags": [
@@ -6583,19 +6803,6 @@
    "sewing",
    "craft",
    "thimble"
-  ]
- },
- {
-  "name": "yarn-ball",
-  "category": "Fashion & apparel",
-  "tags": [
-   "yarn",
-   "knitting",
-   "wool",
-   "ball",
-   "sports",
-   "game",
-   "play"
   ]
  },
  {
@@ -7680,6 +7887,219 @@
    "like",
    "love",
    "favorite"
+  ]
+ },
+ {
+  "name": "mannequin",
+  "category": "Fashion & apparel",
+  "tags": [
+   "dress form",
+   "display",
+   "mannequin"
+  ]
+ },
+ {
+  "name": "yarn-ball",
+  "category": "Fashion & apparel",
+  "tags": [
+   "yarn",
+   "wool",
+   "knitting",
+   "ball",
+   "sports",
+   "game",
+   "play"
+  ]
+ },
+ {
+  "name": "bikini",
+  "category": "Fashion & apparel",
+  "tags": [
+   "swimwear",
+   "beach",
+   "bikini"
+  ]
+ },
+ {
+  "name": "thread-spool",
+  "category": "Fashion & apparel",
+  "tags": [
+   "thread",
+   "spool",
+   "sewing"
+  ]
+ },
+ {
+  "name": "fabric-roll",
+  "category": "Fashion & apparel",
+  "tags": [
+   "fabric roll",
+   "textile",
+   "material",
+   "fabric",
+   "roll"
+  ]
+ },
+ {
+  "name": "fabric-swatch",
+  "category": "Fashion & apparel",
+  "tags": [
+   "fabric swatch",
+   "sample",
+   "material",
+   "fabric",
+   "swatch"
+  ]
+ },
+ {
+  "name": "trench-coat",
+  "category": "Fashion & apparel",
+  "tags": [
+   "trench coat",
+   "outerwear",
+   "autumn",
+   "trench",
+   "coat",
+   "clothing",
+   "winter"
+  ]
+ },
+ {
+  "name": "swim-trunks",
+  "category": "Fashion & apparel",
+  "tags": [
+   "swim trunks",
+   "swimwear",
+   "beach",
+   "swim",
+   "trunks"
+  ]
+ },
+ {
+  "name": "bikini-heart",
+  "category": "Fashion & apparel",
+  "tags": [
+   "bikini",
+   "favourite",
+   "wishlist",
+   "saved",
+   "heart",
+   "like",
+   "love",
+   "favorite"
+  ]
+ },
+ {
+  "name": "yarn-ball-heart",
+  "category": "Fashion & apparel",
+  "tags": [
+   "yarn",
+   "favourite",
+   "wishlist",
+   "saved",
+   "ball",
+   "sports",
+   "game",
+   "play",
+   "heart",
+   "like"
+  ]
+ },
+ {
+  "name": "mannequin-heart",
+  "category": "Fashion & apparel",
+  "tags": [
+   "mannequin",
+   "favourite",
+   "wishlist",
+   "saved",
+   "heart",
+   "like",
+   "love",
+   "favorite"
+  ]
+ },
+ {
+  "name": "trench-coat-heart",
+  "category": "Fashion & apparel",
+  "tags": [
+   "trench coat",
+   "favourite",
+   "wishlist",
+   "saved",
+   "trench",
+   "coat",
+   "clothing",
+   "outerwear",
+   "winter",
+   "heart"
+  ]
+ },
+ {
+  "name": "swim-trunks-heart",
+  "category": "Fashion & apparel",
+  "tags": [
+   "swim trunks",
+   "favourite",
+   "wishlist",
+   "saved",
+   "swim",
+   "trunks",
+   "heart",
+   "like",
+   "love",
+   "favorite"
+  ]
+ },
+ {
+  "name": "bikini-plus",
+  "category": "Fashion & apparel",
+  "tags": [
+   "bikini",
+   "add",
+   "new",
+   "plus",
+   "create"
+  ]
+ },
+ {
+  "name": "bikini-return",
+  "category": "Fashion & apparel",
+  "tags": [
+   "bikini",
+   "return",
+   "exchange",
+   "refund",
+   "back"
+  ]
+ },
+ {
+  "name": "trench-coat-return",
+  "category": "Fashion & apparel",
+  "tags": [
+   "trench coat",
+   "return",
+   "exchange",
+   "refund",
+   "trench",
+   "coat",
+   "clothing",
+   "outerwear",
+   "winter",
+   "back"
+  ]
+ },
+ {
+  "name": "swim-trunks-return",
+  "category": "Fashion & apparel",
+  "tags": [
+   "swim trunks",
+   "return",
+   "exchange",
+   "refund",
+   "swim",
+   "trunks",
+   "back"
   ]
  },
  {
@@ -14042,6 +14462,152 @@
   ]
  },
  {
+  "name": "rug",
+  "category": "Home",
+  "tags": [
+   "carpet",
+   "floor",
+   "rug"
+  ]
+ },
+ {
+  "name": "curtain",
+  "category": "Home",
+  "tags": [
+   "drapes",
+   "window",
+   "curtain"
+  ]
+ },
+ {
+  "name": "oven",
+  "category": "Home",
+  "tags": [
+   "kitchen",
+   "appliance",
+   "oven"
+  ]
+ },
+ {
+  "name": "sink",
+  "category": "Home",
+  "tags": [
+   "kitchen",
+   "tap",
+   "sink"
+  ]
+ },
+ {
+  "name": "shower",
+  "category": "Home",
+  "tags": [
+   "bathroom",
+   "water",
+   "shower"
+  ]
+ },
+ {
+  "name": "toilet",
+  "category": "Home",
+  "tags": [
+   "bathroom",
+   "wc",
+   "toilet"
+  ]
+ },
+ {
+  "name": "mug",
+  "category": "Home",
+  "tags": [
+   "cup",
+   "tableware",
+   "mug"
+  ]
+ },
+ {
+  "name": "dinnerware",
+  "category": "Home",
+  "tags": [
+   "plate",
+   "cutlery",
+   "dining",
+   "dinnerware"
+  ]
+ },
+ {
+  "name": "radiator",
+  "category": "Home",
+  "tags": [
+   "heating",
+   "warmth",
+   "radiator"
+  ]
+ },
+ {
+  "name": "pendant-lamp",
+  "category": "Home",
+  "tags": [
+   "pendant lamp",
+   "ceiling light",
+   "lighting",
+   "pendant",
+   "lamp"
+  ]
+ },
+ {
+  "name": "bookcase",
+  "category": "Home",
+  "tags": [
+   "shelves",
+   "storage",
+   "bookcase"
+  ]
+ },
+ {
+  "name": "coffee-machine",
+  "category": "Home",
+  "tags": [
+   "coffee machine",
+   "espresso",
+   "kitchen",
+   "coffee",
+   "cafe",
+   "drink",
+   "cup",
+   "machine"
+  ]
+ },
+ {
+  "name": "cutting-board",
+  "category": "Home",
+  "tags": [
+   "cutting board",
+   "kitchen",
+   "chopping",
+   "cutting",
+   "board"
+  ]
+ },
+ {
+  "name": "teapot",
+  "category": "Home",
+  "tags": [
+   "tea",
+   "tableware",
+   "teapot"
+  ]
+ },
+ {
+  "name": "chocolate-bar",
+  "category": "Home",
+  "tags": [
+   "chocolate",
+   "sweets",
+   "confectionery",
+   "bar"
+  ]
+ },
+ {
   "name": "coffee",
   "category": "Food & beverage",
   "tags": [
@@ -16505,6 +17071,45 @@
    "garden",
    "digging",
    "shovel"
+  ]
+ },
+ {
+  "name": "tire",
+  "category": "Tools",
+  "tags": [
+   "wheel",
+   "car parts",
+   "tire"
+  ]
+ },
+ {
+  "name": "oil-can",
+  "category": "Tools",
+  "tags": [
+   "oil can",
+   "lubricant",
+   "auto",
+   "oil",
+   "can"
+  ]
+ },
+ {
+  "name": "hex-nut",
+  "category": "Tools",
+  "tags": [
+   "nut",
+   "hardware",
+   "fasteners",
+   "hex"
+  ]
+ },
+ {
+  "name": "screw",
+  "category": "Tools",
+  "tags": [
+   "hardware",
+   "fasteners",
+   "screw"
   ]
  },
  {
@@ -19206,6 +19811,55 @@
   ]
  },
  {
+  "name": "sponge",
+  "category": "Beauty & care",
+  "tags": [
+   "makeup",
+   "blender",
+   "sponge"
+  ]
+ },
+ {
+  "name": "shampoo-bottle",
+  "category": "Beauty & care",
+  "tags": [
+   "shampoo",
+   "hair care",
+   "bottle"
+  ]
+ },
+ {
+  "name": "spa-stones",
+  "category": "Beauty & care",
+  "tags": [
+   "spa stones",
+   "wellness",
+   "massage",
+   "spa",
+   "stones"
+  ]
+ },
+ {
+  "name": "serum-bottle",
+  "category": "Beauty & care",
+  "tags": [
+   "serum",
+   "skincare",
+   "dropper",
+   "bottle"
+  ]
+ },
+ {
+  "name": "protein-tub",
+  "category": "Beauty & care",
+  "tags": [
+   "protein",
+   "supplements",
+   "nutrition",
+   "tub"
+  ]
+ },
+ {
   "name": "tree-deciduous",
   "category": "Nature",
   "tags": [
@@ -20070,6 +20724,20 @@
    "like",
    "love",
    "favorite"
+  ]
+ },
+ {
+  "name": "lunch-box",
+  "category": "Baby & kids",
+  "tags": [
+   "lunch box",
+   "school",
+   "food",
+   "lunch",
+   "box",
+   "package",
+   "parcel",
+   "container"
   ]
  },
  {
@@ -21051,6 +21719,598 @@
    "like",
    "love",
    "favorite"
+  ]
+ },
+ {
+  "name": "santa-hat",
+  "category": "Seasonal",
+  "tags": [
+   "santa hat",
+   "christmas",
+   "holiday",
+   "santa",
+   "hat",
+   "headwear",
+   "cap",
+   "accessory"
+  ]
+ },
+ {
+  "name": "earbuds",
+  "category": "Electronics",
+  "tags": [
+   "wireless",
+   "audio",
+   "earbuds"
+  ]
+ },
+ {
+  "name": "charging-cable",
+  "category": "Electronics",
+  "tags": [
+   "charging cable",
+   "usb",
+   "charger",
+   "charging",
+   "cable"
+  ]
+ },
+ {
+  "name": "memory-card",
+  "category": "Electronics",
+  "tags": [
+   "memory card",
+   "sd card",
+   "storage",
+   "memory",
+   "card",
+   "payment",
+   "credit",
+   "pay"
+  ]
+ },
+ {
+  "name": "light-bulb",
+  "category": "Electronics",
+  "tags": [
+   "light bulb",
+   "idea",
+   "lighting",
+   "light",
+   "bulb"
+  ]
+ },
+ {
+  "name": "webcam",
+  "category": "Electronics",
+  "tags": [
+   "camera",
+   "video call",
+   "webcam"
+  ]
+ },
+ {
+  "name": "power-bank",
+  "category": "Electronics",
+  "tags": [
+   "power bank",
+   "battery pack",
+   "charger",
+   "power",
+   "on",
+   "off",
+   "switch",
+   "bank",
+   "finance",
+   "money"
+  ]
+ },
+ {
+  "name": "projector",
+  "category": "Electronics",
+  "tags": [
+   "home cinema",
+   "presentation",
+   "projector"
+  ]
+ },
+ {
+  "name": "hard-drive",
+  "category": "Electronics",
+  "tags": [
+   "hard drive",
+   "ssd",
+   "storage",
+   "hard",
+   "drive"
+  ]
+ },
+ {
+  "name": "sim-card",
+  "category": "Electronics",
+  "tags": [
+   "sim card",
+   "mobile",
+   "chip",
+   "sim",
+   "card",
+   "payment",
+   "credit",
+   "pay"
+  ]
+ },
+ {
+  "name": "remote-control",
+  "category": "Electronics",
+  "tags": [
+   "remote control",
+   "tv",
+   "controller",
+   "remote",
+   "control"
+  ]
+ },
+ {
+  "name": "wall-charger",
+  "category": "Electronics",
+  "tags": [
+   "wall charger",
+   "adapter",
+   "power",
+   "wall",
+   "charger"
+  ]
+ },
+ {
+  "name": "action-camera",
+  "category": "Electronics",
+  "tags": [
+   "action camera",
+   "gopro",
+   "video",
+   "action",
+   "camera",
+   "photo",
+   "picture",
+   "capture"
+  ]
+ },
+ {
+  "name": "thermostat",
+  "category": "Electronics",
+  "tags": [
+   "smart home",
+   "heating",
+   "thermostat"
+  ]
+ },
+ {
+  "name": "fitness-band",
+  "category": "Electronics",
+  "tags": [
+   "fitness band",
+   "tracker",
+   "wearable",
+   "fitness",
+   "band"
+  ]
+ },
+ {
+  "name": "e-reader",
+  "category": "Electronics",
+  "tags": [
+   "ebook",
+   "kindle",
+   "reader"
+  ]
+ },
+ {
+  "name": "ink-cartridge",
+  "category": "Electronics",
+  "tags": [
+   "ink cartridge",
+   "printer",
+   "toner",
+   "ink",
+   "cartridge"
+  ]
+ },
+ {
+  "name": "power-strip",
+  "category": "Electronics",
+  "tags": [
+   "power strip",
+   "extension",
+   "sockets",
+   "power",
+   "on",
+   "off",
+   "switch",
+   "strip"
+  ]
+ },
+ {
+  "name": "video-doorbell",
+  "category": "Electronics",
+  "tags": [
+   "video doorbell",
+   "smart home",
+   "security",
+   "video",
+   "film",
+   "movie",
+   "play",
+   "doorbell"
+  ]
+ },
+ {
+  "name": "prescription",
+  "category": "Pharmacy",
+  "tags": [
+   "rx",
+   "pharmacy",
+   "prescription"
+  ]
+ },
+ {
+  "name": "vitamins",
+  "category": "Pharmacy",
+  "tags": [
+   "supplements",
+   "bottle",
+   "vitamins"
+  ]
+ },
+ {
+  "name": "blister-pack",
+  "category": "Pharmacy",
+  "tags": [
+   "blister pack",
+   "tablets",
+   "pills",
+   "blister",
+   "pack"
+  ]
+ },
+ {
+  "name": "mortar-pestle",
+  "category": "Pharmacy",
+  "tags": [
+   "mortar and pestle",
+   "compounding",
+   "pharmacy",
+   "mortar",
+   "pestle"
+  ]
+ },
+ {
+  "name": "bread-loaf",
+  "category": "Grocery",
+  "tags": [
+   "bread",
+   "bakery",
+   "loaf"
+  ]
+ },
+ {
+  "name": "cheese",
+  "category": "Grocery",
+  "tags": [
+   "dairy",
+   "wedge",
+   "cheese"
+  ]
+ },
+ {
+  "name": "salad-bowl",
+  "category": "Grocery",
+  "tags": [
+   "salad",
+   "healthy",
+   "bowl"
+  ]
+ },
+ {
+  "name": "avocado",
+  "category": "Grocery",
+  "tags": [
+   "fruit",
+   "vegan",
+   "avocado"
+  ]
+ },
+ {
+  "name": "jar",
+  "category": "Grocery",
+  "tags": [
+   "jam",
+   "preserves",
+   "jar"
+  ]
+ },
+ {
+  "name": "tin-can",
+  "category": "Grocery",
+  "tags": [
+   "tin can",
+   "canned food",
+   "pantry",
+   "tin",
+   "can"
+  ]
+ },
+ {
+  "name": "robot",
+  "category": "Toys",
+  "tags": [
+   "toy",
+   "ai",
+   "robot"
+  ]
+ },
+ {
+  "name": "crayon",
+  "category": "Toys",
+  "tags": [
+   "drawing",
+   "kids",
+   "crayon"
+  ]
+ },
+ {
+  "name": "toy-car",
+  "category": "Toys",
+  "tags": [
+   "toy car",
+   "kids",
+   "play",
+   "toy",
+   "car"
+  ]
+ },
+ {
+  "name": "bike-helmet",
+  "category": "Outdoor sports",
+  "tags": [
+   "helmet",
+   "cycling",
+   "safety",
+   "bike"
+  ]
+ },
+ {
+  "name": "tennis-racket",
+  "category": "Outdoor sports",
+  "tags": [
+   "tennis racket",
+   "sports",
+   "racquet",
+   "tennis",
+   "racket"
+  ]
+ },
+ {
+  "name": "binoculars",
+  "category": "Outdoor sports",
+  "tags": [
+   "birdwatching",
+   "hiking",
+   "binoculars"
+  ]
+ },
+ {
+  "name": "banner-ad",
+  "category": "Marketing",
+  "tags": [
+   "banner",
+   "ad",
+   "campaign"
+  ]
+ },
+ {
+  "name": "sales-funnel",
+  "category": "Marketing",
+  "tags": [
+   "sales funnel",
+   "conversion",
+   "pipeline",
+   "sales",
+   "funnel"
+  ]
+ },
+ {
+  "name": "hashtag",
+  "category": "Marketing",
+  "tags": [
+   "social media",
+   "trending",
+   "hashtag"
+  ]
+ },
+ {
+  "name": "popup",
+  "category": "Marketing",
+  "tags": [
+   "modal",
+   "overlay",
+   "popup"
+  ]
+ },
+ {
+  "name": "points",
+  "category": "Marketing",
+  "tags": [
+   "rewards",
+   "loyalty",
+   "points"
+  ]
+ },
+ {
+  "name": "pickup-point",
+  "category": "Marketing",
+  "tags": [
+   "pickup point",
+   "click and collect",
+   "store",
+   "pickup",
+   "point"
+  ]
+ },
+ {
+  "name": "compare-products",
+  "category": "Marketing",
+  "tags": [
+   "compare",
+   "versus",
+   "products"
+  ]
+ },
+ {
+  "name": "star-rating",
+  "category": "Marketing",
+  "tags": [
+   "rating",
+   "reviews",
+   "stars",
+   "star",
+   "favorite",
+   "review"
+  ]
+ },
+ {
+  "name": "bundle",
+  "category": "Marketing",
+  "tags": [
+   "set",
+   "multi-pack",
+   "bundle"
+  ]
+ },
+ {
+  "name": "newsletter",
+  "category": "Marketing",
+  "tags": [
+   "email campaign",
+   "mailing",
+   "newsletter"
+  ]
+ },
+ {
+  "name": "lightning-bolt",
+  "category": "Marketing",
+  "tags": [
+   "flash",
+   "deal",
+   "power",
+   "lightning",
+   "bolt"
+  ]
+ },
+ {
+  "name": "flash-sale",
+  "category": "Marketing",
+  "tags": [
+   "flash sale",
+   "limited time",
+   "deal",
+   "flash",
+   "sale",
+   "discount",
+   "offer",
+   "promo"
+  ]
+ },
+ {
+  "name": "new-badge",
+  "category": "Marketing",
+  "tags": [
+   "new arrival",
+   "new badge",
+   "just in",
+   "new",
+   "badge",
+   "label",
+   "verified",
+   "achievement"
+  ]
+ },
+ {
+  "name": "top-seller",
+  "category": "Marketing",
+  "tags": [
+   "best seller",
+   "top rated",
+   "podium",
+   "top",
+   "seller"
+  ]
+ },
+ {
+  "name": "preorder",
+  "category": "Marketing",
+  "tags": [
+   "coming soon",
+   "release date",
+   "preorder"
+  ]
+ },
+ {
+  "name": "subscription-box",
+  "category": "Marketing",
+  "tags": [
+   "subscription box",
+   "recurring order",
+   "monthly",
+   "subscription",
+   "box",
+   "package",
+   "parcel",
+   "container"
+  ]
+ },
+ {
+  "name": "referral",
+  "category": "Marketing",
+  "tags": [
+   "invite a friend",
+   "affiliate",
+   "referral"
+  ]
+ },
+ {
+  "name": "gift-bag",
+  "category": "Marketing",
+  "tags": [
+   "gift bag",
+   "present",
+   "wrapping",
+   "gift",
+   "reward",
+   "surprise",
+   "bag",
+   "shopping",
+   "tote",
+   "purchase"
+  ]
+ },
+ {
+  "name": "social-post",
+  "category": "Marketing",
+  "tags": [
+   "social post",
+   "instagram",
+   "content",
+   "social",
+   "post"
+  ]
+ },
+ {
+  "name": "notebook-spiral",
+  "category": "Books & stationery",
+  "tags": [
+   "notebook",
+   "spiral",
+   "stationery"
   ]
  }
 ]
