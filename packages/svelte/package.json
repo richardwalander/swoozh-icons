@@ -1,6 +1,5 @@
 {
   "version": "0.1.0",
-  "private": true,
   "license": "SEE LICENSE IN LICENSE",
   "type": "module",
   "sideEffects": false,
@@ -27,5 +26,18 @@
   ],
   "peerDependencies": {
     "svelte": ">=4"
+  },
+  "author": "Richard Walander",
+  "homepage": "https://swoozhicons.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/richardwalander/swoozh-icons.git",
+    "directory": "packages/svelte"
+  },
+  "bugs": {
+    "url": "https://github.com/richardwalander/swoozh-icons/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
