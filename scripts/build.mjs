@@ -13,7 +13,8 @@ const cps = JSON.parse(readFileSync(R + 'icons/codepoints.json', 'utf8'));
 const pathOf = (v, n) => readFileSync(R + `icons/${v}/${n}.svg`, 'utf8').match(/ d="([^"]*)"/)[1];
 const pascal = n => n.split('-').map(s => s[0].toUpperCase() + s.slice(1)).join('');
 const camel = n => { const p = pascal(n); return p[0].toLowerCase() + p.slice(1); };
-const icons = meta.map(m => ({...m, pascal: pascal(m.name), camel: camel(m.name), o: pathOf('outline', m.name), f: pathOf('filled', m.name), cp: cps[m.name]}));
+const strokeOf = n => readFileSync(R + `icons/stroke/${n}.svg`, 'utf8').replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, '');
+const icons = meta.map(m => ({...m, st: strokeOf(m.name), pascal: pascal(m.name), camel: camel(m.name), o: pathOf('outline', m.name), f: pathOf('filled', m.name), cp: cps[m.name]}));
 if (new Set(icons.map(i => i.pascal)).size !== icons.length) throw new Error('PascalCase name collision');
 const J = JSON.stringify;
 const out = (p, s) => { mkdirSync(R + p.replace(/\/[^/]*$/, ''), {recursive: true}); writeFileSync(R + p, s); };
@@ -40,6 +41,20 @@ for (const v of ['outline', 'filled']) {
     icons.map(i => `<symbol id="${i.name}" viewBox="0 0 24 24" fill="currentColor"><path d="${v === 'filled' ? i.f : i.o}"/></symbol>`).join('') + '</svg>\n');
 }
 
+mkdirSync(R + 'packages/icons/dist/svg/stroke', {recursive: true});
+for (const i of icons) copyFileSync(R + `icons/stroke/${i.name}.svg`, R + `packages/icons/dist/svg/stroke/${i.name}.svg`);
+// Stroke variant: line icons whose thickness can be set (0.75-2, default 1.5). Markup is inner SVG; element-level widths scale with it.
+const STROKE_FN = `const sw = (m, w) => m.replace(/stroke-width="([\\d.]+)"/g, (_, x) => 'stroke-width="' + +(x * w / 1.5).toFixed(3) + '"');\n`;
+out('packages/icons/dist/stroke.js', `// Swoozh Icons ${VERSION} (stroke). Each export is {name, stroke}: inner SVG markup on a 24x24 viewBox, drawn with strokes.\n` + STROKE_FN +
+  icons.map(i => `export const ${i.pascal} = {name: ${J(i.name)}, stroke: ${J(i.st)}};`).join('\n') + '\n' +
+  `export function toStrokeSvg(icon, {strokeWidth = 1.5, size = 24, color = 'currentColor', title} = {}) {\n` +
+  `  const t = title ? '<title>' + String(title).replace(/[<&]/g, c => c === '<' ? '&lt;' : '&amp;') + '</title>' : '';\n` +
+  `  return '<svg xmlns="${XMLNS}" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="' + color + '" stroke-width="' + strokeWidth + '" stroke-miterlimit="10"' + (title ? ' role="img"' : ' aria-hidden="true"') + '>' + t + sw(icon.stroke, strokeWidth) + '</svg>';\n}\n`);
+out('packages/icons/dist/stroke.d.ts', `export interface SwoozhStrokeIconData { name: string; stroke: string }\n` +
+  `export interface ToStrokeSvgOptions { strokeWidth?: number; size?: number | string; color?: string; title?: string }\n` +
+  `export declare function toStrokeSvg(icon: SwoozhStrokeIconData, options?: ToStrokeSvgOptions): string;\n` +
+  icons.map(i => `export declare const ${i.pascal}: SwoozhStrokeIconData;`).join('\n') + '\n');
+
 // react ------------------------------------------------------------------------------------------
 fresh('packages/react/dist');
 out('packages/react/dist/index.js', `import { createElement, forwardRef } from 'react';\n` +
@@ -56,6 +71,20 @@ out('packages/react/dist/index.d.ts', `import type { ForwardRefExoticComponent, 
   `export declare function createIcon(displayName: string, outline: string, filled: string): SwoozhIcon;\n` +
   icons.map(i => `export declare const ${i.pascal}: SwoozhIcon;`).join('\n') + '\n');
 
+out('packages/react/dist/stroke.js', `import { createElement, forwardRef } from 'react';\n` + STROKE_FN +
+  `export function createIcon(displayName, markup) {\n` +
+  `  const Icon = forwardRef(function SwoozhStrokeIcon({strokeWidth = 1.5, size = 24, color = 'currentColor', title, ...rest}, ref) {\n` +
+  `    return createElement('svg', {xmlns: '${XMLNS}', viewBox: '0 0 24 24', width: size, height: size, fill: 'none', stroke: color, strokeWidth, strokeMiterlimit: 10,\n` +
+  `      'aria-hidden': title ? undefined : true, role: title ? 'img' : undefined, focusable: 'false', ref, ...rest,\n` +
+  `      dangerouslySetInnerHTML: {__html: (title ? '<title>' + title.replace(/[<&]/g, c => c === '<' ? '&lt;' : '&amp;') + '</title>' : '') + sw(markup, strokeWidth)}});\n` +
+  `  });\n  Icon.displayName = displayName;\n  return Icon;\n}\n` +
+  icons.map(i => `export const ${i.pascal} = /*#__PURE__*/ createIcon(${J(i.pascal)}, ${J(i.st)});`).join('\n') + '\n');
+out('packages/react/dist/stroke.d.ts', `import type { ForwardRefExoticComponent, RefAttributes, SVGProps } from 'react';\n` +
+  `export interface SwoozhStrokeIconProps extends Omit<SVGProps<SVGSVGElement>, 'ref' | 'strokeWidth'> { strokeWidth?: number; size?: number | string; color?: string; title?: string }\n` +
+  `export type SwoozhStrokeIcon = ForwardRefExoticComponent<SwoozhStrokeIconProps & RefAttributes<SVGSVGElement>>;\n` +
+  `export declare function createIcon(displayName: string, markup: string): SwoozhStrokeIcon;\n` +
+  icons.map(i => `export declare const ${i.pascal}: SwoozhStrokeIcon;`).join('\n') + '\n');
+
 // vue --------------------------------------------------------------------------------------------
 fresh('packages/vue/dist');
 out('packages/vue/dist/index.js', `import { defineComponent, h } from 'vue';\n` +
@@ -71,6 +100,19 @@ out('packages/vue/dist/index.d.ts', `import type { DefineComponent } from 'vue';
   `export declare function createIcon(name: string, outline: string, filled: string): SwoozhIcon;\n` +
   icons.map(i => `export declare const ${i.pascal}: SwoozhIcon;`).join('\n') + '\n');
 
+out('packages/vue/dist/stroke.js', `import { defineComponent, h } from 'vue';\n` + STROKE_FN +
+  `export function createIcon(name, markup) {\n  return defineComponent({\n    name,\n` +
+  `    props: {strokeWidth: {type: Number, default: 1.5}, size: {type: [Number, String], default: 24}, color: {type: String, default: 'currentColor'}, title: String},\n` +
+  `    setup(p) {\n      return () => h('svg', {xmlns: '${XMLNS}', viewBox: '0 0 24 24', width: p.size, height: p.size, fill: 'none', stroke: p.color, 'stroke-width': p.strokeWidth, 'stroke-miterlimit': 10,\n` +
+  `        'aria-hidden': p.title ? undefined : 'true', role: p.title ? 'img' : undefined,\n` +
+  `        innerHTML: (p.title ? '<title>' + p.title.replace(/[<&]/g, c => c === '<' ? '&lt;' : '&amp;') + '</title>' : '') + sw(markup, p.strokeWidth)});\n    }\n  });\n}\n` +
+  icons.map(i => `export const ${i.pascal} = /*#__PURE__*/ createIcon(${J(i.pascal)}, ${J(i.st)});`).join('\n') + '\n');
+out('packages/vue/dist/stroke.d.ts', `import type { DefineComponent } from 'vue';\n` +
+  `export interface SwoozhStrokeIconProps { strokeWidth?: number; size?: number | string; color?: string; title?: string }\n` +
+  `export type SwoozhStrokeIcon = DefineComponent<SwoozhStrokeIconProps>;\n` +
+  `export declare function createIcon(name: string, markup: string): SwoozhStrokeIcon;\n` +
+  icons.map(i => `export declare const ${i.pascal}: SwoozhStrokeIcon;`).join('\n') + '\n');
+
 // svelte -----------------------------------------------------------------------------------------
 fresh('packages/svelte/dist');
 out('packages/svelte/dist/Icon.svelte', `<script>\n  /** @type {{outline: string, filled: string}} */\n  export let icon;\n` +
@@ -81,6 +123,15 @@ cpSync(R + 'packages/icons/dist/index.d.ts', R + 'packages/svelte/dist/icons.d.t
 out('packages/svelte/dist/index.js', `export { default as Icon } from './Icon.svelte';\nexport * from './icons.js';\n`);
 out('packages/svelte/dist/index.d.ts', `import type { SvelteComponent } from 'svelte';\nimport type { SwoozhIconData } from './icons.js';\n` +
   `export * from './icons.js';\nexport declare class Icon extends SvelteComponent<{icon: SwoozhIconData; variant?: 'outline' | 'filled'; size?: number | string; color?: string; title?: string; [attr: string]: unknown}> {}\n`);
+
+out('packages/svelte/dist/StrokeIcon.svelte', `<script>\n  /** @type {{stroke: string}} */\n  export let icon;\n  export let strokeWidth = 1.5;\n  export let size = 24;\n  export let color = 'currentColor';\n  export let title = undefined;\n` +
+  `  $: markup = (title ? '<title>' + title.replace(/[<&]/g, c => c === '<' ? '&lt;' : '&amp;') + '</title>' : '') + icon.stroke.replace(/stroke-width="([\\d.]+)"/g, (_, x) => 'stroke-width="' + +(x * strokeWidth / 1.5).toFixed(3) + '"');\n</script>\n\n` +
+  `<svg xmlns="${XMLNS}" viewBox="0 0 24 24" width={size} height={size} fill="none" stroke={color} stroke-width={strokeWidth} stroke-miterlimit="10" aria-hidden={title ? undefined : 'true'} role={title ? 'img' : undefined} {...$$restProps}>{@html markup}</svg>\n`);
+cpSync(R + 'packages/icons/dist/stroke.js', R + 'packages/svelte/dist/stroke-icons.js');
+cpSync(R + 'packages/icons/dist/stroke.d.ts', R + 'packages/svelte/dist/stroke-icons.d.ts');
+out('packages/svelte/dist/stroke.js', `export { default as StrokeIcon } from './StrokeIcon.svelte';\nexport * from './stroke-icons.js';\n`);
+out('packages/svelte/dist/stroke.d.ts', `import type { SvelteComponent } from 'svelte';\nimport type { SwoozhStrokeIconData } from './stroke-icons.js';\n` +
+  `export * from './stroke-icons.js';\nexport declare class StrokeIcon extends SvelteComponent<{icon: SwoozhStrokeIconData; strokeWidth?: number; size?: number | string; color?: string; title?: string; [attr: string]: unknown}> {}\n`);
 
 // web component ----------------------------------------------------------------------------------
 fresh('packages/element/dist');
@@ -94,6 +145,16 @@ const wc = `(() => {\n  const I = {\n` + icons.map(i => `    ${J(i.name)}: [${J(
   `      this.innerHTML = '<svg xmlns="${XMLNS}" viewBox="0 0 24 24" width="' + s + '" height="' + s + '" fill="currentColor"' + (l ? ' role="img" aria-label="' + esc(l) + '"' : ' aria-hidden="true"') + '><path d="' + i[this.getAttribute('variant') === 'filled' ? 1 : 0] + '"/></svg>';\n    }\n  }\n` +
   `  if (!customElements.get('swoozh-icon')) customElements.define('swoozh-icon', SwoozhIcon);\n})();\n`;
 out('packages/element/dist/swoozh-icon.js', wc);
+const wcs = `(() => {\n  const I = {\n` + icons.map(i => `    ${J(i.name)}: ${J(i.st)}`).join(',\n') + `\n  };\n` + STROKE_FN +
+  `  const esc = s => String(s).replace(/[<&"]/g, c => ({'<': '&lt;', '&': '&amp;', '"': '&quot;'}[c]));\n` +
+  `  class SwoozhStrokeIcon extends HTMLElement {\n    static observedAttributes = ['name', 'size', 'stroke-width', 'label'];\n` +
+  `    static icons = I;\n    connectedCallback() { this.render(); }\n    attributeChangedCallback() { if (this.isConnected) this.render(); }\n` +
+  `    render() {\n      const m = I[this.getAttribute('name')];\n      if (!m) { this.innerHTML = ''; return; }\n` +
+  `      const s = esc(this.getAttribute('size') || '24'), l = this.getAttribute('label'), w = Math.min(4, Math.max(0.25, parseFloat(this.getAttribute('stroke-width')) || 1.5));\n` +
+  `      this.style.display = this.style.display || 'inline-flex';\n` +
+  `      this.innerHTML = '<svg xmlns="${XMLNS}" viewBox="0 0 24 24" width="' + s + '" height="' + s + '" fill="none" stroke="currentColor" stroke-width="' + w + '" stroke-miterlimit="10"' + (l ? ' role="img" aria-label="' + esc(l) + '"' : ' aria-hidden="true"') + '>' + sw(m, w) + '</svg>';\n    }\n  }\n` +
+  `  if (!customElements.get('swoozh-stroke-icon')) customElements.define('swoozh-stroke-icon', SwoozhStrokeIcon);\n})();\n`;
+out('packages/element/dist/swoozh-stroke-icon.js', wcs);
 out('packages/element/dist/swoozh-icon.d.ts', `export {};\ndeclare global { interface HTMLElementTagNameMap { 'swoozh-icon': HTMLElement } }\n`);
 
 // elm --------------------------------------------------------------------------------------------

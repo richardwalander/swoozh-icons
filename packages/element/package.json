@@ -18,6 +18,10 @@
     ".": {
       "types": "./dist/swoozh-icon.d.ts",
       "default": "./dist/swoozh-icon.js"
+    },
+    "./stroke": {
+      "types": "./dist/swoozh-icon.d.ts",
+      "default": "./dist/swoozh-stroke-icon.js"
     }
   },
   "files": [

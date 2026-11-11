@@ -19,6 +19,11 @@
       "types": "./dist/index.d.ts",
       "svelte": "./dist/index.js",
       "default": "./dist/index.js"
+    },
+    "./stroke": {
+      "types": "./dist/stroke.d.ts",
+      "svelte": "./dist/stroke.js",
+      "default": "./dist/stroke.js"
     }
   },
   "files": [

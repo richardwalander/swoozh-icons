@@ -16,3 +16,4 @@ packages/*/dist/
 packages/elm/src/
 site/data/
 site/fonts/
+.firebase/

@@ -18,6 +18,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./stroke": {
+      "types": "./dist/stroke.d.ts",
+      "default": "./dist/stroke.js"
     }
   },
   "files": [

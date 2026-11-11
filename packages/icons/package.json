@@ -23,7 +23,11 @@
     "./icons.json": "./dist/icons.json",
     "./svg/*": "./dist/svg/*",
     "./sprite-outline.svg": "./dist/sprite-outline.svg",
-    "./sprite-filled.svg": "./dist/sprite-filled.svg"
+    "./sprite-filled.svg": "./dist/sprite-filled.svg",
+    "./stroke": {
+      "types": "./dist/stroke.d.ts",
+      "default": "./dist/stroke.js"
+    }
   },
   "files": [
     "dist"
