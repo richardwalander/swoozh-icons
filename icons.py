@@ -2637,8 +2637,35 @@ for page, items in EXP16.items():
 EXP16_NAMES = [k for v in EXP16.values() for k in v]
 
 
+# ---------------------------------------------------------------- legibility pass: fewer and bigger details so icons hold up at 16 px
+def _redo(name, elems):
+    for _cat in CATEGORIES.values():
+        if name in _cat:
+            _cat[name] = (elems, _cat[name][1])
+            return _cat
+    raise KeyError(name)
+
+
+_redo("donut", [("s", circ(12, 12, 9.25)), ("cut", circ(12, 12, 3.25)), ("d", circ(7.2, 8, 1.2)), ("d", circ(16.8, 8, 1.2)), ("d", circ(16.8, 16, 1.2)), ("d", circ(7.2, 16, 1.2))])
+_redo("grapes", [("s", circ(x, y, 2.1)) for x, y in ((6.75, 9.5), (12, 9.5), (17.25, 9.5), (9.4, 14), (14.6, 14), (12, 18.5))]
+      + [("o", "M12 7.4V2.75"), ("s", "M12 4.75C13.25 3.25 15.25 2.75 17.25 3.25C16 4.75 14 5.25 12 4.75Z")])
+_redo("cookie", [("s", circ(12, 12, 9.25)), ("d", circ(9, 9, 1.4)), ("d", circ(15.25, 10, 1.4)), ("d", circ(10, 15.5, 1.4)), ("d", circ(15, 16, 1.2))])
+_redo("brooch", [("s", circ(12, 12, 8.25)), ("cut", poly([(12, 6.25), (17.75, 12), (12, 17.75), (6.25, 12)])), ("d", circ(12, 12, 1.5))])
+_redo("keyboard", [("s", "M2.75 5.75H21.25V18.25H2.75Z"), ("cut", "M8.25 14.75H15.75")] + [("d", circ(x, 9.75, 1.2)) for x in (6.5, 10.17, 13.83, 17.5)])
+_redo("calculator", [("s", "M4.75 2.75H19.25V21.25H4.75Z"), ("cut", "M8.25 6.25H15.75V9.25H8.25Z")] + [("d", circ(x, y, 1.25)) for y in (13.5, 17.5) for x in (8.5, 12, 15.5)])
+_redo("card-reader", [("s", "M5.25 2.75H18.75V21.25H5.25Z"), ("cut", "M8.25 6.25H15.75V10.25H8.25Z")] + [("d", circ(x, y, 1.25)) for y in (14, 17.75) for x in (9, 15)])
+_REDONE = ("donut", "grapes", "cookie", "brooch", "keyboard", "calculator", "card-reader")
+REDONE_NAMES = list(_REDONE)
+for _pg, _cat in CATEGORIES.items():
+    for _nm in list(_cat):
+        for _b in _REDONE:
+            if _nm.startswith(_b + "-") and _nm[len(_b) + 1:] in MODS:
+                _cat[_nm] = badged(_b, _nm[len(_b) + 1:])
+                REDONE_NAMES.append(_nm)
+
+
 # ---------------------------------------------------------------- review of expansions 13-16: unclear or look-alike motifs removed
-DROPPED_13_16 = {"robot-vacuum", "boxing-glove", "surfboard", "cufflink", "suspenders", "toothbrush", "pet-collar", "kimono", "kimono-heart", "care-label", "care-label-check",
+DROPPED_13_16 = {"sponge", "thread-spool", "tennis-racket", "pos-terminal", "pos-terminal-check", "robot-vacuum", "boxing-glove", "surfboard", "cufflink", "suspenders", "toothbrush", "pet-collar", "kimono", "kimono-heart", "care-label", "care-label-check",
                  "light-switch", "phone-case", "diaper", "garden-hose", "game-console"}
 for _cat in CATEGORIES.values():
     for _k in DROPPED_13_16:
