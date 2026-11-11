@@ -14,13 +14,11 @@ function outlineIn(parent) {
     } else outlineIn(c);
   }
 }
-const out = [];
-const errs = [];
+const out = [], errs = [];
 for (const [page, s] of all.slice(START, END)) {
-  const rec = {page, name: s.name, desc: s.description};
+  const rec = {name: s.name};
   for (const v of s.children) {
     const key = v.name.includes('Filled') ? 'filled' : 'outline';
-    rec[key] = await v.exportAsync({format: 'SVG_STRING'});
     const f = figma.createFrame(); f.resize(24, 24); f.fills = []; f.x = -20000; f.y = 0; f.clipsContent = true;
     try {
       for (const c of v.children) { const cl = c.clone(); f.appendChild(cl); cl.x = c.x; cl.y = c.y; }

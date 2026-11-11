@@ -1,6 +1,6 @@
 # Swoozh Icons
 
-1,778 fashion and e-commerce icons, each with an **outline** and a **filled** style, on a 24 px grid with a 1.5 px line.
+1,773 fashion and e-commerce icons, each with an **outline** and a **filled** style, on a 24 px grid with a 1.5 px line.
 
 | Package | Contents |
 | --- | --- |

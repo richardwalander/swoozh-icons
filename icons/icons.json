@@ -2175,20 +2175,6 @@
   ]
  },
  {
-  "name": "card-reader",
-  "category": "Payment & shipping",
-  "tags": [
-   "card terminal",
-   "pos",
-   "checkout",
-   "card",
-   "payment",
-   "credit",
-   "pay",
-   "reader"
-  ]
- },
- {
   "name": "banknote-check",
   "category": "Payment & shipping",
   "tags": [
@@ -3417,6 +3403,20 @@
    "attention",
    "alert",
    "notice"
+  ]
+ },
+ {
+  "name": "card-reader",
+  "category": "Payment & shipping",
+  "tags": [
+   "card terminal",
+   "pos",
+   "checkout",
+   "card",
+   "payment",
+   "credit",
+   "pay",
+   "reader"
   ]
  },
  {
@@ -5223,16 +5223,6 @@
   ]
  },
  {
-  "name": "pos-terminal",
-  "category": "Shopping & commerce",
-  "tags": [
-   "card reader",
-   "pos",
-   "payment terminal",
-   "terminal"
-  ]
- },
- {
   "name": "shelf",
   "category": "Shopping & commerce",
   "tags": [
@@ -5323,22 +5313,6 @@
    "ok",
    "confirm",
    "success"
-  ]
- },
- {
-  "name": "pos-terminal-check",
-  "category": "Shopping & commerce",
-  "tags": [
-   "card reader",
-   "done",
-   "confirmed",
-   "approved",
-   "pos",
-   "terminal",
-   "check",
-   "tick",
-   "ok",
-   "confirm"
   ]
  },
  {
@@ -7844,29 +7818,6 @@
   ]
  },
  {
-  "name": "brooch",
-  "category": "Fashion & apparel",
-  "tags": [
-   "pin",
-   "jewellery",
-   "brooch"
-  ]
- },
- {
-  "name": "brooch-heart",
-  "category": "Fashion & apparel",
-  "tags": [
-   "brooch",
-   "favourite",
-   "wishlist",
-   "saved",
-   "heart",
-   "like",
-   "love",
-   "favorite"
-  ]
- },
- {
   "name": "keychain",
   "category": "Fashion & apparel",
   "tags": [
@@ -7918,15 +7869,6 @@
    "swimwear",
    "beach",
    "bikini"
-  ]
- },
- {
-  "name": "thread-spool",
-  "category": "Fashion & apparel",
-  "tags": [
-   "thread",
-   "spool",
-   "sewing"
   ]
  },
  {
@@ -8100,6 +8042,29 @@
    "swim",
    "trunks",
    "back"
+  ]
+ },
+ {
+  "name": "brooch",
+  "category": "Fashion & apparel",
+  "tags": [
+   "pin",
+   "jewellery",
+   "brooch"
+  ]
+ },
+ {
+  "name": "brooch-heart",
+  "category": "Fashion & apparel",
+  "tags": [
+   "brooch",
+   "favourite",
+   "wishlist",
+   "saved",
+   "heart",
+   "like",
+   "love",
+   "favorite"
   ]
  },
  {
@@ -12288,14 +12253,6 @@
   ]
  },
  {
-  "name": "keyboard",
-  "category": "Devices",
-  "tags": [
-   "typing",
-   "keyboard"
-  ]
- },
- {
   "name": "mouse",
   "category": "Devices",
   "tags": [
@@ -12865,6 +12822,14 @@
    "notebook",
    "alert",
    "notice"
+  ]
+ },
+ {
+  "name": "keyboard",
+  "category": "Devices",
+  "tags": [
+   "typing",
+   "keyboard"
   ]
  },
  {
@@ -13515,15 +13480,6 @@
   ]
  },
  {
-  "name": "calculator",
-  "category": "Finance",
-  "tags": [
-   "math",
-   "total",
-   "calculator"
-  ]
- },
- {
   "name": "trending-down",
   "category": "Finance",
   "tags": [
@@ -13665,21 +13621,6 @@
   ]
  },
  {
-  "name": "calculator-check",
-  "category": "Finance",
-  "tags": [
-   "calculator",
-   "done",
-   "confirmed",
-   "approved",
-   "check",
-   "tick",
-   "ok",
-   "confirm",
-   "success"
-  ]
- },
- {
   "name": "landmark-x",
   "category": "Finance",
   "tags": [
@@ -13764,6 +13705,30 @@
    "cash",
    "currency",
    "check"
+  ]
+ },
+ {
+  "name": "calculator",
+  "category": "Finance",
+  "tags": [
+   "math",
+   "total",
+   "calculator"
+  ]
+ },
+ {
+  "name": "calculator-check",
+  "category": "Finance",
+  "tags": [
+   "calculator",
+   "done",
+   "confirmed",
+   "approved",
+   "check",
+   "tick",
+   "ok",
+   "confirm",
+   "success"
   ]
  },
  {
@@ -14687,15 +14652,6 @@
   ]
  },
  {
-  "name": "cookie",
-  "category": "Food & beverage",
-  "tags": [
-   "snack",
-   "consent",
-   "cookie"
-  ]
- },
- {
   "name": "milk",
   "category": "Food & beverage",
   "tags": [
@@ -14849,20 +14805,6 @@
   ]
  },
  {
-  "name": "cookie-heart",
-  "category": "Food & beverage",
-  "tags": [
-   "cookie",
-   "favourite",
-   "wishlist",
-   "saved",
-   "heart",
-   "like",
-   "love",
-   "favorite"
-  ]
- },
- {
   "name": "ice-cream-heart",
   "category": "Food & beverage",
   "tags": [
@@ -14929,15 +14871,6 @@
   ]
  },
  {
-  "name": "grapes",
-  "category": "Food & beverage",
-  "tags": [
-   "fruit",
-   "wine",
-   "grapes"
-  ]
- },
- {
   "name": "citrus",
   "category": "Food & beverage",
   "tags": [
@@ -14989,12 +14922,44 @@
   ]
  },
  {
+  "name": "cookie",
+  "category": "Food & beverage",
+  "tags": [
+   "snack",
+   "consent",
+   "cookie"
+  ]
+ },
+ {
+  "name": "cookie-heart",
+  "category": "Food & beverage",
+  "tags": [
+   "cookie",
+   "favourite",
+   "wishlist",
+   "saved",
+   "heart",
+   "like",
+   "love",
+   "favorite"
+  ]
+ },
+ {
   "name": "donut",
   "category": "Food & beverage",
   "tags": [
    "sweet",
    "treat",
    "donut"
+  ]
+ },
+ {
+  "name": "grapes",
+  "category": "Food & beverage",
+  "tags": [
+   "fruit",
+   "wine",
+   "grapes"
   ]
  },
  {
@@ -19811,15 +19776,6 @@
   ]
  },
  {
-  "name": "sponge",
-  "category": "Beauty & care",
-  "tags": [
-   "makeup",
-   "blender",
-   "sponge"
-  ]
- },
- {
   "name": "shampoo-bottle",
   "category": "Beauty & care",
   "tags": [
@@ -22076,17 +22032,6 @@
    "cycling",
    "safety",
    "bike"
-  ]
- },
- {
-  "name": "tennis-racket",
-  "category": "Outdoor sports",
-  "tags": [
-   "tennis racket",
-   "sports",
-   "racquet",
-   "tennis",
-   "racket"
   ]
  },
  {

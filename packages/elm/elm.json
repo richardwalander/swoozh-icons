@@ -1,7 +1,7 @@
 {
     "type": "package",
     "name": "swoozh/icons",
-    "summary": "Swoozh Icons: 1778 fashion and e-commerce SVG icons, outline and filled",
+    "summary": "Swoozh Icons: 1773 fashion and e-commerce SVG icons, outline and filled",
     "license": "BSD-3-Clause",
     "version": "1.0.0",
     "exposed-modules": [
