@@ -2358,3 +2358,77 @@ for _b in ("brooch", "keychain"):
 _F12["keychain"] = ([("o", circ(9.25, 9.25, 4.5)), ("s", poly([(9.63, 13.16), (13.16, 9.63), (19.17, 15.64), (15.64, 19.17)])), ("cut", circ(12.81, 12.81, 1.1))],
                     _F12["keychain"][1])
 _F12["keychain-heart"] = badged("keychain", "heart")
+
+
+# ---------------------------------------------------------------- expansion 13: fashion craft + retail operations
+EXP13 = {}
+EXP13["👗 Fashion & apparel"] = {
+    "bikini": ([("s", "M3.25 10.75C3.25 7.5 5 5.75 7.25 5.75C9.5 5.75 11.25 7.5 11.25 10.75Z"), ("s", "M12.75 10.75C12.75 7.5 14.5 5.75 16.75 5.75C19 5.75 20.75 7.5 20.75 10.75Z"),
+                ("o", "M7.25 5.75L12 2.75L16.75 5.75"), ("s", "M4.25 15.25H19.75L12 21.25Z")], "bikini, swimwear, beach"),
+    "thread-spool": ([("s", "M6.75 2.75H17.25V6.25H6.75Z"), ("s", "M8.25 6.25H15.75V17.75H8.25Z"), ("s", "M6.75 17.75H17.25V21.25H6.75Z"),
+                      ("cut", "M8.25 9.25H15.75M8.25 12H15.75M8.25 14.75H15.75")], "thread, spool, sewing"),
+    "fabric-roll": ([("s", "M7.25 5.75H20.25V18.25H7.25Z"), ("s", ellipse(7.25, 12, 3.5, 6.25, 0)), ("cut", ellipse(7.25, 12, 1.25, 2.5, 0))], "fabric roll, textile, material"),
+    "yarn-ball": ([("s", circ(11, 12, 8)), ("cut", "M4.75 8C8 9.5 12.5 9.5 16.5 7M3.5 13C7.5 15 12.5 14.5 17.5 11M6.25 18.25C10 16.75 14 16.25 18 17"),
+                   ("o", "M18 18.5C19.75 18.5 21.25 19.5 21.25 21.25")], "yarn, wool, knitting"),
+    "fabric-swatch": ([("s", "M8.25 3.75H20.25V15.75H16.25V7.75H8.25Z"), ("s", "M3.75 7.75H16.25V20.25H3.75Z"),
+                       ("cut", "M3.75 14.25L6.25 11.75L8.75 14.25L11.25 11.75L13.75 14.25L16.25 11.75")], "fabric swatch, sample, material"),
+    "mannequin": ([("s", "M10.5 2.75H13.5V5.25H10.5Z"), ("s", "M7.25 5.25H16.75L18.25 14.25L12 16.25L5.75 14.25Z"), ("o", "M12 16.25V21.25M8.25 21.25H15.75")],
+                   "mannequin, dress form, display"),
+    "cufflink": ([("s", circ(7.25, 12, 4.5)), ("cut", circ(7.25, 12, 1.5)), ("o", "M11.75 12H15.25"), ("s", "M15.25 7.25H18.75V16.75H15.25Z")], "cufflink, formal, accessories"),
+    "suspenders": ([("s", "M6.25 2.75H9.25V16.25H6.25Z"), ("s", "M14.75 2.75H17.75V16.25H14.75Z"), ("s", "M3.25 16.25H20.75V21.25H3.25Z"), ("cut", "M6.25 11.75H9.25M14.75 11.75H17.75")],
+                    "suspenders, braces, menswear"),
+    "trench-coat": ([("s", "M8.25 3.25L12 8.25L15.75 3.25L19.25 5.25L20.25 21.25H3.75L4.75 5.25Z"), ("cut", "M12 8.25V21.25M4.25 14.25H19.75"),
+                     ("d", circ(14.5, 11, .8)), ("d", circ(14.5, 18, .8))], "trench coat, outerwear, autumn"),
+    "kimono": ([("s", "M8.25 3.25L12 11.25L15.75 3.25L20.75 6.25L19.25 20.25H4.75L3.25 6.25Z"), ("cut", "M12 11.25V20.25M5.25 14.25H18.75")], "kimono, robe, loungewear"),
+    "care-label": ([("s", "M5.75 2.75H18.25V21.25H5.75Z"), ("cut", "M9 7.75H15M9 11.75H15M9 15.75H12.5")], "care label, washing instructions, garment care"),
+    "swim-trunks": ([("s", "M3.25 5.75H20.75V10.75L17.75 19.75H13.25L12 14.75L10.75 19.75H6.25L3.25 10.75Z"), ("cut", "M3.25 8.25H20.75")], "swim trunks, swimwear, beach"),
+}
+EXP13["🛍️ Shopping & commerce"] = {
+    "review-bubble": ([("s", "M3.25 4.25H20.75V16.25H11.25L6.75 20.25V16.25H3.25Z"), ("d", star(12, 10.25, 3.75, 1.6, 5))], "review, rating, feedback"),
+    "loyalty-card": ([("s", "M2.75 5.75H21.25V18.25H2.75Z"), ("d", star(8.25, 12, 3.5, 1.5, 5)), ("cut", "M13.75 10.25H18.25M13.75 13.75H17")], "loyalty card, membership, rewards"),
+    "pos-terminal": ([("s", "M5.75 2.75H18.25V21.25H5.75Z"), ("cut", "M8.25 5.75H15.75V9.25H8.25Z"),
+                      ("d", circ(9, 13, .9)), ("d", circ(12, 13, .9)), ("d", circ(15, 13, .9)), ("d", circ(9, 16.5, .9)), ("d", circ(12, 16.5, .9)), ("d", circ(15, 16.5, .9))],
+                     "card reader, pos, payment terminal"),
+    "shelf": ([("s", "M5.75 6.75H10.25V12.25H5.75Z"), ("s", "M12.75 4.25H18.25V12.25H12.75Z"), ("s", "M5.75 15.25H12.25V21.25H5.75Z"), ("s", "M14.75 17.25H18.25V21.25H14.75Z"),
+              ("o", "M2.75 12.25H21.25M2.75 21.25H21.25")], "shelf, stock, display"),
+    "clothing-rail": ([("o", "M2.75 3.75H21.25M6.75 3.75V6.25M17.25 3.75V6.25"), ("s", "M3.75 6.25H9.75L10.75 20.25H2.75Z"), ("s", "M14.25 6.25H20.25L21.25 20.25H13.25Z")],
+                       "clothing rail, garment rack, display"),
+}
+for page, items in EXP13.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+
+BADGE_PLAN13 = {
+    "👗 Fashion & apparel":
+        [(b, "heart") for b in ("bikini", "thread-spool", "fabric-roll", "yarn-ball", "mannequin", "trench-coat", "kimono", "swim-trunks", "cufflink", "fabric-swatch", "care-label")]
+        + [(b, "plus") for b in ("bikini", "trench-coat", "kimono", "swim-trunks", "mannequin", "suspenders")]
+        + [(b, "check") for b in ("care-label", "mannequin", "thread-spool")]
+        + [(b, "return") for b in ("bikini", "trench-coat", "kimono", "swim-trunks", "sneaker", "high-heel", "boot", "handbag", "jacket", "t-shirt", "hoodie", "skirt")]
+        + [(b, "leaf") for b in ("bikini", "yarn-ball", "fabric-roll", "thread-spool", "t-shirt", "pants", "jacket", "sneaker")]
+        + [(b, "search") for b in ("dress", "t-shirt", "sneaker", "hanger", "handbag", "jacket", "pants", "high-heel")]
+        + [(b, "star") for b in ("sneaker", "handbag", "mannequin")]
+        + [(b, m) for b in ("sunglasses", "watch", "hat", "cap", "umbrella", "lipstick")
+                       for m in ("plus", "return", "search", "star")]
+        + [(b, "leaf") for b in ("dress", "skirt", "hat", "watch")],
+    "🛍️ Shopping & commerce":
+        [(b, "heart") for b in ("shelf", "clothing-rail", "loyalty-card")]
+        + [(b, "plus") for b in ("clothing-rail", "shelf", "pos-terminal", "loyalty-card")]
+        + [(b, "check") for b in ("review-bubble", "shelf", "clothing-rail", "pos-terminal", "loyalty-card")]
+        + [(b, "x") for b in ("review-bubble", "loyalty-card", "pos-terminal")]
+        + [(b, "alert") for b in ("shelf", "pos-terminal")]
+        + [(b, "down") for b in ("tag", "shopping-bag", "receipt")]
+        + [(b, "up") for b in ("tag", "shopping-bag")]
+        + [(b, "star") for b in ("shopping-bag", "store", "gift")],
+}
+EXP13_SKIPPED = []
+for page, pairs in BADGE_PLAN13.items():
+    for base, mod in pairs:
+        nm = f"{base}-{mod}"
+        if nm in _all() or nm in EXP13.get(page, {}):
+            continue
+        try:
+            EXP13.setdefault(page, {})[nm] = badged(base, mod, TAG_ELEMS if base == "tag" else None)
+        except KeyError:
+            EXP13_SKIPPED.append(nm)
+for page, items in EXP13.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+EXP13_NAMES = [k for v in EXP13.values() for k in v]
