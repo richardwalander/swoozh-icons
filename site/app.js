@@ -199,5 +199,20 @@
     if (e.key === 'Escape') $('drawer').classList.remove('open');
   });
 
+
+  // landing: isometric field + playground ---------------------------------------------------------
+  const ISO = 'shopping-bag heart truck package credit-card gift tag percent star search bell user home dress t-shirt sneaker handbag glasses watch hanger scissors camera smartphone laptop headphones sun moon coffee leaf diamond lipstick umbrella map-pin calendar clock mail phone lock shield trophy basket receipt barcode ruler wallet store bookmark sparkles crown flag sweater high-heel hat tie sock jacket pants skirt bra ring-box mirror'.split(' ').filter(n => byName[n]).slice(0, 56);
+  { const iso = $('iso'); ISO.forEach((n, k) => { const s = document.createElement('span'); if (k === 0) s.className = 'hot'; s.append(svgEl(byName[n].o, 30)); s.title = n; iso.append(s); }); }
+  const PG = 'shopping-bag heart truck package credit-card gift tag percent star search bell user home dress t-shirt sneaker handbag glasses watch hanger camera smartphone laptop sun moon coffee leaf lipstick umbrella map-pin calendar clock mail lock shield trophy basket receipt barcode ruler wallet store'.split(' ').filter(n => byName[n]);
+  const pg = {sw: 1.5, size: 32, color: ''};
+  const pgPaint = () => { const g = $('pg-grid'); g.style.color = pg.color;
+    g.querySelectorAll('svg').forEach(s => { drawInto(s, byName[s.dataset.n], 'outline', pg.sw); s.setAttribute('width', pg.size); s.setAttribute('height', pg.size); });
+    $('pg-sw-v').textContent = pg.sw + 'px'; $('pg-size-v').textContent = pg.size + 'px'; $('pg-sw').value = pg.sw; $('pg-size').value = pg.size; };
+  PG.forEach(n => { const s = document.createElement('span'); const v = svgEl('', 24); v.dataset.n = n; s.append(v); s.title = n; $('pg-grid').append(s); });
+  $('pg-color').oninput = e => { pg.color = e.target.value; pgPaint(); };
+  $('pg-sw').oninput = e => { pg.sw = +e.target.value; pgPaint(); };
+  $('pg-size').oninput = e => { pg.size = +e.target.value; pgPaint(); };
+  $('pg-reset').onclick = () => { Object.assign(pg, {sw: 1.5, size: 32, color: ''}); pgPaint(); };
+  pgPaint();
   fillIcons(); paint(); paintFlags(); render();
 })();

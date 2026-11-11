@@ -41,27 +41,35 @@
       <div><dd id="s-cats">–</dd><dt>Categories</dt></div>
     </dl>
   </div>
-  <div class="hero-art" aria-hidden="true">
-    <div class="phone front">
-      <div class="ph-bar"><span data-icon="arrow-left"></span><span data-icon="share"></span></div>
-      <div class="ph-img"><span data-icon="t-shirt" data-variant="filled" data-size="112"></span><span class="ph-fav"><span data-icon="heart" data-size="18"></span></span></div>
-      <div class="ph-body">
-        <b>Sweater</b>
-        <small>Casual t-shirt · T-Shirts &amp; Sweaters</small>
-        <span class="ph-price">$39</span>
-        <div class="ph-care"><span data-icon="wash-30"></span><span data-icon="iron"></span><span data-icon="tumble-dry"></span><span data-icon="hanger"></span><span data-icon="ruler"></span></div>
-        <div class="ph-btn"><span data-icon="basket" data-size="18"></span>Add to cart</div>
-      </div>
-      <div class="ph-tabs"><span class="on" data-icon="store"></span><span data-icon="search"></span><span class="ph-badge" data-icon="basket"></span><span data-icon="heart"></span><span data-icon="menu"></span></div>
-    </div>
-    <div class="phone back">
-      <div class="ph-bar"><span data-icon="arrow-left"></span><span data-icon="search"></span></div>
-      <b class="ph-title">Categories</b>
-      <ul class="ph-list"><li><span data-icon="dress" data-size="22"></span>Dresses<span data-icon="chevron-right" data-size="16"></span></li><li><span data-icon="t-shirt" data-size="22"></span>T-shirts<span data-icon="chevron-right" data-size="16"></span></li><li><span data-icon="sweater" data-size="22"></span>Sweaters<span data-icon="chevron-right" data-size="16"></span></li><li><span data-icon="high-heel" data-size="22"></span>Shoes<span data-icon="chevron-right" data-size="16"></span></li><li><span data-icon="handbag" data-size="22"></span>Bags<span data-icon="chevron-right" data-size="16"></span></li><li><span data-icon="lipstick" data-size="22"></span>Beauty<span data-icon="chevron-right" data-size="16"></span></li><li><span data-icon="hanger" data-size="22"></span>Wardrobe<span data-icon="chevron-right" data-size="16"></span></li><li><span data-icon="ruler" data-size="22"></span>Size guide<span data-icon="chevron-right" data-size="16"></span></li></ul>
-    </div>
-  </div>
+  <div class="hero-art" aria-hidden="true"><div class="iso" id="iso"></div></div>
 </section>
 </div>
+
+<section class="features wrap-narrow" aria-label="Features">
+  <article><span class="fi" data-icon="shopping-bag" data-size="22"></span><h3>Built for retail</h3><p>Fashion, beauty, home, electronics, pharmacy and campaign symbols: the motifs online shops actually use.</p></article>
+  <article><span class="fi" data-icon="sparkles" data-size="22"></span><h3>Outline &amp; Filled</h3><p>Every icon in two styles on a 24 px grid, with live, adjustable stroke width for Outline.</p></article>
+  <article><span class="fi" data-icon="eye" data-size="22"></span><h3>Clear at small sizes</h3><p>Checked at 16 px so details stay readable instead of blurring together.</p></article>
+  <article><span class="fi" data-icon="package" data-size="22"></span><h3>Your stack</h3><p>React, Vue, Svelte, web component, Elm, icon font, SVG and sprite. Import only what you use.</p></article>
+  <article><span class="fi" data-icon="search" data-size="22"></span><h3>Easy to find</h3><p>Searchable by name, synonym and category, so "like" finds the heart.</p></article>
+  <article><span class="fi" data-icon="gift" data-size="22"></span><h3>Free to use</h3><p>Free for commercial work with a small credit. Not for resale or redistribution.</p></article>
+</section>
+
+<section class="playground wrap-narrow" aria-label="Style playground">
+  <div class="pg-panel">
+    <h2>Style as you please</h2>
+    <p>Try colour, stroke width and size. What you see is what the packages render.</p>
+    <label>Color <input id="pg-color" type="color" value="#27293a"></label>
+    <label>Stroke width <span id="pg-sw-v">1.5px</span><input id="pg-sw" type="range" min="0.75" max="2" step="0.25" value="1.5"></label>
+    <label>Size <span id="pg-size-v">32px</span><input id="pg-size" type="range" min="16" max="48" step="4" value="32"></label>
+    <button class="btn" id="pg-reset">Reset</button>
+  </div>
+  <div class="pg-grid" id="pg-grid"></div>
+</section>
+
+<section class="available wrap-narrow" aria-label="Available for">
+  <h2>Available for</h2>
+  <div class="chips"><span>SVG</span><span>React</span><span>Vue</span><span>Svelte</span><span>Web component</span><span>Elm</span><span>Icon font</span><span>Sprite</span><span>Figma</span></div>
+</section>
 
 <main class="wrap" id="icons">
   <aside class="side" id="side"></aside>
@@ -118,9 +126,22 @@
 <div class="reviewbar" id="reviewbar"><span id="rb-count">0 flagged</span><button class="btn" id="rb-show">Show flagged</button><button class="btn" id="rb-copy">Copy list</button><button class="btn" id="rb-clear">Clear</button></div>
 <div class="toast" id="toast"></div>
 
+<section class="madeby wrap-narrow" aria-label="About">
+  <h2>Made by</h2>
+  <div class="mb-card">
+    <span class="mb-logo" aria-hidden="true">S</span>
+    <div><b>Richard Walander</b><small>Designer and maintainer of Swoozh Icons</small>
+    <span class="mb-links"><a href="https://walander.co">walander.co</a><a href="https://github.com/richardwalander/swoozh-icons">GitHub</a></span></div>
+  </div>
+  <div class="credit">
+    <b>Using the icons?</b> Please credit them somewhere visible, such as a credits page or the footer:
+    <code id="credit-text">Icons by Swoozh</code><button class="btn" data-copy="Icons by Swoozh (https://swoozhicons.com)">Copy credit</button>
+  </div>
+</section>
+
 <footer class="foot">
   <a class="brand" href="./"><span class="logo" aria-hidden="true">S</span><span class="logotype">SwoozhIcons</span></a>
-  <nav><a href="./#icons">Icons</a><a href="docs.html">Docs</a><a href="https://github.com/richardwalander/swoozh-icons">GitHub</a></nav>
+  <nav><a href="./#icons">Icons</a><a href="docs.html">Docs</a><a href="https://github.com/richardwalander/swoozh-icons/blob/master/LICENSE">License</a><a href="https://github.com/richardwalander/swoozh-icons">GitHub</a></nav>
   <span class="ver" id="ver"></span>
 </footer>
 
