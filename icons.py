@@ -698,11 +698,11 @@ GLYPHS = {
     "e": "M6 0H0V9H6M0 4.5H5", "f": "M6 0H0V9M0 4.5H5", "g": "M6 0H0V9H6V4.5H3", "h": "M0 0V9M6 0V9M0 4.5H6",
     "i": "M3 0V9M1 0H5M1 9H5", "j": "M5 0V9H0V6", "k": "M0 0V9M6 0L0 5M2 3.5L6 9", "l": "M0 0V9H6",
     "m": "M0 9V0M8 9V0M0 0L4 5L8 0", "n": "M0 9V0M6 9V0M0 0L6 9", "o": "M3 0H6V9H0V0H3", "p": "M0 9V0H6V5H0",
-    "q": "M3 0H6V9H0V0H3M3.5 6L6.75 10", "r": "M0 9V0H6V5H0M2.5 5L6 9", "s": "M6 0H0V4.5H6V9H0", "t": "M0 0H6M3 0V9",
+    "q": "M3 0H6V9H0V0H3M3 5.5L7.5 11", "r": "M0 9V0H6V5H0M2.5 5L6 9", "s": "M6 0H0V4.5H6V9H0", "t": "M0 0H6M3 0V9",
     "u": "M0 0V9H6V0", "v": "M0 0L3 7.8L6 0", "w": "M0 0V9M8 0V9M0 9L4 4L8 9", "x": "M0 0L6 9M6 0L0 9",
     "y": "M0 0L3 4.5L6 0M3 4.5V9", "z": "M0 0H6L0 9H6",
     "0": "M3 0H6V9H0V0H3M2 6.5L4 2.5", "1": "M1 2L3 0V9M1 9H5", "2": "M0 0H6V4.5H0V9H6", "3": "M0 0H6V9H0M1 4.5H6",
-    "4": "M0 0V5H6M6 0V9", "5": "M6 0H1V4H6V9H0", "6": "M6 0H0V9H6V4.5H0", "7": "M0 0H6L2.5 9", "8": "M3 0H6V9H0V0H3M0 4.5H6",
+    "4": "M0 0V5H6M6 0V9", "5": "M6 0H1V4H6V9H0", "6": "M5 0L0.6 4.5M3 9H0V4.5H6V9H3", "7": "M0 0H6L2.5 9", "8": "M3 0H6V9H0V0H3M0 4.5H6",
     "9": "M6 4.5H0V0H6V9H0",
 }
 BADGE = "M2.75 2.75H21.25V21.25H2.75Z"
@@ -1604,9 +1604,9 @@ EXP6["👗 Fashion & apparel"].update({
     "sewing-button": ([("s", circ(12, 12, 9.25))] + [("d", circ(x, y, 1)) for x, y in ((10, 10), (14, 10), (10, 14), (14, 14))], "button, sewing, haberdashery"),
 })
 EXP6["📶 Connectivity"] = {
-    "signal": ([("s", "M2.75 17.25H5.5V21.25H2.75Z"), ("s", "M8 13.25H10.75V21.25H8Z"), ("s", "M13.25 9.25H16V21.25H13.25Z"), ("s", "M18.5 2.75H21.25V21.25H18.5Z")], "signal, reception, network"),
-    "signal-medium": ([("s", "M2.75 17.25H5.5V21.25H2.75Z"), ("s", "M8 13.25H10.75V21.25H8Z"), ("s", "M13.25 9.25H16V21.25H13.25Z"), ("o", "M18.5 2.75H21.25V21.25H18.5Z")], "signal, reception, network"),
-    "signal-low": ([("s", "M2.75 17.25H5.5V21.25H2.75Z"), ("s", "M8 13.25H10.75V21.25H8Z"), ("o", "M13.25 9.25H16V21.25H13.25Z"), ("o", "M18.5 2.75H21.25V21.25H18.5Z")], "weak signal, reception"),
+    "signal": ([("f", "M2 16.5H6.25V22H2Z"), ("f", "M7.25 12.5H11.5V22H7.25Z"), ("f", "M12.5 8.5H16.75V22H12.5Z"), ("f", "M17.75 2H22V22H17.75Z")], "signal, reception, network"),
+    "signal-medium": ([("f", "M2 16.5H6.25V22H2Z"), ("f", "M7.25 12.5H11.5V22H7.25Z"), ("f", "M12.5 8.5H16.75V22H12.5Z"), ("o", "M18.5 2.75H21.25V21.25H18.5Z")], "signal, reception, network"),
+    "signal-low": ([("f", "M2 16.5H6.25V22H2Z"), ("f", "M7.25 12.5H11.5V22H7.25Z"), ("o", "M13.25 9.25H16V21.25H13.25Z"), ("o", "M18.5 2.75H21.25V21.25H18.5Z")], "weak signal, reception"),
     "router": ([("s", "M2.75 13.25H21.25V20.25H2.75Z"), ("o", "M6.75 13.25L4.75 4.75M17.25 13.25L19.25 4.75"), ("d", circ(6.75, 16.75, 1)), ("d", circ(10.25, 16.75, 1)),
                 ("cut", "M14.25 16.75H17.75")], "router, wifi, internet"),
     "usb-plug": ([("s", "M7.75 2.75H16.25V9.25H7.75Z"), ("d", "M9.75 5.25H11.25V6.75H9.75Z"), ("d", "M12.75 5.25H14.25V6.75H12.75Z"),
