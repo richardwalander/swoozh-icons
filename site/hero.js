@@ -9,17 +9,19 @@
   const icon = (el, name, v = 'outline') => { el.dataset.i = name; draw(el, name, v); };
   play.querySelectorAll('.ii[data-i]').forEach(el => icon(el, el.dataset.i));
 
-  // layouts: [left, top, rotation] on a design canvas. Desktop wraps the headline; mobile sits below it.
+  // layouts: [left, top, rotation] on a design canvas around the centred headline.
   const L = {
     desk: {w: 1280, h: 780, cards: {
       'c-pay': [56, 46, -4], 'c-nav': [252, 132, -7], 'c-search': [392, 34, -2], 'c-notif': [716, 40, 3], 'c-toast': [744, 118, 2], 'c-qty': [1050, 56, 6],
       'c-prod2': [74, 182, -6], 'c-prod': [1000, 164, 5], 'c-care': [30, 520, 4], 'c-ship': [96, 626, -5], 'c-return': [36, 700, 3],
       'c-atc': [372, 640, -4], 'c-size': [612, 664, 3], 'c-swatch': [800, 636, -3], 'c-rate': [968, 478, 6], 'c-promo': [1066, 568, -5], 'c-track': [968, 676, 2]},
       floats: [[330, 300], [318, 560], [960, 130], [1236, 470], [1240, 110], [16, 360], [684, 748], [560, 600], [940, 590], [1200, 740], [240, 470], [610, 140]]},
-    mob: {w: 420, h: 640, cards: {
-      'c-atc': [8, 20, -5], 'c-nav': [262, 30, 6], 'c-prod': [110, 112, 4], 'c-size': [0, 462, 3], 'c-rate': [204, 474, 6],
-      'c-care': [10, 548, -3], 'c-swatch': [214, 566, 4]},
-      floats: [[30, 160], [56, 340], [396, 210], [392, 410], [200, 636]]},
+    // mobile: the headline stays centred, cards hug the top and bottom edges and bleed off screen.
+    // A negative top is measured from the bottom of the canvas (its height follows the viewport).
+    mob: {w: 560, h: 1100, cards: {
+      'c-atc': [-34, 44, -7], 'c-nav': [372, 18, 7], 'c-notif': [236, 138, -3],
+      'c-rate': [-26, -300, 5], 'c-size': [352, -270, -5], 'c-prod': [176, -178, 4], 'c-swatch': [-44, -150, -6], 'c-care': [404, -142, 7]},
+      floats: [[34, 300], [530, 330], [22, -380], [540, -400], [300, 236], [120, -40], [470, -20]]},
   };
   let mode = '', lay;
 
@@ -46,15 +48,17 @@
   const all = [...floats, ...cards];
   all.forEach(c => { c.rot = 0; c.spinNow = 0; c.k = 1; });
 
+  let lastW = 0;
+  const place = (el, x, y, size = 0) => { el.style.left = x - size / 2 + 'px'; el.style.top = (y < 0 ? lay.h + y : y) - size / 2 + 'px'; };
   const layout = () => {
     const w = hero.clientWidth, m = w < 1024 ? 'mob' : 'desk';
-    if (m !== mode) {
-      mode = m; lay = L[m]; hero.classList.toggle('mob', m === 'mob');
-      stage.style.width = lay.w + 'px'; stage.style.height = lay.h + 'px';
-      cards.forEach(c => { const p = lay.cards[c.key]; c.el.hidden = !p; if (p) { c.el.style.left = p[0] + 'px'; c.el.style.top = p[1] + 'px'; c.r0 = p[2]; c.rot = p[2]; } });
-      floats.forEach((f, k) => { const p = lay.floats[k]; f.el.hidden = !p; if (p) { f.el.style.left = p[0] - f.size / 2 + 'px'; f.el.style.top = p[1] - f.size / 2 + 'px'; f.rot = f.r0; } });
-    }
-    const s = m === 'mob' ? Math.min(w / lay.w, 1.35) : Math.min(w / lay.w, 1.15);
+    if (m === mode && w === lastW) return;
+    lastW = w; mode = m; lay = {...L[m]}; hero.classList.toggle('mob', m === 'mob');
+    const s = m === 'mob' ? Math.min(w / lay.w, 1.3) : Math.min(w / lay.w, 1.15);
+    if (m === 'mob') { const vh = Math.max(640, Math.min(document.documentElement.clientHeight - 64, 920)); lay.h = vh / s; }
+    stage.style.width = lay.w + 'px'; stage.style.height = lay.h + 'px';
+    cards.forEach(c => { const p = lay.cards[c.key]; c.el.hidden = !p; if (p) { place(c.el, p[0], p[1]); c.r0 = c.rot = p[2]; } });
+    floats.forEach((f, k) => { const p = lay.floats[k]; f.el.hidden = !p; if (p) { place(f.el, p[0], p[1], f.size); f.rot = f.r0; } });
     play.style.setProperty('--s', s); hero.style.setProperty('--s', s);
     play.style.setProperty('--ox', ((w - lay.w * s) / 2 + lay.w / 2 * (s - 1)) + 'px'); play.style.setProperty('--oy', (lay.h / 2 * (s - 1)) + 'px');
     hero.style.setProperty('--h', lay.h * s + 'px');

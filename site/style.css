@@ -117,10 +117,10 @@ code, pre, kbd { font-family: var(--mono); font-size: 13px; }
 .m-hero h1 em { display: block; }
 .m-hero .lead { margin: 0 0 36px; max-width: min(430px, calc(470px * var(--s, 1))); color: var(--muted-foreground); font-size: 18px; line-height: 1.6; }
 .m-hero .lead b { color: var(--foreground); font-weight: 600; }
-.m-hero.mob { height: auto; display: flex; flex-direction: column; } .m-hero.mob .m-copy { order: -1; }
-.m-hero.mob .m-copy { position: relative; padding: 56px 16px 0; }
-.m-hero.mob h1 { font-size: 58px; margin-bottom: 24px; } .m-hero.mob .lead { max-width: 340px; margin-bottom: 28px; }
-.m-hero.mob .play { position: relative; height: var(--h); }
+.m-hero.mob { overflow: clip; }
+.m-hero.mob h1 { font-size: clamp(52px, 15vw, 88px); margin-bottom: 20px; }
+.m-hero.mob .lead { max-width: 330px; margin-bottom: 28px; font-size: 16.5px; }
+.m-hero.mob .cta .mono { display: none; }
 .pat { inset: 0; }
 .fl { position: absolute; display: grid; place-items: center; padding: 0; border: 0; border-radius: 22%; background: var(--card); color: var(--foreground); cursor: pointer;
   box-shadow: 0 1px 2px rgba(16, 17, 26, .04), 0 14px 30px -14px rgba(16, 17, 26, .2); transition: filter .4s var(--ease), opacity .4s var(--ease);
