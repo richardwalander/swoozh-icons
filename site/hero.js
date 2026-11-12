@@ -1,5 +1,5 @@
-// Hero: Swoozh Icons in use. Cards drift with the pointer (parallax by depth), the faint icon pattern
-// lights up around the cursor, and every control works. When left alone it plays a short demo.
+// Hero: Swoozh Icons in use. Tilted cards and floating icon tiles drift at different depths and follow the
+// pointer; hovering straightens a card, every control works. When left alone it plays a short demo.
 (() => {
   const play = document.getElementById('play'); if (!play || !window.SWZ) return;
   const {byName, draw} = window.SWZ;
@@ -16,44 +16,65 @@
   let s = 1;
   new ResizeObserver(([e]) => { s = e.contentRect.width / W; play.style.setProperty('--s', s); }).observe(play);
 
-  // pattern
+  // floating icon tiles in the background (depth: far = small, soft, faint)
   const pat = $('pat');
-  const names = 'heart search wash-30 basket user hanger store star iron tag shopping-bag gift percent package bell truck calendar dress sneaker lipstick ruler credit-card high-heel perfume-bottle'.split(' ').filter(n => byName[n]);
-  for (let k = 0; k < 100; k++) { const sp = document.createElement('span'); draw(sp, names[(k * 7) % names.length]); pat.append(sp); }
-  const patIcons = [...pat.children].map((el, k) => ({el: el.firstChild, x: -60 + (k % 10) * 72 + 36, y: -60 + Math.floor(k / 10) * 72 + 36}));
-  const light = (px, py) => patIcons.forEach(p => { const d = Math.hypot(p.x - px, p.y - py);
-    p.el.style.setProperty('--o', (0.06 + 0.42 * Math.max(0, 1 - d / 170)).toFixed(3)); });
+  const names = 'heart hanger shopping-bag dress high-heel perfume-bottle lipstick sneaker handbag jewelry-ring tag gift wash-30 truck star trench-coat diamond scissors'.split(' ').filter(n => byName[n]);
+  const rnd = (k, a, b) => { const x = Math.sin(k * 12.9898 + 4.1) * 43758.5453; return a + (x - Math.floor(x)) * (b - a); };
+  const SPOTS = [[-30, 40], [110, -20], [330, -40], [560, 10], [620, 220], [570, 400], [600, 600], [380, 620], [190, 600], [-40, 560], [-60, 260], [250, 300], [520, 250], [80, 420], [300, 520], [470, 560]];
+  const floats = SPOTS.map(([x, y], k) => {
+    const z = rnd(k, .25, .75), size = Math.round(40 + z * 36);
+    const el = document.createElement('button'); el.type = 'button'; el.className = 'fl'; el.tabIndex = -1; el.setAttribute('aria-hidden', 'true');
+    el.style.cssText = `left:${x - size / 2}px;top:${y - size / 2}px;width:${size}px;height:${size}px;filter:blur(${((1 - z) * 2.4).toFixed(1)}px);opacity:${(.35 + z * .6).toFixed(2)}`;
+    const ic = document.createElement('span'); ic.className = 'ii'; el.append(ic); icon(ic, names[k % names.length]); pat.append(el);
+    const f = {el, d: z * .9, r0: rnd(k + 7, -28, 28), ph: rnd(k + 3, 0, 6.28), sp: rnd(k + 9, .7, 1.3), amp: 6 + z * 10, rot: 0, k: 1, hover: false};
+    el.onmouseenter = () => { f.hover = true; el.classList.add('hot'); }; el.onmouseleave = () => { f.hover = false; el.classList.remove('hot'); };
+    el.onclick = () => { const v = ic.dataset.v === 'filled' ? 'outline' : 'filled'; ic.dataset.v = v; icon(ic, ic.dataset.i, v); f.spin = (f.spin || 0) + 360; };
+    return f;
+  });
 
-  // parallax
-  const cards = [...stage.querySelectorAll('.pc')].map((el, k) => ({el, d: +el.dataset.d || .5, ph: k * 1.3}));
+  // cards: tilted like pinned swatches, straighten and lift on hover
+  const TILT = {'c-toast': 3, 'c-atc': -6, 'c-qty': 5, 'c-prod': -3, 'c-rate': 6, 'c-size': 4, 'c-ship': -5, 'c-nav': -7};
+  const cards = [...stage.querySelectorAll('.pc')].map((el, k) => {
+    const c = {el, d: +el.dataset.d || .5, ph: k * 1.3, sp: .8 + (k % 3) * .15, amp: 4, r0: TILT[[...el.classList].find(x => TILT[x] !== undefined)] || 0, rot: 0, k: 1, hover: false};
+    el.addEventListener('mouseenter', () => c.hover = true); el.addEventListener('mouseleave', () => c.hover = false);
+    return c;
+  });
+  const all = [...floats, ...cards];
+  all.forEach(c => { c.rot = c.r0; c.spinNow = 0; });
+
+  // pointer
   const cur = {x: 0, y: 0}, tgt = {x: 0, y: 0};
   let lastUser = performance.now() - 2500, visible = true;
   const onMove = e => {
     const r = play.getBoundingClientRect();
     tgt.x = Math.max(-1, Math.min(1, (e.clientX - r.left - r.width / 2) / (r.width / 2)));
     tgt.y = Math.max(-1, Math.min(1, (e.clientY - r.top - r.height / 2) / (r.height / 2)));
-    light((e.clientX - r.left) / s, (e.clientY - r.top) / s);
     lastUser = performance.now();
   };
   const hero = play.closest('section') || play;
   hero.addEventListener('pointermove', onMove);
-  hero.addEventListener('pointerleave', () => { tgt.x = tgt.y = 0; light(-999, -999); });
+  hero.addEventListener('pointerleave', () => { tgt.x = tgt.y = 0; });
   play.addEventListener('pointerdown', () => { lastUser = performance.now(); });
 
   const idle = t => t - lastUser > 5000;
   const frame = t => {
     if (visible) {
-      if (idle(t) && !reduce) { // slow drift so the scene breathes on its own
-        tgt.x = Math.sin(t / 2600) * .55; tgt.y = Math.cos(t / 3400) * .45;
-        light(W / 2 + tgt.x * 220, W / 2 + tgt.y * 220);
+      if (idle(t) && !reduce) { tgt.x = Math.sin(t / 3200) * .5; tgt.y = Math.cos(t / 4100) * .4; }
+      cur.x += (tgt.x - cur.x) * .06; cur.y += (tgt.y - cur.y) * .06;
+      stage.style.setProperty('--tx', (-cur.y * 5).toFixed(2) + 'deg'); stage.style.setProperty('--ty', (cur.x * 7).toFixed(2) + 'deg');
+      for (const c of all) {
+        const w = reduce ? 0 : t / 1000 * c.sp + c.ph;
+        const dx = Math.sin(w * .9) * c.amp * c.d, dy = Math.cos(w * .7) * c.amp * c.d;
+        const tr = c.hover ? 0 : c.r0 + (reduce ? 0 : Math.sin(w * .5) * 3) + cur.x * 4 * c.d;
+        c.rot += (tr - c.rot) * .1;
+        if (c.spin) { c.spinNow += (c.spin - c.spinNow) * .12; }
+        c.k += ((c.hover ? 1.06 : 1) - c.k) * .15;
+        const st = c.el.style;
+        st.setProperty('--x', (cur.x * c.d * 34 + dx).toFixed(2) + 'px');
+        st.setProperty('--y', (cur.y * c.d * 34 + dy).toFixed(2) + 'px');
+        st.setProperty('--r', (c.rot + c.spinNow).toFixed(2) + 'deg');
+        st.setProperty('--k', c.k.toFixed(3));
       }
-      cur.x += (tgt.x - cur.x) * .07; cur.y += (tgt.y - cur.y) * .07;
-      for (const c of cards) {
-        const f = reduce ? 0 : Math.sin(t / 1600 + c.ph) * 4;
-        c.el.style.setProperty('--x', (cur.x * c.d * 26).toFixed(2) + 'px');
-        c.el.style.setProperty('--y', (cur.y * c.d * 26 + f * c.d).toFixed(2) + 'px');
-      }
-      pat.style.transform = `translate(${(-cur.x * 10).toFixed(2)}px, ${(-cur.y * 10).toFixed(2)}px)`;
     }
     requestAnimationFrame(frame);
   };
