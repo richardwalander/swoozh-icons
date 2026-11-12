@@ -953,7 +953,7 @@ S_["tag-percent"] = ([("s", TAG), TAG_HOLE, ("cut", "M14.75 10.75L10.75 14.75"),
 S_["door-package"] = ([("s", "M4.75 21.25V2.75H15.25V12.75H11.25V21.25"), ("k", "M9.75 11.25V21.75M9.75 11.25H15.75"), ("s", "M11.25 12.75H21.25V21.25H11.25Z"), ("cut", "M16.25 12.75V15.75"), ("d", circ(7.25, 12, 1))], S_["door-package"][1])
 TR_ = CATEGORIES["🚗 Transportation"]
 TR_["truck-check"] = (TRUCK + [("cut", "M5.25 9.75L7.25 11.75L11.25 7.75")], TR_["truck-check"][1])
-TR_["truck-clock"] = (TRUCK + [("cut", ring(8.25, 9.75, 2.5)), ("cut", "M8.25 8.5V10H9.5")], TR_["truck-clock"][1])
+TR_["truck-clock"] = (TRUCK + [("cut", ring(8.25, 9.75, 2.25)), ("cut", "M8.25 8.5V10H9.5")], TR_["truck-clock"][1])
 TR_["truck-electric"] = (TRUCK + [("cut", "M9.25 6.75L6.75 10H10.25L7.75 13")], TR_["truck-electric"][1])
 TR_["forklift"] = ([("s", "M6.25 5.25H11.25L13.25 11.75V16.75H3.75V11.75H6.25Z"), ("cut", "M6.25 11.75H13.25"), ("o", "M16.25 2.75V19.25H21.25"),
                     ("s", circ(6.25, 18.75, 1.5)), ("s", circ(13.25, 18.75, 1.5)), ("k", circ(6.25, 18.75, 2.75)), ("k", circ(13.25, 18.75, 2.75))], TR_["forklift"][1])
@@ -2678,3 +2678,6 @@ EXP13_NAMES = [k for v in EXP13.values() for k in v]
 EXP14_NAMES = [k for v in EXP14.values() for k in v]
 EXP15_NAMES = [k for v in EXP15.values() for k in v]
 EXP16_NAMES = [k for v in EXP16.values() for k in v]
+
+# Joins sharper than the miter limit are bevelled. Letters with acute joins use 2 so they get no spikes.
+MITER = {"letter-n": 2, "letter-m": 2, "letter-w": 2}

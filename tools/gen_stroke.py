@@ -4,7 +4,7 @@ Usage: python3 -I tools/gen_stroke.py"""
 import json, os, re, sys
 D = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/"
 sys.path.insert(0, D)
-from icons import CATEGORIES
+from icons import CATEGORIES, MITER
 
 ROOT = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10">'
 FILL = 'fill="currentColor" stroke="none"'
@@ -26,7 +26,8 @@ def icon_svg(name, elems):
                 f'<g mask="url(#{mid})">{"".join(solids)}</g>{"".join(tops)}')
     else:
         body = "".join(solids + tops)
-    return ROOT + body + "</svg>"
+    root = ROOT.replace('stroke-miterlimit="10"', f'stroke-miterlimit="{MITER[name]}"') if name in MITER else ROOT
+    return root + body + "</svg>"
 
 def from_raw(svg):
     b = re.sub(r'^.*?<svg[^>]*>', '', svg, flags=re.S).rsplit("</svg>", 1)[0].strip()

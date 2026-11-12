@@ -3,7 +3,7 @@ component sets for the icons in icons.py, one wrapper frame per category page.
 Usage: python3 -I build.py [category-substring ...]"""
 import json, sys, re
 sys.path.insert(0, "/Users/richard/Dev/swoozh-icons")
-from icons import CATEGORIES, NEW
+from icons import CATEGORIES, NEW, MITER
 
 D = "/Users/richard/Dev/swoozh-icons/"
 ST = 'stroke="#000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" fill="none"'
@@ -81,6 +81,9 @@ for cat, icons in CATEGORIES.items():
             continue
         fs, kinds = filled(elems)
         os_, ok = outline(elems)
+        if name in MITER:
+            ml = f'stroke-miterlimit="{MITER[name]}"'
+            os_, fs = (x.replace('stroke-miterlimit="10"', ml) if isinstance(x, str) else x for x in (os_, fs))
         items.append({"name": name, "desc": tags, "o": os_, "ok": ok, "f": fs, "k": kinds})
     if not items:
         continue
