@@ -18,3 +18,4 @@ site/data/
 site/fonts/
 .firebase/
 figma-plugin/dist/
+!figma-plugin/manifest.json
