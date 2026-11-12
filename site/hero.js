@@ -12,16 +12,16 @@
   // layouts: [left, top, rotation] on a design canvas around the centred headline.
   const L = {
     desk: {w: 1280, h: 780, cards: {
-      'c-pay': [56, 46, -4], 'c-nav': [252, 132, -7], 'c-search': [392, 34, -2], 'c-notif': [716, 40, 3], 'c-toast': [744, 118, 2], 'c-qty': [1050, 56, 6],
-      'c-prod2': [74, 182, -6], 'c-prod': [1000, 164, 5], 'c-care': [30, 520, 4], 'c-ship': [96, 626, -5], 'c-return': [36, 700, 3],
-      'c-atc': [372, 640, -4], 'c-size': [612, 664, 3], 'c-swatch': [800, 636, -3], 'c-rate': [968, 478, 6], 'c-promo': [1066, 568, -5], 'c-track': [968, 676, 2]},
-      floats: [[330, 300], [318, 560], [960, 130], [1236, 470], [1240, 110], [16, 360], [684, 748], [560, 600], [940, 590], [1200, 740], [240, 470], [610, 140]]},
+      'c-nav': [150, 112, -7], 'c-search': [400, 40, -3], 'c-notif': [748, 46, 4], 'c-toast': [770, 132, 2],
+      'c-care': [64, 300, 5], 'c-atc': [70, 528, -5], 'c-prod': [1010, 150, 5], 'c-rate': [986, 520, 6],
+      'c-track': [372, 652, 3], 'c-ship': [692, 676, -4], 'c-promo': [1040, 646, -5]},
+      floats: [[330, 300], [960, 110], [1240, 420], [26, 200], [300, 560], [930, 610], [620, 770], [1230, 760]]},
     // mobile: the headline stays centred, cards hug the top and bottom edges and bleed off screen.
     // A negative top is measured from the bottom of the canvas (its height follows the viewport).
     mob: {w: 560, h: 1100, cards: {
-      'c-atc': [-34, 44, -7], 'c-nav': [372, 18, 7], 'c-notif': [236, 138, -3],
-      'c-rate': [-26, -300, 5], 'c-size': [352, -270, -5], 'c-prod': [176, -178, 4], 'c-swatch': [-44, -150, -6], 'c-care': [404, -142, 7]},
-      floats: [[34, 300], [530, 330], [22, -380], [540, -400], [300, 236], [120, -40], [470, -20]]},
+      'c-atc': [-34, 44, -7], 'c-nav': [380, 22, 7], 'c-notif': [236, 140, -3],
+      'c-rate': [-26, -290, 5], 'c-prod': [186, -186, 4], 'c-care': [-40, -150, -6]},
+      floats: [[34, 300], [530, 330], [540, -330], [470, -40]]},
   };
   let mode = '', lay;
 
@@ -105,7 +105,7 @@
   const pop = (el, cls = 'pop') => { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
   // favourites
   const navFav = $('p-navfav');
-  const favs = [$('p-fav'), $('p-fav2')];
+  const favs = [$('p-fav')];
   const paintNav = () => { const on = favs.some(f => f.classList.contains('on')); navFav.classList.toggle('on', on); icon(navFav.querySelector('.ii'), 'heart', on ? 'filled' : 'outline'); };
   const setFav = (fav, on) => { fav.classList.toggle('on', on); fav.setAttribute('aria-pressed', on); icon(fav.querySelector('.ii'), 'heart', on ? 'filled' : 'outline'); pop(fav); paintNav(); };
   favs.forEach(f => f.onclick = () => setFav(f, !f.classList.contains('on')));
@@ -117,15 +117,10 @@
   atc.onclick = () => {
     clearTimeout(atcT);
     atc.classList.add('done'); icon(atc.querySelector('.ii'), 'check'); atc.querySelector('.t').textContent = 'Added';
-    cart += +$('p-q').textContent || 1; badge.textContent = cart > 9 ? '9+' : cart; pop(badge, 'bump');
+    cart += 1; badge.textContent = cart > 9 ? '9+' : cart; pop(badge, 'bump');
     toast.classList.add('show');
     atcT = setTimeout(() => { atc.classList.remove('done'); icon(atc.querySelector('.ii'), 'basket'); atc.querySelector('.t').textContent = 'Add to cart'; toast.classList.remove('show'); }, 2200);
   };
-
-  // quantity
-  const q = $('p-q');
-  $('p-minus').onclick = () => { q.textContent = Math.max(1, +q.textContent - 1); };
-  $('p-plus').onclick = () => { q.textContent = Math.min(9, +q.textContent + 1); };
 
   // rating
   const starsHost = $('p-rate').querySelector('.stars');
@@ -137,17 +132,6 @@
   starsHost.onmouseleave = () => paintStars(rating);
   paintStars(rating);
 
-  // size
-  const sizes = [...$('p-size').children];
-  const setSize = b => sizes.forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-checked', x === b); });
-  sizes.forEach(b => { b.setAttribute('role', 'radio'); b.onclick = () => setSize(b); });
-  setSize(sizes[2]);
-
-  // colour
-  const dots = [...$('p-sw').children];
-  const setDot = b => { dots.forEach(x => x.classList.toggle('on', x === b)); $('p-sw-l').textContent = b.getAttribute('aria-label'); };
-  dots.forEach(b => b.onclick = () => setDot(b));
-
   // care label: name on hover
   const CARE = [['wash-30', 'Wash at 30°'], ['do-not-bleach', 'Do not bleach'], ['tumble-dry-low', 'Tumble dry low'], ['iron-low', 'Iron on low'], ['dry-clean', 'Dry clean']];
   CARE.filter(([n]) => byName[n]).forEach(([n, label]) => { const b = document.createElement('span'); b.className = 'ii'; b.title = label; icon(b, n);
@@ -157,7 +141,7 @@
 
   // promo code
   const promo = $('p-promo');
-  promo.onclick = () => { try { navigator.clipboard.writeText('SWOOZH20'); } catch (e) {} icon(promo.querySelector('.ii'), 'check'); promo.classList.add('on');
+  promo.onclick = e => { if (e && e.isTrusted && navigator.clipboard) navigator.clipboard.writeText('SWOOZH20').catch(() => {}); icon(promo.querySelector('.ii'), 'check'); promo.classList.add('on');
     setTimeout(() => { icon(promo.querySelector('.ii'), 'copy'); promo.classList.remove('on'); }, 1600); };
 
   // delivery tracking
@@ -179,9 +163,8 @@
   // demo when left alone
   if (!reduce) {
     const steps = [
-      () => setFav(favs[0], true), () => { rating = 5; paintStars(5); }, () => setSize(sizes[3]), () => atc.onclick(), () => $('p-track').onclick(),
-      () => setDot(dots[1]), () => setFav(favs[1], true), () => $('p-plus').onclick(), () => { rating = 4; paintStars(4); }, () => setFav(favs[0], false),
-      () => setSize(sizes[2]), () => setDot(dots[0]), () => $('p-minus').onclick(), () => setFav(favs[1], false),
+      () => setFav(favs[0], true), () => { rating = 5; paintStars(5); }, () => atc.onclick(), () => $('p-track').onclick(),
+      () => promo.onclick(), () => { rating = 4; paintStars(4); }, () => setFav(favs[0], false), () => $('p-track').onclick(),
     ];
     let k = 0;
     setInterval(() => { if (visible && idle(performance.now()) && !document.hidden) { steps[k % steps.length](); k++; } }, 2000);
