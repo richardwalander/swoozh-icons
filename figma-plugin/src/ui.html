@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root {
+    --bg: var(--figma-color-bg, #fff);
+    --bg2: var(--figma-color-bg-secondary, #f5f6f8);
+    --hover: var(--figma-color-bg-hover, #eef0f3);
+    --fg: var(--figma-color-text, #191a25);
+    --muted: var(--figma-color-text-secondary, #757681);
+    --line: var(--figma-color-border, #e6e7ec);
+    --ink: var(--figma-color-bg-inverse, #191a25);
+    --on-ink: var(--figma-color-text-oninverse, #fff);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--fg); font: 12px/1.4 Inter, system-ui, -apple-system, sans-serif; display: flex; flex-direction: column; overflow: hidden; }
+  header { padding: 14px 14px 10px; display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid var(--line); }
+  .brand { display: flex; align-items: baseline; gap: 6px; }
+  .brand b { font: 600 17px/1 "Playfair Display", Georgia, "Times New Roman", serif; letter-spacing: -.01em; }
+  .brand span { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+  .brand .n { margin-left: auto; letter-spacing: 0; text-transform: none; }
+  .search { position: relative; }
+  .search svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+  input[type=search] { width: 100%; height: 34px; padding: 0 10px 0 32px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg2); color: var(--fg); font: inherit; outline: none; }
+  input[type=search]:focus { border-color: var(--fg); background: var(--bg); }
+  .row { display: flex; gap: 6px; align-items: center; }
+  .seg { display: flex; background: var(--bg2); border-radius: 9px; padding: 2px; flex: 1; }
+  .seg button { flex: 1; border: 0; background: none; color: var(--muted); font: 500 11px/1 inherit; font-family: inherit; height: 26px; border-radius: 7px; cursor: pointer; }
+  .seg button.on { background: var(--bg); color: var(--fg); box-shadow: 0 1px 2px rgba(25,26,37,.12); }
+  select { height: 30px; border: 1px solid var(--line); border-radius: 9px; background: var(--bg); color: var(--fg); font: inherit; padding: 0 6px; max-width: 132px; }
+  .opts { display: flex; gap: 10px; align-items: center; color: var(--muted); font-size: 11px; }
+  .opts label { display: flex; align-items: center; gap: 6px; }
+  .opts input[type=range] { width: 64px; accent-color: var(--fg); }
+  .opts b { color: var(--fg); font-weight: 500; min-width: 22px; }
+  .opts input[type=color] { width: 22px; height: 22px; border: 1px solid var(--line); border-radius: 50%; padding: 0; background: none; cursor: pointer; overflow: hidden; }
+  .opts input[type=color]::-webkit-color-swatch-wrapper { padding: 0; }
+  .opts input[type=color]::-webkit-color-swatch { border: 0; border-radius: 50%; }
+  .sw[hidden] { display: none; }
+  main { flex: 1; overflow-y: auto; padding: 10px 10px 14px; }
+  .cat { margin: 12px 4px 6px; color: var(--muted); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; }
+  .cat:first-child { margin-top: 2px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(44px, 1fr)); gap: 2px; }
+  .ic { aspect-ratio: 1; display: grid; place-items: center; border: 0; background: none; color: var(--fg); border-radius: 10px; cursor: grab; padding: 0; }
+  .ic:hover, .ic:focus-visible { background: var(--hover); outline: none; }
+  .ic:active { cursor: grabbing; }
+  .ic svg { width: 24px; height: 24px; pointer-events: none; }
+  .empty { text-align: center; color: var(--muted); padding: 48px 12px; }
+  footer { border-top: 1px solid var(--line); padding: 8px 14px; color: var(--muted); font-size: 11px; display: flex; justify-content: space-between; min-height: 33px; align-items: center; }
+  footer b { color: var(--fg); font-weight: 500; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><b>Swoozh</b><span>Icons</span><span class="n" id="n"></span></div>
+  <label class="search">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+    <input id="q" type="search" placeholder="Search icons" autocomplete="off" spellcheck="false">
+  </label>
+  <div class="row">
+    <div class="seg" role="group" aria-label="Style">
+      <button data-v="outline" class="on">Outline</button>
+      <button data-v="filled">Filled</button>
+      <button data-v="stroke" title="Live stroke you can edit in Figma">Stroke</button>
+    </div>
+    <select id="cat" aria-label="Category"><option value="">All categories</option></select>
+  </div>
+  <div class="opts">
+    <label>Size <input id="size" type="range" min="16" max="48" step="4" value="24"><b id="size-v">24</b></label>
+    <label class="sw" id="sw-l" hidden>Stroke <input id="sw" type="range" min="0.75" max="2" step="0.25" value="1.5"><b id="sw-v">1.5</b></label>
+    <label style="margin-left:auto">Color <input id="color" type="color" value="#191a25"></label>
+  </div>
+</header>
+<main id="list"></main>
+<footer><span id="hint">Click to insert, or drag onto the canvas</span><span id="hov"></span></footer>
+
+<script>
+const DATA = /*DATA*/null;
+const STROKE = /*STROKE*/null;
+const ICONS = DATA.icons.map(([name, cat, tags, o, f]) => ({ name, cat, tags, o, f, hay: (name + ',' + tags).toLowerCase() }));
+const $ = (id) => document.getElementById(id);
+const st = { v: 'outline', q: '', cat: '', size: 24, sw: 1.5, color: '#191a25' };
+
+$('n').textContent = ICONS.length.toLocaleString('en') + ' icons';
+for (const c of DATA.categories) { const o = document.createElement('option'); o.value = o.textContent = c; $('cat').appendChild(o); }
+
+function inner(i) {
+  if (st.v === 'stroke' && STROKE[i.name]) return STROKE[i.name];
+  return `<path d="${st.v === 'filled' ? i.f : i.o}"/>`;
+}
+function svgFor(i, size, color) {
+  const s = st.v === 'stroke' && STROKE[i.name];
+  const attrs = s
+    ? `fill="none" stroke="${color}" stroke-width="${st.sw}" stroke-miterlimit="10"`
+    : `fill="${color}"`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" ${attrs}>${inner(i)}</svg>`;
+}
+
+let shown = [];
+function render() {
+  const words = st.q.toLowerCase().split(/\s+/).filter(Boolean);
+  shown = ICONS.filter((i) => (!st.cat || i.cat === st.cat) && words.every((w) => i.hay.includes(w)));
+  const list = $('list');
+  list.textContent = '';
+  if (!shown.length) { list.innerHTML = '<div class="empty">No icons match. Try a broader word.</div>'; return; }
+  const groups = new Map();
+  for (const i of shown) { if (!groups.has(i.cat)) groups.set(i.cat, []); groups.get(i.cat).push(i); }
+  const frag = document.createDocumentFragment();
+  for (const [cat, items] of groups) {
+    const h = document.createElement('div'); h.className = 'cat'; h.textContent = `${cat} · ${items.length}`; frag.appendChild(h);
+    const g = document.createElement('div'); g.className = 'grid';
+    g.innerHTML = items.map((i) => `<button class="ic" draggable="true" data-n="${i.name}" title="${i.name}">${svgFor(i, 24, 'currentColor')}</button>`).join('');
+    frag.appendChild(g);
+  }
+  list.appendChild(frag);
+}
+
+const byName = new Map(ICONS.map((i) => [i.name, i]));
+function save() { parent.postMessage({ pluginMessage: { type: 'save', prefs: { v: st.v, size: st.size, sw: st.sw, color: st.color } } }, '*'); }
+
+$('list').addEventListener('click', (e) => {
+  const b = e.target.closest('.ic'); if (!b) return;
+  const i = byName.get(b.dataset.n);
+  parent.postMessage({ pluginMessage: { type: 'insert', name: i.name, svg: svgFor(i, st.size, st.color) } }, '*');
+});
+$('list').addEventListener('mouseover', (e) => { const b = e.target.closest('.ic'); $('hov').innerHTML = b ? `<b>${b.dataset.n}</b>` : ''; });
+$('list').addEventListener('dragstart', (e) => {
+  const b = e.target.closest('.ic'); if (!b) return;
+  e.dataTransfer.setData('text/plain', b.dataset.n);
+  e.dataTransfer.effectAllowed = 'copy';
+});
+$('list').addEventListener('dragend', (e) => {
+  const b = e.target.closest('.ic'); if (!b) return;
+  if (e.view.length === 0) return;
+  // Only when released outside the plugin window, i.e. over the canvas.
+  if (e.clientX >= 0 && e.clientY >= 0 && e.clientX <= innerWidth && e.clientY <= innerHeight) return;
+  const i = byName.get(b.dataset.n);
+  parent.postMessage({ pluginDrop: { clientX: e.clientX, clientY: e.clientY, items: [{ type: 'image/svg+xml', data: svgFor(i, st.size, st.color) }], dropMetadata: { name: i.name } } }, '*');
+});
+
+let t;
+$('q').addEventListener('input', (e) => { st.q = e.target.value; clearTimeout(t); t = setTimeout(render, 90); });
+$('cat').addEventListener('change', (e) => { st.cat = e.target.value; render(); $('list').scrollTop = 0; });
+document.querySelector('.seg').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  setV(b.dataset.v); render(); save();
+});
+function setV(v) {
+  st.v = v;
+  document.querySelectorAll('.seg button').forEach((x) => x.classList.toggle('on', x.dataset.v === v));
+  $('sw-l').hidden = v !== 'stroke';
+}
+$('size').addEventListener('input', (e) => { st.size = +e.target.value; $('size-v').textContent = st.size; save(); });
+$('sw').addEventListener('input', (e) => { st.sw = +e.target.value; $('sw-v').textContent = st.sw; render(); save(); });
+$('color').addEventListener('input', (e) => { st.color = e.target.value; save(); });
+addEventListener('keydown', (e) => { if (e.key === '/' && document.activeElement !== $('q')) { e.preventDefault(); $('q').focus(); } });
+
+onmessage = (e) => {
+  const m = e.data && e.data.pluginMessage;
+  if (!m || m.type !== 'prefs' || !m.prefs) return;
+  const p = m.prefs;
+  if (p.size) { st.size = p.size; $('size').value = p.size; $('size-v').textContent = p.size; }
+  if (p.sw) { st.sw = p.sw; $('sw').value = p.sw; $('sw-v').textContent = p.sw; }
+  if (p.color) { st.color = p.color; $('color').value = p.color; }
+  if (p.v) setV(p.v);
+  render();
+};
+
+render();
+$('q').focus();
+</script>
+</body>
+</html>

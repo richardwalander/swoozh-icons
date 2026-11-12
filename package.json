@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "export": "python3 -I tools/export_svg.py 120 && node scripts/normalize.mjs && node scripts/enrich-tags.mjs && python3 -I tools/gen_stroke.py",
-    "build": "node scripts/build.mjs"
+    "build": "node scripts/build.mjs",
+    "figma": "node scripts/build-figma.mjs"
   },
   "devDependencies": {
     "svg2ttf": "^6.1.0",

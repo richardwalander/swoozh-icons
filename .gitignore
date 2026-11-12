@@ -17,3 +17,4 @@ packages/elm/src/
 site/data/
 site/fonts/
 .firebase/
+figma-plugin/dist/
