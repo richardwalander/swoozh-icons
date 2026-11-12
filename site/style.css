@@ -147,10 +147,11 @@ code, pre, kbd { font-family: var(--mono); font-size: 13px; }
 .art-grid .ic { fill: currentColor; }
 .art-pair { display: flex !important; gap: 40px; align-items: center; justify-content: center; }
 .art-weight { display: flex !important; flex-direction: column; align-items: center; justify-content: center; gap: 18px; }
-.art-weight small { font: 500 12px var(--mono); opacity: .7; }
+.art-weight svg { color: var(--red); }
+.art-weight small { font: 500 12px var(--mono); color: var(--muted-foreground); }
 .art-sizes { display: flex !important; align-items: flex-end; justify-content: center; gap: 26px; }
 .art-fmt { display: flex !important; flex-wrap: wrap; align-content: center; justify-content: center; gap: 8px; }
-.art-fmt span { padding: 8px 14px; border-radius: 99px; background: color-mix(in srgb, currentColor 9%, transparent); font-size: 13px; font-weight: 600; }
+.art-fmt span { padding: 8px 14px; border-radius: 99px; background: var(--card); box-shadow: var(--sh-xs); font-size: 13px; font-weight: 600; }
 
 .m-close { text-align: center; padding-top: 184px; }
 .m-close h2 { font-size: clamp(48px, 6.4vw, 96px); line-height: .98; letter-spacing: -.045em; margin: 0 0 40px; }
