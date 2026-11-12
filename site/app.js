@@ -209,7 +209,7 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // hero: four floating tiles that slowly change wardrobe
-  if ($('hero-tiles')) { const sets = [pick('hanger shopping-bag heart dress'), pick('high-heel perfume-bottle jewelry-ring trench-coat'), pick('handbag lipstick diamond sneaker'), pick('scissors sewing-machine bow-tie earrings')];
+  { const sets = [pick('hanger shopping-bag heart dress'), pick('high-heel perfume-bottle jewelry-ring trench-coat'), pick('handbag lipstick diamond sneaker'), pick('scissors sewing-machine bow-tie earrings')];
     const tiles = [...$('hero-tiles').children];
     tiles.forEach((t, k) => { const s = svgEl(byName[sets[0][k]].o, 44); s.removeAttribute('width'); s.removeAttribute('height'); t.append(s); });
     let n = 0;
@@ -236,6 +236,6 @@
   fillIcons();
   if ($('ver')) $('ver').textContent = 'v' + D.version;
   if ($('s-icons')) { $('s-icons').textContent = icons.length.toLocaleString('en'); if ($('s-cats')) $('s-cats').textContent = D.categories.length; }
-  if ($('st-icons')) landing();
+  if ($('hero-tiles')) landing();
   if ($('grid')) browse();
 })();
