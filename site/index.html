@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Raleway:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=202611120959">
 <link rel="stylesheet" href="fonts/swoozh-icons.css">
 <script>try { const t = localStorage.getItem('swz-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 </head>
@@ -29,28 +29,22 @@
 </header>
 
 <main>
-<section class="m-hero wrap">
-  <div class="m-copy">
-    <h1>Icons, <em>tailored.</em></h1>
-    <p class="lead"><b><span id="s-icons">1,773</span> icons</b> for fashion and commerce. Drawn by hand on a 24&nbsp;px grid, in outline and filled.</p>
-    <div class="cta">
-      <a class="btn primary lg" href="icons.html">Browse icons</a>
-      <button class="btn secondary lg mono" data-copy="npm install @swoozh/icons-react"><span>npm i @swoozh/icons-react</span><span data-icon="copy" data-size="16"></span></button>
-    </div>
-  </div>
+<section class="m-hero" id="hero">
   <div class="play" id="play" aria-label="Swoozh Icons in use. Try the controls.">
     <div class="play-in" id="play-in">
       <div class="pat" id="pat" aria-hidden="true"></div>
 
-      <div class="pc c-toast" data-d=".9" id="p-toast" aria-live="polite"><span class="ii" data-i="check-circle"></span><span>Added to your cart</span></div>
-
-      <div class="pc c-atc" data-d=".55"><button class="ink-btn" id="p-atc" type="button"><span class="ii" data-i="basket"></span><span class="t">Add to cart</span></button></div>
-
-      <div class="pc c-qty" data-d=".7" role="group" aria-label="Quantity">
-        <button type="button" id="p-minus" aria-label="Less"><span class="ii" data-i="minus"></span></button>
-        <output id="p-q">2</output>
-        <button type="button" id="p-plus" aria-label="More"><span class="ii" data-i="plus"></span></button>
+      <div class="pc c-nav" data-d=".6">
+        <button type="button" aria-label="Search"><span class="ii" data-i="search"></span></button>
+        <button type="button" aria-label="Favourites" id="p-navfav"><span class="ii" data-i="heart"></span></button>
+        <button type="button" aria-label="Cart"><span class="ii" data-i="basket"></span><i class="badge" id="p-badge">1</i></button>
       </div>
+
+      <div class="pc c-search" data-d=".35"><span class="ii" data-i="search"></span><span class="q" id="p-search">linen blazer</span><span class="caret"></span><button type="button" aria-label="Filter"><span class="ii" data-i="list-filter"></span></button></div>
+
+      <div class="pc c-notif" data-d=".7"><span class="bell"><span class="ii" data-i="bell"></span><i></i></span><span class="t2"><b>Your order has shipped</b><small>Arrives Thursday</small></span></div>
+
+      <div class="pc c-toast" data-d=".9" id="p-toast" aria-live="polite"><span class="ii" data-i="check-circle"></span><span>Added to your cart</span></div>
 
       <article class="pc c-prod" data-d=".25">
         <div class="ph"><img src="showcase/hero-product.jpg" alt="" width="330" height="290"><span class="tag">New</span>
@@ -58,19 +52,26 @@
         <div class="info"><b>Satin drape dress</b><small>Dresses</small><span class="price">$129</span></div>
       </article>
 
-      <div class="pc c-rate" data-d=".8" id="p-rate" role="group" aria-label="Rating"><span class="stars"></span><b id="p-rv">4.0</b></div>
-
-      <div class="pc c-size" data-d=".45" role="radiogroup" aria-label="Size" id="p-size">
-        <button type="button">XS</button><button type="button">S</button><button type="button" class="on">M</button><button type="button">L</button>
-      </div>
+      <div class="pc c-care" data-d=".45"><div class="row" id="p-care"></div><small id="p-care-l">Wash at 30°</small></div>
 
       <div class="pc c-ship" data-d="1"><span class="ii" data-i="truck"></span><span>Free delivery over $50</span></div>
 
-      <div class="pc c-nav" data-d=".6">
-        <button type="button" aria-label="Search"><span class="ii" data-i="search"></span></button>
-        <button type="button" aria-label="Favourites" id="p-navfav"><span class="ii" data-i="heart"></span></button>
-        <button type="button" aria-label="Cart"><span class="ii" data-i="basket"></span><i class="badge" id="p-badge">1</i></button>
-      </div>
+      <div class="pc c-atc" data-d=".55"><button class="ink-btn" id="p-atc" type="button"><span class="ii" data-i="basket"></span><span class="t">Add to cart</span></button></div>
+
+      <div class="pc c-rate" data-d=".8" id="p-rate" role="group" aria-label="Rating"><span class="stars"></span><b id="p-rv">4.0</b></div>
+
+      <div class="pc c-promo" data-d=".6"><span class="ii" data-i="tag"></span><span class="t2"><b>SWOOZH20</b><small>20% off your first order</small></span><button type="button" id="p-promo" aria-label="Copy code"><span class="ii" data-i="copy"></span></button></div>
+
+      <div class="pc c-track" data-d=".4" id="p-track"><div class="steps"><span class="ii" data-i="package"></span><i></i><span class="ii" data-i="truck"></span><i></i><span class="ii" data-i="home"></span></div><small id="p-track-l">Out for delivery</small></div>
+    </div>
+  </div>
+
+  <div class="m-copy">
+    <h1>Icons, <em>tailored.</em></h1>
+    <p class="lead"><b><span id="s-icons">1,773</span> icons</b> for fashion and commerce. Drawn by hand on a 24&nbsp;px grid, in outline and filled.</p>
+    <div class="cta">
+      <a class="btn primary lg" href="icons.html">Browse icons</a>
+      <button class="btn secondary lg mono" data-copy="npm install @swoozh/icons-react"><span>npm i @swoozh/icons-react</span><span data-icon="copy" data-size="16"></span></button>
     </div>
   </div>
 </section>
@@ -127,7 +128,7 @@
 
 <script src="data/icons.js"></script>
 <script src="data/stroke.js"></script>
-<script src="app.js"></script>
-<script src="hero.js"></script>
+<script src="app.js?v=202611120959"></script>
+<script src="hero.js?v=202611120959"></script>
 </body>
 </html>
