@@ -204,74 +204,30 @@
   document.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => copy(b.dataset.copy));
   function landing() {
   const pick = list => list.split(' ').filter(n => byName[n]);
-  const stars = (host, n) => { if (!host) return; for (let k = 0; k < 5; k++) host.append(svgEl(k < n ? byName.star.f : byName.star.o, 16)); };
-  stars($('hero-stars'), 5); stars($('cmp-stars'), 4);
   if ($('st-icons')) $('st-icons').textContent = icons.length.toLocaleString('en');
   if ($('st-cats')) $('st-cats').textContent = D.categories.length;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // faded icon pattern behind the component wall
-  { const bg = $('cmp-bg'); const names = pick('heart search wash-30 basket user washing-machine store star iron tag shopping-bag gift percent package bell message-circle truck calendar hanger dress sneaker lipstick ruler credit-card');
-    for (let k = 0; k < 60; k++) bg.append(svgEl(byName[names[k % names.length]].o, 40)); }
-  { const c = $('care'); pick('wash-30 do-not-bleach tumble-dry-low iron-low dry-clean').forEach(n => { const s = svgEl(byName[n].o, 24); s.setAttribute('title', n); c.append(s); }); }
+  // hero: four floating tiles that slowly change wardrobe
+  { const sets = [pick('hanger shopping-bag heart dress'), pick('high-heel perfume-bottle jewelry-ring trench-coat'), pick('handbag lipstick diamond sneaker'), pick('scissors sewing-machine bow-tie earrings')];
+    const tiles = [...$('hero-tiles').children];
+    tiles.forEach((t, k) => { const s = svgEl(byName[sets[0][k]].o, 44); s.removeAttribute('width'); s.removeAttribute('height'); t.append(s); });
+    let n = 0;
+    if (!reduce) setInterval(() => { n = (n + 1) % sets.length; tiles.forEach((t, k) => setTimeout(() => {
+      t.classList.add('swap'); setTimeout(() => { t.querySelector('path').setAttribute('d', byName[sets[n][k]].o); t.classList.remove('swap'); }, 380); }, k * 140)); }, 3600);
+    tiles.forEach((t, k) => { t.onmouseenter = () => t.querySelector('path').setAttribute('d', byName[sets[n][k]].f); t.onmouseleave = () => t.querySelector('path').setAttribute('d', byName[sets[n][k]].o); }); }
 
-  // craft: specimen on its construction grid + optical size / weight proofs
-  { const kl = (() => { let g = ''; for (let k = 0; k <= 24; k++) g += `<line x1="${k}" y1="0" x2="${k}" y2="24"/><line x1="0" y1="${k}" x2="24" y2="${k}"/>`; return g; })();
-    const SP = pick('shopping-bag heart dress handbag sneaker gift hanger lipstick');
-    const sp = $('specimen');
-    sp.innerHTML = `<svg viewBox="-1 -1 26 26" aria-hidden="true"><g class="gl">${kl}</g><rect class="kl" x="2" y="2" width="20" height="20" rx=".5"/><circle class="kl" cx="12" cy="12" r="10"/><g class="ic"></g></svg>
-      <div class="sp-nav" role="group" aria-label="Specimen"></div>`;
-    const set = n => { sp.querySelector('.ic').innerHTML = `<path d="${byName[n].o}"/>`; sp.querySelectorAll('.sp-nav button').forEach(b => b.classList.toggle('on', b.dataset.n === n)); };
-    SP.forEach(n => { const b = document.createElement('button'); b.dataset.n = n; b.title = n; b.setAttribute('aria-label', n); b.append(svgEl(byName[n].o, 20)); b.onclick = () => set(n); sp.querySelector('.sp-nav').append(b); });
-    set(SP[0]);
-    const pr = $('proof');
-    const sizes = document.createElement('div'); sizes.className = 'pr-row';
-    [16, 20, 24, 32, 48].forEach(sz => { const d = document.createElement('div'); d.append(svgEl(byName['shopping-bag'].o, sz)); const s = document.createElement('small'); s.textContent = sz + ' px'; d.append(s); sizes.append(d); });
-    const weights = document.createElement('div'); weights.className = 'pr-row';
-    [0.75, 1, 1.25, 1.5, 1.75, 2].forEach(w => { const d = document.createElement('div'); const v = svgEl('', 36); drawInto(v, byName.heart, 'outline', w); d.append(v);
-      const s = document.createElement('small'); s.textContent = w; d.append(s); if (w === 1.5) d.className = 'on'; weights.append(d); });
-    pr.append(sizes, weights); }
-
-  // playground
-  const PG = pick('shopping-bag heart truck package credit-card gift tag percent star search bell user home dress t-shirt sneaker handbag glasses watch hanger camera smartphone laptop sun moon coffee leaf lipstick umbrella map-pin calendar clock mail lock shield trophy basket receipt barcode ruler wallet store').slice(0, 36);
-  const pg = {sw: 1.5, size: 32, color: ''};
-  const SW = [['', 'Ink'], ['#757681', 'Grey'], ['#b81530', 'Red'], ['#1796fe', 'Blue'], ['#4c9912', 'Green'], ['#712aa0', 'Lilac']];
-  SW.forEach(([c, n]) => { const b = document.createElement('button'); b.title = n; b.setAttribute('aria-label', n); b.dataset.c = c; if (c) b.style.background = c;
-    b.onclick = () => { pg.color = c; pgPaint(); }; $('pg-swatches').append(b); });
-  const pgPaint = () => { const g = $('pg-grid'); g.style.color = pg.color;
-    g.querySelectorAll('svg').forEach(s => { drawInto(s, byName[s.dataset.n], 'outline', pg.sw); s.setAttribute('width', pg.size); s.setAttribute('height', pg.size); });
-    $('pg-sw-v').textContent = pg.sw + 'px'; $('pg-size-v').textContent = pg.size + 'px'; $('pg-sw').value = pg.sw; $('pg-size').value = pg.size;
-    [['pg-sw', .75, 2], ['pg-size', 16, 48]].forEach(([id, lo, hi]) => $(id).style.setProperty('--p', (($(id).value - lo) / (hi - lo) * 100) + '%'));
-    $('pg-swatches').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.c === pg.color)); };
-  PG.forEach(n => { const s = document.createElement('span'); const v = svgEl('', 24); v.dataset.n = n; s.append(v); s.title = n; $('pg-grid').append(s); });
-  $('pg-color').oninput = e => { pg.color = e.target.value; pgPaint(); };
-  $('pg-sw').oninput = e => { pg.sw = +e.target.value; pgPaint(); };
-  $('pg-size').oninput = e => { pg.size = +e.target.value; pgPaint(); };
-  $('pg-reset').onclick = () => { Object.assign(pg, {sw: 1.5, size: 32, color: ''}); pgPaint(); };
-  pgPaint();
-
-  // formats
-  const FMT = {
-    React: `import { ShoppingBag } from '@swoozh/icons-react';\n\n<ShoppingBag size={24} />\n<ShoppingBag variant="filled" title="Bag" />`,
-    Vue: `<script setup>\nimport { ShoppingBag } from '@swoozh/icons-vue';\n</script>\n\n<template>\n  <ShoppingBag variant="filled" :size="24" />\n</template>`,
-    Svelte: `<script>\n  import { Icon, ShoppingBag } from '@swoozh/icons-svelte';\n</script>\n\n<Icon icon={ShoppingBag} size={24} />`,
-    'Web component': `<script type="module" src="https://unpkg.com/@swoozh/icons-element"></script>\n\n<swoozh-icon name="shopping-bag"></swoozh-icon>`,
-    Font: `<link rel="stylesheet" href="swoozh-icons.css">\n\n<i class="swz swz-shopping-bag"></i>\n<i class="swz swz-filled swz-shopping-bag"></i>`,
-    SVG: `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">\n  <path d="…"/>\n</svg>`,
-    Sprite: `<svg width="24" height="24">\n  <use href="sprite-outline.svg#shopping-bag"/>\n</svg>`,
-    Elm: `import SwoozhIcons exposing (Variant(..))\n\nSwoozhIcons.shoppingBag Outline []`,
-  };
-  const setFmt = k => { $('fmt-code').textContent = FMT[k]; $('fmt-tabs').querySelectorAll('button').forEach(b => { b.classList.toggle('on', b.dataset.k === k); b.setAttribute('aria-selected', b.dataset.k === k); }); };
-  Object.keys(FMT).forEach(k => { const b = document.createElement('button'); b.textContent = k; b.dataset.k = k; b.setAttribute('role', 'tab'); b.onclick = () => setFmt(k); $('fmt-tabs').append(b); });
-  $('fmt-copy').onclick = () => copy($('fmt-code').textContent, 'Snippet copied');
-  setFmt('React');
-
-  // departments
-  { const n = {}, first = {}; icons.forEach(i => { n[i.category] = (n[i.category] || 0) + 1; first[i.category] = first[i.category] || i; });
-    const host = $('cat-chips');
-    [...D.categories].sort((a, b) => n[b] - n[a]).slice(0, 14).forEach(c => { const a = document.createElement('a'); a.href = 'icons.html?cat=' + encodeURIComponent(c);
-      a.innerHTML = '<span class="cn"></span><small></small>'; a.firstChild.textContent = c; a.querySelector('small').textContent = n[c];
-      a.prepend(svgEl(first[c].o, 16)); host.append(a); });
-    const all = document.createElement('a'); all.href = 'icons.html'; all.className = 'all'; all.innerHTML = `All ${D.categories.length} departments`; all.append(svgEl(byName['arrow-right'].o, 16)); host.append(all); }
+  // feature art
+  const put = (host, name, size, v = 'outline', w = 1.5) => { const s = svgEl('', size); drawInto(s, byName[name], v, w); host.append(s); return s; };
+  pick('dress hanger wash-30 shopping-bag truck credit-card').forEach(n => put($('art-cluster'), n, 34));
+  { const kl = (() => { let g = ''; for (let k = 0; k <= 24; k += 2) g += `<line x1="${k}" y1="0" x2="${k}" y2="24"/><line x1="0" y1="${k}" x2="24" y2="${k}"/>`; return g; })();
+    $('art-grid').innerHTML = `<svg viewBox="-1 -1 26 26"><g class="gl">${kl}</g><rect class="kl" x="2" y="2" width="20" height="20" rx="2"/><circle class="kl" cx="12" cy="12" r="10"/><path class="ic" d="${byName['high-heel'].o}"/></svg>`; }
+  put($('art-pair'), 'handbag', 56); put($('art-pair'), 'handbag', 56, 'filled');
+  { const host = $('art-weight'); const s = put(host, 'heart', 72, 'outline', 1.5);
+    const ws = [0.75, 1, 1.25, 1.5, 1.75, 2]; let k = 3;
+    const label = document.createElement('small'); label.textContent = '1.5 px'; host.append(label);
+    if (!reduce) setInterval(() => { k = (k + 1) % ws.length; drawInto(s, byName.heart, 'outline', ws[k]); label.textContent = ws[k] + ' px'; }, 1400); }
+  [16, 24, 32, 48].forEach(sz => put($('art-sizes'), 'sneaker', sz));
   }
   const draw = (host, name, v = 'outline', w = 1.5) => { const i = byName[name]; if (!i) return; let s = host.querySelector('svg');
     if (!s) { s = svgEl('', 24); s.removeAttribute('width'); s.removeAttribute('height'); host.replaceChildren(s); } drawInto(s, i, v, w); };
@@ -280,6 +236,6 @@
   fillIcons();
   if ($('ver')) $('ver').textContent = 'v' + D.version;
   if ($('s-icons')) { $('s-icons').textContent = icons.length.toLocaleString('en'); if ($('s-cats')) $('s-cats').textContent = D.categories.length; }
-  if ($('cat-chips')) landing();
+  if ($('hero-tiles')) landing();
   if ($('grid')) browse();
 })();

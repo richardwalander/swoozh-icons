@@ -29,175 +29,72 @@
 </header>
 
 <main>
-<section class="hero">
-  <p class="eyebrow">The icon library for fashion retail</p>
-  <h1>Icons, <em>tailored.</em></h1>
-  <p class="lead">1,773 icons drawn for online stores. Outline and filled, one 24&nbsp;px grid, an adjustable stroke, proofed by hand at 16&nbsp;px.</p>
-  <div class="cta">
-    <a class="btn primary lg" href="icons.html"><span>Browse <span id="s-icons">1,773</span> icons</span></a>
-    <button class="btn secondary lg mono" data-copy="npm install @swoozh/icons-react"><span>npm i @swoozh/icons-react</span><span data-icon="copy" data-size="16"></span></button>
-  </div>
-
-  <div class="stage" aria-hidden="true">
-    <figure class="ph ph-l"><img src="showcase/m-category.jpg" alt="" loading="eager"></figure>
-    <figure class="ph ph-c"><img src="showcase/m-home.jpg" alt="" loading="eager"></figure>
-    <figure class="ph ph-r"><img src="showcase/m-product.jpg" alt="" loading="eager"></figure>
-    <div class="float f1"><span class="fav"><span data-icon="heart" data-variant="filled" data-size="18"></span></span></div>
-    <div class="float f2"><div class="toast-demo"><span data-icon="check-circle" data-size="18"></span>Added to your cart</div></div>
-    <div class="float f3"><div class="rating-demo"><span class="stars" id="hero-stars"></span><b>5.0</b></div></div>
-    <div class="float f4"><div class="atc-demo"><span data-icon="basket" data-size="18"></span>Add to cart</div></div>
-  </div>
-</section>
-
-<section class="numbers" aria-label="At a glance">
-  <div><b id="st-icons">1,773</b><span>Icons</span></div>
-  <div><b>2</b><span>Styles</span></div>
-  <div><b id="st-cats">58</b><span>Categories</span></div>
-  <div><b>8</b><span>Formats</span></div>
-</section>
-
-<section class="components sec" aria-label="Icons in components">
-  <div class="sec-h center">
-    <p class="eyebrow">Made for the moments that sell</p>
-    <h2>Every icon a store <em>needs.</em></h2>
-    <p>From the tab bar to the size guide, checkout and returns. Drawn to sit quietly beside product photography.</p>
-  </div>
-  <div class="cmp-wall">
-    <div class="cmp-bg" id="cmp-bg"></div>
-    <div class="cmp-grid">
-      <div class="card c-atc"><button class="btn primary lg block" tabindex="-1"><span data-icon="basket" data-size="18"></span>Add to cart</button><button class="btn outline lg block" tabindex="-1">Add to wishlist</button></div>
-      <div class="card c-toast dark"><span data-icon="check-circle" data-size="20"></span>Added to your cart</div>
-      <div class="card c-empty"><span data-icon="heart" data-size="40"></span><b>No favourites yet</b><small>Tap the heart on any product to save it.</small></div>
-      <div class="card c-size"><small class="label">Pick size</small><div class="sizes"><span>XS</span><span>S</span><span class="on">M</span><span>L</span><span>XL</span></div><a class="guide"><span data-icon="ruler" data-size="16"></span>Size guide</a></div>
-      <div class="card c-rate"><span class="stars" id="cmp-stars"></span><b>4.0</b><small>128 reviews</small></div>
-      <div class="card c-free"><span data-icon="truck" data-size="20"></span><div><b>Free delivery over $50</b><small>Free returns within 30 days</small></div></div>
-      <div class="card c-tab"><div class="tabbar"><span data-icon="store" data-size="22"></span><span data-icon="search" data-size="22"></span><span class="badge-wrap"><span data-icon="basket" data-size="22"></span><i>2</i></span><span data-icon="heart" data-size="22"></span><span data-icon="menu" data-size="22"></span></div></div>
-      <div class="card c-qty"><button tabindex="-1" aria-hidden="true"><span data-icon="minus" data-size="16"></span></button><b>2</b><button tabindex="-1" aria-hidden="true"><span data-icon="plus" data-size="16"></span></button></div>
-      <div class="card c-search"><span data-icon="search" data-size="18"></span><span class="ph-text">Search products</span><kbd>⌘K</kbd></div>
-      <div class="card c-care"><small class="label">Care</small><div class="care" id="care"></div></div>
+<section class="m-hero wrap">
+  <div class="m-copy">
+    <h1>Icons, <em>tailored.</em></h1>
+    <p class="lead"><b><span id="s-icons">1,773</span> icons</b> for fashion and commerce. Drawn by hand on a 24&nbsp;px grid, in outline and filled.</p>
+    <div class="cta">
+      <a class="btn primary lg" href="icons.html">Browse icons</a>
+      <button class="btn secondary lg mono" data-copy="npm install @swoozh/icons-react"><span>npm i @swoozh/icons-react</span><span data-icon="copy" data-size="16"></span></button>
     </div>
   </div>
-</section>
-
-<section class="inuse sec wrap" id="inuse" aria-label="Icons in use">
-  <div class="iu-copy">
-    <p class="eyebrow">In use</p>
-    <h2>At home in a <em>real store.</em></h2>
-    <p>Screens from the Swoozh Fashion UI Kit. Follow an icon from the screen to its component, then switch style and stroke.</p>
-    <ol class="iu-steps" id="iu-steps">
-      <li>Navigate the store</li>
-      <li>Browse and save favourites</li>
-      <li>Open a product</li>
-      <li>Review the cart</li>
-      <li>Desktop header</li>
-      <li>Filters and ratings</li>
-      <li>Set the stroke width</li>
-    </ol>
-  </div>
-  <div class="iu-stage" id="iu-stage">
-    <div class="sin" id="sin" aria-hidden="true">
-      <div class="browser" id="browser"><div class="bbar"><i></i><i></i><i></i><span>swoozh-store.com</span></div><div class="bscreen" id="bscreen"></div></div>
-      <div class="phone2" id="phone2"><div class="pscreen" id="pscreen"></div></div>
-      <svg class="leader" id="lead" width="760" height="640" viewBox="0 0 760 640"><line id="lline" x1="0" y1="0" x2="0" y2="0"/><circle id="ldot" r="3.5" cx="0" cy="0"/></svg>
-      <div class="ring" id="ring"></div><div class="chip" id="chip"></div>
-      <div class="lens" id="lens"><div class="lc">
-        <div class="lh"><b class="ln">Icons/heart</b><span>Component</span></div>
-        <div class="vts"><div class="vt" data-v="outline"><span class="ti"></span><small>Outline</small></div><div class="vt" data-v="filled"><span class="ti"></span><small>Filled</small></div></div>
-        <div class="sw"><small>Stroke</small><i><u></u></i><em>1.5</em></div><p class="note"></p></div></div>
-    </div>
+  <div class="m-tiles" id="hero-tiles" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
   </div>
 </section>
 
-<section class="craft sec wrap" aria-label="Craft">
-  <div class="sec-h center">
-    <p class="eyebrow">The craft</p>
-    <h2>Cut on a <em>24&nbsp;px grid.</em></h2>
-    <p>A 1.5&nbsp;px centre stroke, butt caps, mitred joins and a 2&nbsp;px safe area. Every icon follows the same construction, so the set reads as one collection.</p>
-  </div>
-  <div class="specimen" id="specimen"></div>
-  <div class="proof" id="proof"></div>
+<section class="m-facts wrap" aria-label="At a glance">
+  <div><span class="dot" data-icon="hanger" data-size="22"></span><p><b id="st-icons">1,773</b> icons<small>Outline and filled</small></p></div>
+  <div><span class="dot" data-icon="store" data-size="22"></span><p><b id="st-cats">58</b> departments<small>From wardrobe to warehouse</small></p></div>
+  <div><span class="dot" data-icon="sparkles" data-size="22"></span><p><b>8</b> formats<small>React to icon font</small></p></div>
 </section>
 
-<section class="features sec wrap" aria-label="Features">
-  <article><span class="fi" data-icon="shopping-bag" data-size="22"></span><h3>Built for retail</h3><p>Fashion, beauty, home, electronics, pharmacy and campaign symbols, the motifs stores actually use.</p></article>
-  <article><span class="fi" data-icon="sparkles" data-size="22"></span><h3>Outline &amp; Filled</h3><p>Two matched styles, so active and inactive states always pair up.</p></article>
-  <article><span class="fi" data-icon="eye" data-size="22"></span><h3>Clear at 16&nbsp;px</h3><p>Proofed small, so details stay crisp in tab bars, filters and badges.</p></article>
-  <article><span class="fi" data-icon="package" data-size="22"></span><h3>Your stack</h3><p>React, Vue, Svelte, web component, Elm, icon font, SVG and sprite.</p></article>
-  <article><span class="fi" data-icon="search" data-size="22"></span><h3>Easy to find</h3><p>Search by name, synonym and category. “Like” finds the heart.</p></article>
-  <article><span class="fi" data-icon="gift" data-size="22"></span><h3>Free to use</h3><p>Free for commercial work with a small credit.</p></article>
-</section>
-
-<section class="playground sec wrap" aria-label="Style playground">
-  <div class="sec-h center">
-    <p class="eyebrow">Atelier</p>
-    <h2>Make it <em>yours.</em></h2>
-  </div>
-  <div class="pg card">
-    <div class="pg-controls">
-      <div class="field"><span class="label">Colour</span><div class="swatches" id="pg-swatches" role="group" aria-label="Colour"></div></div>
-      <div class="field"><span class="label">Stroke <b id="pg-sw-v">1.5px</b></span><input class="slider" id="pg-sw" type="range" min="0.75" max="2" step="0.25" value="1.5" aria-label="Stroke width"></div>
-      <div class="field"><span class="label">Size <b id="pg-size-v">32px</b></span><input class="slider" id="pg-size" type="range" min="16" max="48" step="4" value="32" aria-label="Size"></div>
-      <div class="field row"><label class="pick">Custom <input id="pg-color" type="color" value="#191a25"></label><button class="btn ghost sm" id="pg-reset">Reset</button></div>
-    </div>
-    <div class="pg-grid" id="pg-grid"></div>
-  </div>
-</section>
-
-<section class="stack sec" aria-label="Works with your stack">
-  <div class="wrap stack-in">
-    <div>
-      <p class="eyebrow">Formats</p>
-      <h2>One source. <em>Every format.</em></h2>
-      <p>Every package is generated from the same SVG source, so an icon looks identical in React, in a font or in a sprite. Tree-shakeable, typed and accessible by default.</p>
-      <a class="btn light" href="docs.html">Installation guide <span data-icon="arrow-right" data-size="16"></span></a>
-    </div>
-    <div class="code-card">
-      <div class="code-tabs" id="fmt-tabs" role="tablist"></div>
-      <pre id="fmt-code"></pre>
-      <button class="copy" id="fmt-copy" aria-label="Copy snippet"><span data-icon="copy" data-size="16"></span></button>
-    </div>
+<section class="m-features wrap" aria-labelledby="f-h">
+  <h2 id="f-h" class="m-h">The details</h2>
+  <div class="m-grid">
+    <article class="ft">
+      <div class="art art-cluster" id="art-cluster"></div>
+      <h3>A full wardrobe</h3><p>Garments, care labels and checkout.</p>
+    </article>
+    <article class="ft ink">
+      <div class="art art-grid" id="art-grid"></div>
+      <h3>Keyline grid</h3><p>1.5&nbsp;px stroke on a 24&nbsp;px grid.</p>
+    </article>
+    <article class="ft">
+      <div class="art art-pair" id="art-pair"></div>
+      <h3>Outline &amp; filled</h3><p>Two styles, one silhouette.</p>
+    </article>
+    <article class="ft red">
+      <div class="art art-weight" id="art-weight"></div>
+      <h3>Live stroke</h3><p>Set the weight from 0.75 to 2&nbsp;px.</p>
+    </article>
+    <article class="ft">
+      <div class="art art-sizes" id="art-sizes"></div>
+      <h3>Proofed at 16&nbsp;px</h3><p>Crisp from favicon to hero.</p>
+    </article>
+    <article class="ft ink">
+      <div class="art art-fmt"><span>React</span><span>Vue</span><span>Svelte</span><span>Web component</span><span>SVG</span><span>Sprite</span><span>Font</span><span>Elm</span></div>
+      <h3>Every format</h3><p>Install the one your stack speaks.</p>
+    </article>
   </div>
 </section>
 
-<section class="cats sec wrap" aria-label="Browse by category">
-  <div class="sec-h center">
-    <p class="eyebrow">The collection</p>
-    <h2>Shop by <em>department.</em></h2>
-  </div>
-  <div class="chips" id="cat-chips"></div>
-</section>
-
-<section class="faq sec wrap" aria-label="FAQ">
-  <div class="sec-h center"><p class="eyebrow">Questions</p><h2>Good to <em>know.</em></h2></div>
-  <div class="accordion">
-    <details><summary>Can I use the icons in commercial projects?</summary><p>Yes, in your own and in client projects, as long as you credit “Icons by Swoozh” somewhere visible. You may not sell, share or republish the icons as a set. The full terms are in the <a href="https://github.com/richardwalander/swoozh-icons/blob/master/LICENSE">license</a>.</p></details>
-    <details><summary>How do I change the stroke width?</summary><p>Outline icons have a stroke version from 0.75 to 2 px. In React, Vue and Svelte import from <code>@swoozh/icons-react/stroke</code> and set <code>strokeWidth</code>. The web component takes a <code>stroke-width</code> attribute. Filled icons and the icon font have a fixed weight.</p></details>
-    <details><summary>Which formats are available?</summary><p>SVG files, an SVG sprite, React, Vue, Svelte, a web component, Elm and an icon font. Packages are tree-shakeable, so you only ship the icons you import.</p></details>
-    <details><summary>How do I find an icon?</summary><p>Search by name, synonym or category. “like” finds the heart, “refund” finds return.</p></details>
-    <details><summary>Are the icons accessible?</summary><p>Icons are decorative by default (<code>aria-hidden</code>). Pass a <code>title</code> (or <code>label</code> on the web component) to expose a name to assistive technology.</p></details>
-  </div>
-</section>
-
-<section class="closing sec wrap" aria-label="Get started">
-  <h2>Start with the icons <em>you need.</em></h2>
+<section class="m-close wrap" aria-label="Get started">
+  <h2>Dress your <em>interface.</em></h2>
   <div class="cta"><a class="btn primary lg" href="icons.html">Open the library</a><a class="btn ghost lg" href="docs.html">Read the docs</a></div>
   <p class="credit">Free with credit · <code>Icons by Swoozh</code> <button class="link" data-copy="Icons by Swoozh (https://swoozhicons.com)">Copy</button></p>
-  <p class="maker">Designed by Richard Walander · <a href="https://walander.co">walander.co</a></p>
 </section>
 </main>
 
 <div class="toast" id="toast" role="status"></div>
 <footer class="foot">
   <span class="logotype">Swoozh</span>
-  <nav><a href="icons.html">Icons</a><a href="docs.html">Docs</a><a href="https://github.com/richardwalander/swoozh-icons/blob/master/LICENSE">License</a><a href="https://github.com/richardwalander/swoozh-icons">GitHub</a></nav>
+  <nav><a href="icons.html">Icons</a><a href="docs.html">Docs</a><a href="https://github.com/richardwalander/swoozh-icons/blob/master/LICENSE">License</a><a href="https://github.com/richardwalander/swoozh-icons">GitHub</a><a href="https://walander.co">Richard Walander</a></nav>
   <span class="ver" id="ver"></span>
 </footer>
 
 <script src="data/icons.js"></script>
 <script src="data/stroke.js"></script>
 <script src="app.js"></script>
-<script src="vendor/motion.js"></script>
-<script src="showcase/hotspots.js"></script>
-<script src="showcase.js"></script>
 </body>
 </html>
