@@ -40,7 +40,7 @@
     return f;
   });
   const cards = [...stage.querySelectorAll('.pc')].map((el, k) => {
-    const key = el.classList.contains('c-prod2') ? 'c-prod2' : [...el.classList].find(x => L.desk.cards[x]);
+    const key = [...el.classList].find(x => L.desk.cards[x]);
     const c = {el, key, d: +el.dataset.d || .5, ph: k * 1.3, sp: .8 + (k % 3) * .15, amp: 4, r0: 0, hover: false, spin: 0};
     el.addEventListener('mouseenter', () => c.hover = true); el.addEventListener('mouseleave', () => c.hover = false);
     return c;

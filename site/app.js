@@ -208,15 +208,6 @@
   if ($('st-cats')) $('st-cats').textContent = D.categories.length;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // hero: four floating tiles that slowly change wardrobe
-  if ($('hero-tiles')) { const sets = [pick('hanger shopping-bag heart dress'), pick('high-heel perfume-bottle jewelry-ring trench-coat'), pick('handbag lipstick diamond sneaker'), pick('scissors sewing-machine bow-tie earrings')];
-    const tiles = [...$('hero-tiles').children];
-    tiles.forEach((t, k) => { const s = svgEl(byName[sets[0][k]].o, 44); s.removeAttribute('width'); s.removeAttribute('height'); t.append(s); });
-    let n = 0;
-    if (!reduce) setInterval(() => { n = (n + 1) % sets.length; tiles.forEach((t, k) => setTimeout(() => {
-      t.classList.add('swap'); setTimeout(() => { t.querySelector('path').setAttribute('d', byName[sets[n][k]].o); t.classList.remove('swap'); }, 380); }, k * 140)); }, 3600);
-    tiles.forEach((t, k) => { t.onmouseenter = () => t.querySelector('path').setAttribute('d', byName[sets[n][k]].f); t.onmouseleave = () => t.querySelector('path').setAttribute('d', byName[sets[n][k]].o); }); }
-
   // feature art
   const put = (host, name, size, v = 'outline', w = 1.5) => { const s = svgEl('', size); drawInto(s, byName[name], v, w); host.append(s); return s; };
   pick('dress hanger wash-30 shopping-bag truck credit-card').forEach(n => put($('art-cluster'), n, 34));

@@ -142,10 +142,6 @@ code, pre, kbd { font-family: var(--mono); font-size: 13px; }
   font-size: 15px !important; font-weight: 600 !important; transition: transform .2s var(--ease), background .2s; min-width: 196px; }
 .ink-btn:hover { background: var(--primary-hover) !important; } .ink-btn:active { transform: scale(.97); }
 .ink-btn .ii { transition: transform .35s var(--ease); } .ink-btn.done .ii { transform: rotate(-360deg); }
-.c-qty { gap: 4px; padding: 6px; }
-.c-qty button { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; transition: background .2s; } .c-qty button:hover { background: var(--surface); }
-.c-qty .ii { width: 16px; height: 16px; }
-.c-qty output { min-width: 24px; text-align: center; font-weight: 700; font-size: 15px; }
 .c-prod { width: 220px; padding: 0; flex-direction: column; align-items: stretch; gap: 0; overflow: hidden; border-radius: 18px; }
 .c-prod .ph { position: relative; aspect-ratio: 330 / 290; background: var(--surface); }
 .c-prod img { display: block; width: 100%; height: 100%; object-fit: cover; }
@@ -161,20 +157,12 @@ code, pre, kbd { font-family: var(--mono); font-size: 13px; }
 .c-rate .stars { display: flex; gap: 2px; } .c-rate .stars button { display: grid; place-items: center; width: 24px; height: 24px; color: #e8a33d; transition: transform .2s var(--ease); }
 .c-rate .stars button:hover { transform: scale(1.15); } .c-rate .ii { width: 22px; height: 22px; }
 .c-rate b { font-size: 15px; min-width: 26px; }
-.c-size { gap: 4px; padding: 6px; }
-.c-size button { width: 40px; height: 40px; border-radius: 10px; font-size: 13px !important; font-weight: 600 !important; color: var(--muted-foreground) !important; transition: background .2s, color .2s; }
-.c-size button:hover { color: var(--foreground) !important; }
-.c-size button.on { background: var(--primary) !important; color: var(--primary-foreground) !important; }
 .c-ship { padding: 14px 20px; gap: 12px; border-radius: 12px; background: var(--primary); color: var(--primary-foreground); font-size: 13.5px; font-weight: 600; cursor: default; }
 .c-ship .ii { transition: transform .6s var(--ease); } .c-ship:hover .ii { transform: translateX(8px); }
 .c-nav { gap: 2px; padding: 6px; }
 .c-nav button { position: relative; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; transition: background .2s; } .c-nav button:hover { background: var(--surface); }
 .c-nav .on { color: #b81530; }
-.c-prod2 { width: 200px; }
-.c-prod .tag.red { background: #b81530; color: #fff; }
-.c-prod .price em { font-style: normal; color: #b81530; } .c-prod .price s { color: var(--muted-foreground); font-weight: 500; font-size: 12px; margin-left: 4px; }
 .t2 { display: grid; line-height: 1.3; } .t2 b { font-size: 13.5px; font-weight: 700; } .t2 small { font-size: 11.5px; color: var(--muted-foreground); white-space: nowrap; } .t2 b { white-space: nowrap; }
-.c-pay { padding: 12px 14px 12px 16px; gap: 12px; } .c-pay .lock { width: 16px; height: 16px; color: var(--muted-foreground); margin-left: 6px; }
 .c-search { width: 290px; padding: 8px 8px 8px 16px; gap: 10px; border-radius: 14px; }
 .c-search > .ii { color: var(--muted-foreground); } .c-search .q { font-size: 14px; font-weight: 500; white-space: nowrap; }
 .c-search .caret { width: 1.5px; height: 18px; margin-left: -8px; background: var(--foreground); animation: blink 1s steps(1) infinite; margin-right: auto; }
@@ -187,11 +175,6 @@ code, pre, kbd { font-family: var(--mono); font-size: 13px; }
 .c-care { flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px 18px; }
 .c-care .row { display: flex; gap: 12px; } .c-care .ii { width: 24px; height: 24px; color: var(--muted-foreground); transition: color .2s, transform .2s var(--ease); cursor: default; }
 .c-care .ii.on { color: var(--foreground); transform: scale(1.15); } .c-care small { font-size: 12px; font-weight: 600; }
-.c-return { padding: 12px 18px; gap: 10px; font-size: 13.5px; font-weight: 600; }
-.c-swatch { padding: 12px 16px; gap: 14px; } .c-swatch .dots { display: flex; gap: 8px; }
-.c-swatch .dots button { width: 22px; height: 22px; border-radius: 50%; background: var(--c) !important; box-shadow: inset 0 0 0 1px rgba(16, 17, 26, .12); transition: box-shadow .2s; }
-.c-swatch .dots button.on { box-shadow: inset 0 0 0 1px rgba(16, 17, 26, .12), 0 0 0 2px var(--card), 0 0 0 3.5px var(--foreground); }
-.c-swatch small { font-size: 12px; color: var(--muted-foreground); } .c-swatch small b { color: var(--foreground); }
 .c-promo { padding: 8px 8px 8px 16px; gap: 12px; } .c-promo b { letter-spacing: .08em; }
 .c-promo button { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--surface) !important; margin-left: 6px; }
 .c-promo button .ii { width: 16px; height: 16px; } .c-promo button.on { color: #4c9912 !important; }
