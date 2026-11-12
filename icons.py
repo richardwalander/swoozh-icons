@@ -2684,3 +2684,138 @@ MITER = {"letter-n": 2, "letter-m": 2, "letter-w": 2}
 
 # Ruler (was Figma-only): three ticks instead of five so it stays clear at 16 px.
 CATEGORIES["📱 UI"]["ruler"] = ([("s", "M7.75 2.75H16.25V21.25H7.75Z"), ("cut", "M11 7H16.25M13 12H16.25M11 17H16.25")], "ruler")
+
+
+# ---------------------------------------------------------------- UI redraw
+# These 87 UI icons only existed as old Figma drawings (inside-stroke masks, hard-coded 1/2/3 px widths, outlined fills),
+# so their Stroke variant broke when the stroke width changed. Redrawn here on the 1.5 px centre-stroke grid.
+def _flipy(d):
+    """Mirror an absolute M/L/H/V/C/Z path top to bottom."""
+    out = []
+    for cmd, args in re.findall(r"([MLHVCZ])([^MLHVCZ]*)", d):
+        v = [float(x) for x in re.findall(r"-?[\d.]+", args)]
+        if cmd == "H": out.append("H" + " ".join(n(x) for x in v))
+        elif cmd == "V": out.append("V" + " ".join(n(24 - y) for y in v))
+        elif cmd == "Z": out.append("Z")
+        else: out.append(cmd + " ".join(n(v[i]) + " " + n(24 - v[i + 1]) for i in range(0, len(v), 2)))
+    return "".join(out)
+
+
+def _swapxy(d):
+    """Transpose an absolute M/L/H/V/Z path (horizontal <-> vertical)."""
+    out = []
+    for cmd, args in re.findall(r"([MLHVZ])([^MLHVZ]*)", d):
+        v = [float(x) for x in re.findall(r"-?[\d.]+", args)]
+        if cmd == "H": out.append("V" + " ".join(n(x) for x in v))
+        elif cmd == "V": out.append("H" + " ".join(n(y) for y in v))
+        elif cmd == "Z": out.append("Z")
+        else: out.append(cmd + " ".join(n(v[i + 1]) + " " + n(v[i]) for i in range(0, len(v), 2)))
+    return "".join(out)
+
+
+_UP = "M17 20.5V3.75M13.25 7.5L17 3.75L20.75 7.5"
+_DOWN = "M17 3.5V20.25M13.25 16.5L17 20.25L20.75 16.5"
+_PILL = "M8 6.75H16A5.25 5.25 0 0 1 16 17.25H8A5.25 5.25 0 0 1 8 6.75Z"
+_THUMB = "M6.75 10.25L10.25 3.25C11.75 3.25 12.75 4.25 12.75 5.75V8.75H18.75C20.25 8.75 21.4 10 21.1 11.5L19.75 18.6C19.55 19.6 18.7 20.25 17.7 20.25H6.75Z"
+_SLIDERS = "M2.75 6H12.5M18 6H21.25M2.75 12H6M11.5 12H21.25M2.75 18H9.5M15 18H21.25"
+_SLIDER_KNOBS = [(15.25, 6), (8.75, 12), (12.25, 18)]
+_LENS = [("s", circ(10.5, 10.5, 7.75)), ("o", "M15.98 15.98L21.25 21.25")]
+_GL = lambda ch, y: tr(GLYPHS[ch], 3.5, y, 0.75)
+_HELP = "M9.5 9.75C9.5 8.25 10.5 7.25 12 7.25C13.5 7.25 14.5 8.25 14.5 9.5C14.5 11.25 12 11.5 12 13.75"
+_GLYPH_IN = {
+    "plus": [("cut", "M12 7.75V16.25M7.75 12H16.25")],
+    "x": [("cut", "M9 9L15 15M15 9L9 15")],
+    "minus": [("cut", "M7.75 12H16.25")],
+    "info": [("cut", "M12 10.5V16.75"), ("d", circ(12, 7.75, 1))],
+    "alert": [("cut", "M12 6.75V13.25"), ("d", circ(12, 16.5, 1))],
+    "help": [("cut", _HELP), ("d", circ(12, 16.75, 1))],
+    "check": [("cut", "M7.75 12.25L10.75 15.25L16.25 9.75")],
+}
+_tg = lambda nm: ", ".join(nm.split("-"))
+_UI = {}
+for g, el in _GLYPH_IN.items():
+    _UI[f"{g}-circle"] = [("s", _C9)] + el
+    _UI[f"{g}-square"] = [("s", _SQ)] + el
+_UI.update({
+    "check-circle-alt": [("o", arc(12, 12, 9.25, -20, 300)), ("o", "M7.25 11.25L11 15L20.75 5.25")],
+    "check-square-alt": [("o", "M14.25 2.75H2.75V21.25H21.25V10.75"), ("o", "M7.25 11.25L11 15L20.75 5.25")],
+    "circle": [("s", _C9)],
+    "square": [("s", _SQ)],
+    "power": [("o", arc(12, 12.75, 8, -55, 235)), ("o", "M12 2.75V11.75")],
+    "transform": [("s", "M2.75 2.75H6.75V6.75H2.75Z"), ("s", "M17.25 2.75H21.25V6.75H17.25Z"), ("s", "M2.75 17.25H6.75V21.25H2.75Z"),
+                  ("s", "M17.25 17.25H21.25V21.25H17.25Z"), ("o", "M6.75 4.75H17.25M6.75 19.25H17.25M4.75 6.75V17.25M19.25 6.75V17.25")],
+    "alert-triangle": [("s", "M12 3.75L21.25 20.25H2.75Z"), ("cut", "M12 9.25V14.5"), ("d", circ(12, 17.25, 1))],
+    "triangle": [("s", "M12 3.75L21.25 20.25H2.75Z")],
+    "ban": [("s", _C9), ("cut", "M5.46 5.46L18.54 18.54")],
+    "play": [("s", "M6.25 3.75L19.25 12L6.25 20.25Z")],
+    "stop": [("s", "M4.75 4.75H19.25V19.25H4.75Z")],
+    "record": [("s", circ(12, 12, 8))],
+    "pause": [("s", "M5.75 3.75H9.75V20.25H5.75Z"), ("s", "M14.25 3.75H18.25V20.25H14.25Z")],
+    "x": [("o", "M5.25 5.25L18.75 18.75M18.75 5.25L5.25 18.75")],
+    "plus": [("o", "M12 3.25V20.75M3.25 12H20.75")],
+    "minus": [("o", "M3.25 12H20.75")],
+    "check": [("o", "M3.5 12.5L9 18L20.5 6.5")],
+    "menu": [("o", "M2.75 6.25H21.25M2.75 12H21.25M2.75 17.75H21.25")],
+    "sliders-horizontal": [("o", _SLIDERS)] + [("s", circ(x, y, 2.5)) for x, y in _SLIDER_KNOBS],
+    "sliders-vertical": [("o", _swapxy(_SLIDERS))] + [("s", circ(y, x, 2.5)) for x, y in _SLIDER_KNOBS],
+    "more-horizontal": [("f", circ(x, 12, 1.75)) for x in (5, 12, 19)],
+    "more-vertical": [("f", circ(12, y, 1.75)) for y in (5, 12, 19)],
+    "share-square": [("s", _SQ), ("cut", circ(15.75, 7.5, 1.75)), ("cut", circ(8.25, 12, 1.75)), ("cut", circ(15.75, 16.5, 1.75)),
+                     ("cut", "M9.75 11.1L14.25 8.4M9.75 12.9L14.25 15.6")],
+    "share": [("o", "M8.25 9.25H4.75V21.25H19.25V9.25H15.75"), ("o", "M12 15V3.25M8.25 7L12 3.25L15.75 7")],
+    "share-nodes": [("s", circ(17.75, 5.75, 2.75)), ("s", circ(6.25, 12, 2.75)), ("s", circ(17.75, 18.25, 2.75)),
+                    ("o", "M8.67 10.69L15.33 7.06M8.67 13.31L15.33 16.94")],
+    "pencil": [("s", "M15.5 3.5L20.5 8.5L9 20L3.5 20.5L4 15Z"), ("cut", "M13 6L18 11M4 15L9 20")],
+    "redo-square": [("o", "M10.25 2.75H2.75V21.25H21.25V13.75"), ("o", "M12.25 14.5V11.75A4 4 0 0 1 16.25 7.75H21.25M17.75 4.25L21.25 7.75L17.75 11.25")],
+    "external-square": [("s", _SQ), ("cut", "M8.25 15.75L15.25 8.75M9.75 8.75H15.25V14.25")],
+    "external-link": [("o", "M10.25 3.75H3.75V20.25H20.25V13.75"), ("o", "M10.75 13.25L20.25 3.75M13.75 3.75H20.25V10.25")],
+    "trash": [("s", "M4.75 5.25H19.25V21.25H4.75Z"), ("o", "M2.75 5.25H21.25M9.25 5.25V2.75H14.75V5.25"),
+              ("cut", "M9.25 9.25V17.25M12 9.25V17.25M14.75 9.25V17.25")],
+    "lock": [("s", "M4.75 10.25H19.25V21.25H4.75Z"), ("o", "M7.75 10.25V7A4.25 4.25 0 0 1 16.25 7V10.25")],
+    "unlock": [("s", "M4.75 10.25H19.25V21.25H4.75Z"), ("o", "M7.75 10.25V7A4.25 4.25 0 0 1 16.25 7V7.25")],
+    "toggle-on": [("s", _PILL), ("d", circ(16, 12, 3))],
+    "toggle-off": [("s", _PILL), ("cut", circ(8, 12, 2.5))],
+    "thumbs-up": [("s", "M2.75 10.25H6.75V20.25H2.75Z"), ("s", _THUMB)],
+    "thumbs-down": [("s", _flipy("M2.75 10.25H6.75V20.25H2.75Z")), ("s", _flipy(_THUMB))],
+    "droplet": [("s", "M12 2.75L17.53 10.63A6.75 6.75 0 1 1 6.47 10.63Z"), ("cut", arc(12, 14.5, 3.75, 100, 165))],
+    "tag": TAG_ELEMS,
+    "tags": [("s", tr(TAG, 0.55, 3.55, 0.8)), ("d", circ(6.55, 9.55, 1)), ("o", "M13.35 5.75L20.75 13.15L16.25 17.65")],
+    "edit-square": [("o", "M11.25 2.75H2.75V21.25H21.25V12.75"), ("s", "M18.25 2.75L21.25 5.75L12.75 14.25L9 15L9.75 11.25Z")],
+    "percent-square": [("s", _SQ), ("cut", "M8.25 15.75L15.75 8.25"), ("d", circ(8.75, 8.75, 1.25)), ("d", circ(15.25, 15.25, 1.25))],
+    "sort-amount-up": [("o", "M2.75 4.25H11.25M2.75 9.5H9.25M2.75 14.75H7.25M2.75 20H5.25"), ("o", _UP)],
+    "sort-amount-down": [("o", "M2.75 4.25H11.25M2.75 9.5H9.25M2.75 14.75H7.25M2.75 20H5.25"), ("o", _DOWN)],
+    "sort-lines-up": [("o", "M2.75 4.25H5.25M2.75 9.5H7.25M2.75 14.75H9.25M2.75 20H11.25"), ("o", _UP)],
+    "sort-lines-down": [("o", "M2.75 4.25H5.25M2.75 9.5H7.25M2.75 14.75H9.25M2.75 20H11.25"), ("o", _DOWN)],
+    "search": _LENS,
+    "zoom-in": _LENS + [("cut", "M10.5 7.25V13.75M7.25 10.5H13.75")],
+    "zoom-out": _LENS + [("cut", "M7.25 10.5H13.75")],
+    "search-location": _LENS + [("cut", "M10.5 14.25L8.1 11.1A3 3 0 1 1 12.9 11.1Z")],
+    "search-dollar": _LENS + [("cut", tr(GLYPHS["s"], 8.7, 7.8, 0.6) + "M10.5 6.5V7.8M10.5 13.2V14.5")],
+    "send": [("s", "M20.75 3.25L3.25 9.75L10.25 13.75L14.25 20.75Z"), ("cut", "M10.25 13.75L15.5 8.5")],
+    "clipboard-copy": [("o", "M8.25 19.75H3.75V4.25H6.75M12.75 4.25H15.75V7.5"), ("s", "M6.75 2.75H12.75V5.75H6.75Z"), ("s", "M9.75 9.25H20.25V21.25H9.75Z")],
+    "paperclip": [("o", "M16 7.25V16.5A4 4 0 0 1 8 16.5V5.5A2 2 0 0 1 12 5.5V15.5")],
+    "list": [("s", f"M2.75 {y - 2}H6.75V{y + 2}H2.75Z") for y in (5.75, 12, 18.25)] + [("o", "M9.75 5.75H21.25M9.75 12H21.25M9.75 18.25H21.25")],
+    "list-ordered": [("o", tr(GLYPHS["1"], 3.5, 3.85, 0.7) + tr(GLYPHS["2"], 3.5, 13.85, 0.7)), ("o", "M10.75 7H21.25M10.75 17H21.25")],
+    "list-checks": [("o", f"M2.75 {y}L4.75 {y + 2}L8.25 {y - 1.5}") for y in (5.5, 11.75, 18)] + [("o", "M11.25 5.75H21.25M11.25 12H21.25M11.25 18.25H21.25")],
+    "hourglass": [("o", "M4.25 2.75H19.75M4.25 21.25H19.75"), ("s", "M6.25 2.75H17.75V6.75L13.5 12L17.75 17.25V21.25H6.25V17.25L10.5 12L6.25 6.75Z"),
+                  ("d", "M8.75 19.25H15.25L12 15.75Z")],
+    "fingerprint": [("o", "M3.25 15V12A8.75 8.75 0 0 1 17.6 5.3"), ("o", "M19.6 7.6A8.75 8.75 0 0 1 20.75 12V14"),
+                    ("o", "M6.75 19.5C7.25 17.5 7.5 15.25 7.5 12.75A4.5 4.5 0 0 1 16.5 12.75V14.5"), ("o", "M16.25 17.75C16 19 15.75 20.25 15.25 21.25"),
+                    ("o", "M10.25 21.25C11.25 18.75 12 16 12 12.75")],
+    "flag": [("o", "M4.75 21.25V2.75"), ("s", "M4.75 3.75H12.75V6.25H19.25V15.25H11.25V12.75H4.75")],
+    "filter": [("s", "M2.75 3.75H21.25L14.25 12.25V19.75L9.75 21.25V12.25Z")],
+    "door-open": [("s", "M3.75 4.25L12.75 2.75V21.25L3.75 19.75Z"), ("d", circ(10.25, 12, 1)), ("o", "M15.75 4.75H20.25V19.25H15.75")],
+    "door-closed": [("s", "M5.75 2.75H18.25V21.25H5.75Z"), ("d", circ(15.25, 12, 1))],
+    "bookmark": [("s", BOOKMARK)],
+    "message-square": [("s", "M2.75 3.75H21.25V17.25H11.25L6.75 21.25V17.25H2.75Z")],
+    "messages": [("o", "M6.75 7.75V2.75H21.25V14.25H17.25"), ("s", "M2.75 7.75H17.25V18.25H9.25L5.75 21.25V18.25H2.75Z")],
+})
+for _a in ("alpha", "numeric"):
+    _p, _q = ("a", "z") if _a == "alpha" else ("1", "2")
+    for _dir, _ar in (("up", _UP), ("down", _DOWN)):
+        for _rev, (_t, _b) in (("", (_p, _q)), ("-reverse", (_q, _p))):
+            _UI[f"sort-{_a}-{_dir}{_rev}"] = [("o", _GL(_t, 3.5) + _GL(_b, 13.75)), ("o", _ar)]
+            MITER[f"sort-{_a}-{_dir}{_rev}"] = 2
+for _nm, _el in _UI.items():
+    CATEGORIES["📱 UI"][_nm] = (_el, _tg(_nm))
+UI_REDRAW = list(_UI)
