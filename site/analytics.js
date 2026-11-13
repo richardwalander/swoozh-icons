@@ -1,5 +1,5 @@
 // Analytics without cookies: GA4 with Consent Mode v2 denied by default (cookieless pings only),
-// Microsoft Clarity when an id is set (cookies are switched off in the Clarity project settings).
+// Cloudflare Web Analytics (cookieless), Microsoft Clarity when an id is set (cookies are switched off in the Clarity project settings).
 (function () {
   var GA = 'G-ZBYBV1JXX4', CLARITY = 'zcwa214ped';
   window.dataLayer = window.dataLayer || [];
@@ -14,5 +14,7 @@
       t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i; y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
     })(window, document, 'clarity', 'script', CLARITY);
   }
+  var cf = document.createElement('script'); cf.defer = true; cf.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  cf.setAttribute('data-cf-beacon', '{"token": "7cfa43a6599d4864b0059d9fb870e383"}'); document.head.appendChild(cf);
   window.track = function (name, params) { try { gtag('event', name, params || {}); if (window.clarity) clarity('event', name); } catch (e) {} };
 })();
