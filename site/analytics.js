@@ -1,7 +1,7 @@
 // Analytics without cookies: GA4 with Consent Mode v2 denied by default (cookieless pings only),
 // Microsoft Clarity when an id is set (cookies are switched off in the Clarity project settings).
 (function () {
-  var GA = 'G-ZBYBV1JXX4', CLARITY = '';
+  var GA = 'G-ZBYBV1JXX4', CLARITY = 'zcwa214ped';
   window.dataLayer = window.dataLayer || [];
   function gtag() { dataLayer.push(arguments); }
   window.gtag = gtag;
