@@ -207,6 +207,7 @@
   function landing() {
   const pick = list => list.split(' ').filter(n => byName[n]);
   if ($('st-icons')) $('st-icons').textContent = icons.length.toLocaleString('en');
+  if ($('mk-n')) $('mk-n').textContent = icons.length.toLocaleString('en');
   if ($('st-cats')) $('st-cats').textContent = D.categories.length;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
