@@ -2819,3 +2819,61 @@ for _a in ("alpha", "numeric"):
 for _nm, _el in _UI.items():
     CATEGORIES["📱 UI"][_nm] = (_el, _tg(_nm))
 UI_REDRAW = list(_UI)
+
+
+# ---------------------------------------------------------------- Arrows redraw
+# The basic arrows only existed as old Figma drawings on whole-pixel coordinates; redrawn on the centre-stroke grid.
+# Each motif is drawn pointing up and rotated (rot_path: clockwise degrees).
+_DIRS = (("up", 0), ("right", 90), ("down", 180), ("left", -90))
+_R4 = lambda d: {k: (rot_path(d, a) if a else d) for k, a in _DIRS}
+_SQ_IN = "M3.5 3.5H20.5V20.5H3.5Z"
+_ARW = {}
+for _k, _d in _R4("M12 21.25L12 3.75M8 7.75L12 3.75L16 7.75").items():
+    _ARW[f"arrow-{_k}-narrow"] = [("o", _d)]
+for _k, _d in _R4("M12 21.25L12 3.75M5.75 10L12 3.75L18.25 10").items():
+    _ARW[f"arrow-{_k}"] = [("o", _d)]
+for _k, _d in _R4("M5.5 15.25L12 8.75L18.5 15.25").items():
+    _ARW[f"chevron-{_k}"] = [("o", _d)]
+for _k, _d in _R4("M8 14L12 10L16 14").items():
+    _ARW[f"chevron-{_k}-small"] = [("o", _d)]
+for _k, _d in _R4("M12 16.75L12 7.75M8 11.75L12 7.75L16 11.75").items():
+    _ARW[f"arrow-{_k}-circle"] = [("s", _C9), ("cut", _d)]
+    _ARW[f"arrow-{_k}-square"] = [("s", _SQ_IN), ("cut", _d)]
+for _k, _d in _R4("M8 14.25L12 10.25L16 14.25").items():
+    _ARW[f"chevron-{_k}-circle"] = [("s", _C9), ("cut", _d)]
+    _ARW[f"chevron-{_k}-square"] = [("s", _SQ_IN), ("cut", _d)]
+for _k, _d in _R4("M12 9.25L16.25 14.75L7.75 14.75Z").items():
+    _ARW[f"triangle-{_k}"] = [("s", _d)]
+for _k, _d in _R4("M6 12.25L12 6.25L18 12.25M6 17.75L12 11.75L18 17.75").items():
+    _ARW[f"chevrons-{_k}"] = [("o", _d)]
+_CDR = "M5.75 3.75V11.25C5.75 13.25 7 14.75 9.25 14.75H19.25M15 10.5L19.25 14.75L15 19"
+_CDL = "M18.25 3.75V11.25C18.25 13.25 17 14.75 14.75 14.75H4.75M9 10.5L4.75 14.75L9 19"
+_MIN = "M3.75 3.75L10 10M10 5.25L10 10L5.25 10"
+_MAX = "M14 10L20.25 3.75M15.5 3.75L20.25 3.75L20.25 8.5"
+_ARW.update({
+    "arrows-horizontal": [("o", "M3.75 12H20.25M7.75 8L3.75 12L7.75 16M16.25 8L20.25 12L16.25 16")],
+    "arrows-vertical": [("o", "M12 3.75V20.25M8 7.75L12 3.75L16 7.75M8 16.25L12 20.25L16 16.25")],
+    "corner-up-right": [("o", _flipy(_CDR))],
+    "corner-up-left": [("o", _flipy(_CDL))],
+    "undo": [("o", "M4.75 9.25H14.5A5 5 0 0 1 14.5 19.25H11.75M9 5L4.75 9.25L9 13.5")],
+    "reply-all": [("o", "M8.25 9.25H15.25A4.75 4.75 0 0 1 15.25 18.75H13.75M12.5 5L8.25 9.25L12.5 13.5M8 5L3.75 9.25L8 13.5")],
+    "arrows-exchange": [("o", "M3.75 7.75H20.25M16.25 3.75L20.25 7.75L16.25 11.75M20.25 16.25H3.75M7.75 12.25L3.75 16.25L7.75 20.25")],
+    "move": [("o", "M12 3.75V20.25M9 6.75L12 3.75L15 6.75M9 17.25L12 20.25L15 17.25M3.75 12H20.25M6.75 9L3.75 12L6.75 15M17.25 9L20.25 12L17.25 15")],
+    "minimize": [("o", "".join(rot_path(_MIN, a) if a else _MIN for a in (0, 90, 180, 270)))],
+    "maximize": [("o", "".join(rot_path(_MAX, a) if a else _MAX for a in (0, 90, 180, 270)))],
+    "expand-diagonal": [("o", "M3.75 20.25L20.25 3.75M14.75 3.75H20.25V9.25M9.25 20.25H3.75V14.75")],
+    "navigation": [("s", "M4.25 11.25L18.75 5.25L12.75 19.75L10.75 13.25Z")],
+    "rotate-cw": [("o", "M20.75 12A8.75 8.75 0 1 1 12 3.25C14.4 3.25 16.6 4.25 18.2 5.8L20.75 8.25M20.75 3.25V8.25H15.75")],
+    "refresh": [("o", "M4.37 8.25A8.5 8.5 0 0 1 19.63 8.25M4.37 15.75A8.5 8.5 0 0 0 19.63 15.75M19.75 3.25V8.25H14.75M4.25 20.75V15.75H9.25")],
+    "download": [("o", "M12 3.25V15.75M7.25 11L12 15.75L16.75 11M4.75 20.25H19.25")],
+    "upload": [("o", "M12 16.25V3.75M7.25 8.5L12 3.75L16.75 8.5M4.75 20.25H19.25")],
+    "shuffle": [("o", "M3.25 7H7.25L16.25 17H20M3.25 17H7.25L9.5 14.5M14 9.5L16.25 7H20M17.25 4.25L20 7L17.25 9.75M17.25 14.25L20 17L17.25 19.75")],
+    "log-in": [("o", "M4.37 8.25A8.5 8.5 0 1 1 4.37 15.75M2.75 12H15.25M11 7.75L15.25 12L11 16.25")],
+    "log-out": [("o", "M7.25 4.95A8.5 8.5 0 1 1 7.25 19.05M15.75 12H3.75M8 7.75L3.75 12L8 16.25")],
+})
+MITER["navigation"] = 2
+for _nm, _el in _ARW.items():
+    CATEGORIES["➡️ Arrows"][_nm] = (_el, _tg(_nm))
+CATEGORIES["👗 Fashion & apparel"]["cufflink"] = ([("s", circ(10, 10, 6.25)), ("cut", circ(10, 10, 2.75)), ("o", "M14.42 14.42L18.5 18.5M16 21L21 16")],
+                                                 "cufflink, formal, accessories")
+ARROW_REDRAW = list(_ARW) + ["cufflink"]
