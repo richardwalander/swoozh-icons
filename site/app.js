@@ -41,6 +41,7 @@
   const st = {q: params.get('q') || '', cat: params.get('cat') || '', variant: store.get('variant', 'outline'), size: store.get('size', 24), sw: store.get('sw', 1.5),
     color: store.get('color', ''), review: store.get('review', false), flags: store.get('flags', {}), onlyFlagged: false, sel: null, tab: store.get('tab', 'svg')};
 
+  const track = (n, p) => window.track && window.track(n, p);
   const toast = msg => { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 1400); };
   const copy = async (text, msg = 'Copied') => { try { await navigator.clipboard.writeText(text); } catch (e) {
     const ta = document.createElement('textarea'); ta.value = text; document.body.append(ta); ta.select(); document.execCommand('copy'); ta.remove(); } toast(msg); };
@@ -53,7 +54,7 @@
   const side = $('side');
   side.innerHTML = '<h4>Categories</h4>';
   const catBtn = (label, value, n) => { const b = document.createElement('button'); b.className = 'cat'; b.dataset.cat = value;
-    b.innerHTML = `<span></span><small>${n}</small>`; b.firstChild.textContent = label; b.onclick = () => { st.cat = st.cat === value ? '' : value; st.onlyFlagged = false; render(); }; side.append(b); };
+    b.innerHTML = `<span></span><small>${n}</small>`; b.firstChild.textContent = label; b.onclick = () => { st.cat = st.cat === value ? '' : value; st.onlyFlagged = false; render(); if (st.cat) track('select_category', {category: st.cat}); }; side.append(b); };
   catBtn('All icons', '', icons.length);
   D.categories.forEach(c => catBtn(c, c, counts[c]));
 
@@ -79,7 +80,7 @@
     sec.innerHTML = '<header><h3></h3><small></small><button type="button">View all</button></header>';
     sec.querySelector('h3').textContent = c; sec.querySelector('small').textContent = counts[c];
     const all = sec.querySelector('button'); all.textContent = `View all ${counts[c]}`; all.setAttribute('aria-label', `View all ${c} icons`);
-    all.onclick = () => { st.cat = c; render(); $('icons').scrollIntoView(); };
+    all.onclick = () => { st.cat = c; render(); $('icons').scrollIntoView(); track('select_category', {category: c}); };
     const g = document.createElement('div'); g.className = 'grid';
     icons.filter(i => i.category === c).slice(0, 40).forEach(i => g.append(makeTile(i)));
     sec.append(g); ov.append(sec); ovGrids.push(g);
@@ -113,6 +114,7 @@
     if (words.length) list.forEach(i => grid.append(tiles.get(i.name))); else if (render.sorted) { icons.forEach(i => grid.append(tiles.get(i.name))); }
     render.sorted = words.length > 0;
     $('empty').hidden = list.length > 0;
+    clearTimeout(render.t); if (words.length) { const term = words.join(' '), n = list.length; render.t = setTimeout(() => track('search', {search_term: term, results: n}), 1200); }
     $('count').textContent = `${list.length.toLocaleString('en')} ${list.length === 1 ? 'icon' : 'icons'}${st.cat ? ' in ' + st.cat : ''}${st.onlyFlagged ? ' flagged' : ''}`;
     side.querySelectorAll('.cat').forEach(b => b.classList.toggle('on', b.dataset.cat === st.cat && !st.onlyFlagged));
     const u = new URLSearchParams(); if (st.q) u.set('q', st.q); if (st.cat) u.set('cat', st.cat);
@@ -163,14 +165,14 @@
     $('d-flag').classList.toggle('on', !!st.flags[i.name]); $('d-flag').textContent = st.flags[i.name] ? 'Flagged · unflag' : 'Flag for redraw';
     $('d-note').value = (st.flags[i.name] && st.flags[i.name].note) || '';
   }
-  function open(name) { st.sel = name; fillDrawer(); $('drawer').classList.add('open'); document.querySelectorAll('.tile').forEach(t => t.classList.toggle('sel', t.dataset.name === name)); }
+  function open(name) { st.sel = name; track('icon_open', {icon: name, category: byName[name].category}); fillDrawer(); $('drawer').classList.add('open'); document.querySelectorAll('.tile').forEach(t => t.classList.toggle('sel', t.dataset.name === name)); }
   const closeDrawer = () => { $('drawer').classList.remove('open'); document.querySelectorAll('.tile.sel').forEach(t => t.classList.remove('sel')); };
   $('d-close').onclick = closeDrawer;
-  $('d-copy-svg').onclick = () => copy(svgText(byName[st.sel], st.variant), 'SVG copied');
-  $('d-copy-name').onclick = () => copy(st.sel, 'Name copied');
-  $('d-copy-code').onclick = () => copy($('d-code').textContent, 'Snippet copied');
+  $('d-copy-svg').onclick = () => { copy(svgText(byName[st.sel], st.variant), 'SVG copied'); track('icon_copy', {icon: st.sel, variant: st.variant, method: 'svg'}); };
+  $('d-copy-name').onclick = () => { copy(st.sel, 'Name copied'); track('icon_copy', {icon: st.sel, variant: st.variant, method: 'name'}); };
+  $('d-copy-code').onclick = () => { copy($('d-code').textContent, 'Snippet copied'); track('icon_copy', {icon: st.sel, variant: st.variant, method: st.tab}); };
   $('d-dl').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([svgText(byName[st.sel], st.variant)], {type: 'image/svg+xml'}));
-    a.download = `${st.sel}${st.variant === 'filled' ? '-filled' : ''}.svg`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); };
+    a.download = `${st.sel}${st.variant === 'filled' ? '-filled' : ''}.svg`; a.click(); track('icon_download', {icon: st.sel, variant: st.variant}); setTimeout(() => URL.revokeObjectURL(a.href), 1000); };
 
   // review ----------------------------------------------------------------------------------------
   const saveFlags = () => { store.set('flags', st.flags); paintFlags(); };
@@ -184,9 +186,9 @@
   // controls --------------------------------------------------------------------------------------
   let qt; $('q').value = st.q;
   $('q').oninput = e => { clearTimeout(qt); qt = setTimeout(() => { st.q = e.target.value; render(); }, 60); };
-  $('v-outline').onclick = () => { st.variant = 'outline'; store.set('variant', 'outline'); paint(); fillDrawer(); };
-  $('v-filled').onclick = () => { st.variant = 'filled'; store.set('variant', 'filled'); paint(); fillDrawer(); };
-  $('sw').oninput = e => { st.sw = +e.target.value; store.set('sw', st.sw); paint(); fillDrawer(); };
+  $('v-outline').onclick = () => { st.variant = 'outline'; store.set('variant', 'outline'); paint(); fillDrawer(); track('select_variant', {variant: 'outline'}); };
+  $('v-filled').onclick = () => { st.variant = 'filled'; store.set('variant', 'filled'); paint(); fillDrawer(); track('select_variant', {variant: 'filled'}); };
+  $('sw').oninput = e => { st.sw = +e.target.value; store.set('sw', st.sw); paint(); fillDrawer(); clearTimeout(paint.t); paint.t = setTimeout(() => track('stroke_width', {value: st.sw}), 800); };
   $('size').oninput = e => { st.size = +e.target.value; store.set('size', st.size); paint(); };
   $('color').oninput = e => { st.color = e.target.value; store.set('color', st.color); paint(); };
   document.addEventListener('keydown', e => {
@@ -201,7 +203,7 @@
   $('theme').onclick = () => { const dark = matchMedia('(prefers-color-scheme: dark)').matches;
     const cur = document.documentElement.dataset.theme || (dark ? 'dark' : 'light'); const next = cur === 'dark' ? 'light' : 'dark';
     document.documentElement.dataset.theme = next; try { localStorage.setItem('swz-theme', next); } catch (e) {} store.set('color', ''); if (window.SWZ_paint) window.SWZ_paint(); };
-  document.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => copy(b.dataset.copy));
+  document.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => { copy(b.dataset.copy); window.track && window.track('copy_command', {command: b.dataset.copy}); });
   function landing() {
   const pick = list => list.split(' ').filter(n => byName[n]);
   if ($('st-icons')) $('st-icons').textContent = icons.length.toLocaleString('en');
