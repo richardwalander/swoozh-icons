@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://swoozhicons.com/sitemap.xml
