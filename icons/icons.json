@@ -818,6 +818,16 @@
   ]
  },
  {
+  "name": "redo",
+  "category": "Arrows",
+  "tags": [
+   "again",
+   "forward",
+   "history",
+   "redo"
+  ]
+ },
+ {
   "name": "plus-circle",
   "category": "UI",
   "tags": [
@@ -14570,6 +14580,136 @@
    "sweets",
    "confectionery",
    "bar"
+  ]
+ },
+ {
+  "name": "stairs",
+  "category": "Home",
+  "tags": [
+   "staircase",
+   "steps",
+   "floor",
+   "stairs"
+  ]
+ },
+ {
+  "name": "brick-wall",
+  "category": "Home",
+  "tags": [
+   "wall",
+   "brick",
+   "build",
+   "construction"
+  ]
+ },
+ {
+  "name": "floor-plan",
+  "category": "Home",
+  "tags": [
+   "floor plan",
+   "blueprint",
+   "rooms",
+   "layout",
+   "floor",
+   "plan"
+  ]
+ },
+ {
+  "name": "rotate-3d",
+  "category": "Home",
+  "tags": [
+   "3d",
+   "rotate",
+   "orbit",
+   "view",
+   "turn",
+   "spin",
+   "refresh"
+  ]
+ },
+ {
+  "name": "dishwasher",
+  "category": "Home",
+  "tags": [
+   "kitchen",
+   "appliance",
+   "dishwasher"
+  ]
+ },
+ {
+  "name": "kitchen-cabinet",
+  "category": "Home",
+  "tags": [
+   "kitchen cabinet",
+   "base cabinet",
+   "cupboard",
+   "counter",
+   "kitchen",
+   "cabinet"
+  ]
+ },
+ {
+  "name": "drawers",
+  "category": "Home",
+  "tags": [
+   "chest of drawers",
+   "dresser",
+   "storage",
+   "drawers"
+  ]
+ },
+ {
+  "name": "cooktop",
+  "category": "Home",
+  "tags": [
+   "hob",
+   "stove",
+   "kitchen",
+   "cooktop"
+  ]
+ },
+ {
+  "name": "floor-lamp",
+  "category": "Home",
+  "tags": [
+   "floor lamp",
+   "standing lamp",
+   "lighting",
+   "floor",
+   "lamp"
+  ]
+ },
+ {
+  "name": "wall-cabinet",
+  "category": "Home",
+  "tags": [
+   "wall cabinet",
+   "upper cabinet",
+   "kitchen",
+   "cupboard",
+   "wall",
+   "cabinet"
+  ]
+ },
+ {
+  "name": "faucet",
+  "category": "Home",
+  "tags": [
+   "tap",
+   "mixer",
+   "kitchen",
+   "bathroom",
+   "faucet"
+  ]
+ },
+ {
+  "name": "footprints",
+  "category": "Home",
+  "tags": [
+   "walk",
+   "steps",
+   "first person",
+   "footprints"
   ]
  },
  {

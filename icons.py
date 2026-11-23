@@ -2877,3 +2877,42 @@ for _nm, _el in _ARW.items():
 CATEGORIES["👗 Fashion & apparel"]["cufflink"] = ([("s", circ(10, 10, 6.25)), ("cut", circ(10, 10, 2.75)), ("o", "M14.42 14.42L18.5 18.5M16 21L21 16")],
                                                  "cufflink, formal, accessories")
 ARROW_REDRAW = list(_ARW) + ["cufflink"]
+
+
+# ---------------------------------------------------------------- expansion 17: home, kitchen and floor-plan tools (OpnFurnish)
+def _hex_cube(cx, cy, r):
+    pts = [(cx, cy - r), (cx + r * .866, cy - r / 2), (cx + r * .866, cy + r / 2), (cx, cy + r), (cx - r * .866, cy + r / 2), (cx - r * .866, cy - r / 2)]
+    return poly(pts)
+
+
+EXP17 = {}
+EXP17["➡️ Arrows"] = {
+    "redo": ([("o", "M19.25 9.25H9.5A5 5 0 0 0 9.5 19.25H12.25M15 5L19.25 9.25L15 13.5")], "redo, again, forward, history"),
+}
+EXP17["🏠 Home"] = {
+    "stairs": ([("s", "M2.75 20.25V15.75H7.25V11.25H11.75V6.75H16.25V3.75H21.25V20.25Z")], "stairs, staircase, steps, floor"),
+    "brick-wall": ([("s", "M2.75 4.75H21.25V19.25H2.75Z"),
+                    ("cut", "M2.75 9.58H21.25M2.75 14.42H21.25M12 4.75V9.58M7.5 9.58V14.42M16.5 9.58V14.42M12 14.42V19.25")], "wall, brick, build, construction"),
+    "floor-plan": ([("s", "M2.75 2.75H21.25V21.25H2.75Z"), ("cut", "M10.25 2.75V9.25M10.25 13.25V21.25M10.25 13.25H15.25M18.75 13.25H21.25")],
+                   "floor plan, blueprint, rooms, layout"),
+    "rotate-3d": ([("s", _hex_cube(12, 8.75, 5.5)), ("cut", "M7.24 6L12 8.75L16.76 6M12 8.75V14.25"),
+                   ("o", "M20.25 13.75C19.75 17.5 16.25 20.25 12 20.25C7.75 20.25 4.25 17.5 3.75 13.75M1.75 16L3.75 13.75L6 15.5")], "3d, rotate, orbit, view"),
+    "dishwasher": ([("s", "M3.75 2.75H20.25V21.25H3.75Z"), ("cut", "M3.75 7.25H20.25M9.25 10.25H14.75"), ("d", circ(7.25, 5, .8)), ("d", circ(10, 5, .8))],
+                   "dishwasher, kitchen, appliance"),
+    "kitchen-cabinet": ([("o", "M2.25 3.75H21.75"), ("s", "M3.75 3.75H20.25V18.75H3.75Z"), ("cut", "M3.75 8.25H20.25M12 8.25V18.75M9.75 6H14.25M9.75 11V13.5M14.25 11V13.5"),
+                         ("o", "M5.75 18.75V21.25M18.25 18.75V21.25")], "kitchen cabinet, base cabinet, cupboard, counter"),
+    "wall-cabinet": ([("s", "M3.75 2.75H20.25V13.25H3.75Z"), ("cut", "M12 2.75V13.25M9.75 8V11.25M14.25 8V11.25"), ("o", "M2.25 19.25H21.75")],
+                     "wall cabinet, upper cabinet, kitchen, cupboard"),
+    "drawers": ([("s", "M3.75 2.75H20.25V19.25H3.75Z"), ("cut", "M3.75 8.25H20.25M3.75 13.75H20.25M9.75 5.5H14.25M9.75 11H14.25M9.75 16.5H14.25"),
+                 ("o", "M5.75 19.25V21.25M18.25 19.25V21.25")], "drawers, chest of drawers, dresser, storage"),
+    "faucet": ([("o", "M5.25 21.25V9.75C5.25 6.5 7.25 4.75 10.25 4.75H13.25C16.25 4.75 18.25 6.5 18.25 9.75V12.25M8.25 2.75H12.25M10.25 2.75V4.75"),
+                ("f", circ(18.25, 16, 1))], "faucet, tap, mixer, kitchen, bathroom"),
+    "cooktop": ([("s", "M2.75 4.75H21.25V19.25H2.75Z"), ("cut", circ(7.75, 9, 1.75)), ("cut", circ(16.25, 9, 1.75)), ("cut", circ(7.75, 15, 1.75)), ("cut", circ(16.25, 15, 1.75))],
+                "cooktop, hob, stove, kitchen"),
+    "floor-lamp": ([("s", "M7.25 2.75H16.75L18.25 8.25H5.75Z"), ("o", "M12 8.25V21.25M8.25 21.25H15.75")], "floor lamp, standing lamp, lighting"),
+    "footprints": ([("s", ellipse(7.5, 7.5, 2.5, 4.25, -8)), ("s", circ(8, 14.5, 2)), ("s", ellipse(16.5, 10.75, 2.5, 4.25, 8)), ("s", circ(16, 17.75, 2))],
+                   "footprints, walk, steps, first person"),
+}
+for page, items in EXP17.items():
+    CATEGORIES.setdefault(page, {}).update(items)
+EXP17_NAMES = [k for v in EXP17.values() for k in v]

@@ -1776,5 +1776,18 @@
  "referral": 59118,
  "gift-bag": 59119,
  "social-post": 59120,
- "notebook-spiral": 59121
+ "notebook-spiral": 59121,
+ "redo": 59122,
+ "stairs": 59123,
+ "brick-wall": 59124,
+ "floor-plan": 59125,
+ "rotate-3d": 59126,
+ "dishwasher": 59127,
+ "kitchen-cabinet": 59128,
+ "drawers": 59129,
+ "cooktop": 59130,
+ "floor-lamp": 59131,
+ "wall-cabinet": 59132,
+ "faucet": 59133,
+ "footprints": 59134
 }
